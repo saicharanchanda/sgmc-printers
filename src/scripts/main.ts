@@ -89,13 +89,19 @@ function initReveal() {
     (entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
-        e.target.classList.add('is-in');
+        watched.get(e.target)?.forEach((el) => el.classList.add('is-in'));
         io.unobserve(e.target);
       });
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
   );
-  document.querySelectorAll('[data-reveal], [data-stack], [data-crop], .eyebrow').forEach((el) => io.observe(el));
+  // A fully clipped heading (ink wipe start state) never "intersects", so watch its parent instead.
+  const watched = new Map<Element, Element[]>();
+  document.querySelectorAll('[data-reveal], [data-stack], [data-crop], .eyebrow').forEach((el) => {
+    const target = el.matches('h2[data-reveal]') ? el.parentElement ?? el : el;
+    watched.set(target, [...(watched.get(target) ?? []), el]);
+    io.observe(target);
+  });
   observers.push(io);
 }
 
