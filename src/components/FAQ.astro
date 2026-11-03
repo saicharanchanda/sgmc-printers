@@ -1,12 +1,13 @@
 ---
-interface Props { items: { q: string; a: string }[] }
+/** `aHtml` (trusted, from src/data) overrides `a` for display, e.g. to make phone numbers tappable. */
+interface Props { items: { q: string; a: string; aHtml?: string }[] }
 const { items } = Astro.props;
 ---
 <div class="faq" data-reveal-stagger>
   {items.map((f, i) => (
     <details data-reveal open={i === 0}>
       <summary>{f.q}</summary>
-      <div class="faq__a"><p>{f.a}</p></div>
+      <div class="faq__a">{f.aHtml ? <p set:html={f.aHtml} /> : <p>{f.a}</p>}</div>
     </details>
   ))}
 </div>

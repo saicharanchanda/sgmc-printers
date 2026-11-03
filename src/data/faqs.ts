@@ -12,6 +12,8 @@ export const faqs = [
   {
     q: 'How do I get a quote?',
     a: `Call ${SITE.contacts[0].name} on ${SITE.contacts[0].phone} or ${SITE.contacts[1].name} on ${SITE.contacts[1].phone}, WhatsApp us, or send your requirement through the contact form — product, quantity, size, page count, colours and binding.`,
+    // Same answer with tappable numbers (format-detection is off site-wide, S-06); `a` stays plain for JSON-LD.
+    aHtml: `Call ${SITE.contacts[0].name} on <a href="tel:${SITE.contacts[0].phoneHref}">${SITE.contacts[0].phone}</a> or ${SITE.contacts[1].name} on <a href="tel:${SITE.contacts[1].phoneHref}">${SITE.contacts[1].phone}</a>, WhatsApp us, or send your requirement through the contact form — product, quantity, size, page count, colours and binding.`,
   },
   {
     q: 'Is everything done in-house?',
