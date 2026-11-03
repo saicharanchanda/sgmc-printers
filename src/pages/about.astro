@@ -7,7 +7,6 @@ import CTA from '../components/CTA.astro';
 import { SITE } from '../config/site';
 
 const crumbs = [{ name: 'About', href: '/about/' }];
-const years = new Date().getFullYear() - SITE.foundedYear;
 
 const promise = [
   { icon: 'shield', title: 'Quality Printing', text: 'CTP plates, well-maintained offset presses and checks at every stage — so every copy matches the approved proof.' },
@@ -33,7 +32,7 @@ const aboutSchema = {
     bg={['bg-about']}
     bgAlt="Workers operating an offset press in a busy print shop"
     eyebrow={`Since ${SITE.foundedYear}`}
-    lines={[`${years}+ years`, 'of trusted printing.']}
+    lines={[`Trusted printing`, `since ${SITE.foundedYear}.`]}
     lead={`${SITE.legalName} has served schools, colleges, publishers and businesses since ${SITE.foundedYear} — with quality printing, competitive prices and timely delivery.`}
     crumbs={crumbs}
   />
@@ -43,7 +42,7 @@ const aboutSchema = {
       <Media name="about-heritage" alt="Printing press in the press hall" word={`Est. ${SITE.foundedYear}`} parallax />
       <div style="display:grid;gap:1.4rem">
         <p class="eyebrow" data-reveal>Our story</p>
-        <h2 data-reveal>Six decades of putting knowledge on paper.</h2>
+        <h2 data-reveal>Putting knowledge on paper, since {SITE.foundedYear}.</h2>
         <!-- TODO: replace with the client's own story (founder, milestones) -->
         <p class="lead" data-reveal>Since {SITE.foundedYear}, Shree Gayatri Multi Colour Printers has grown into a complete, in-house printing facility trusted for textbooks, publications and commercial work.</p>
         <p class="muted" data-reveal>Today we operate from our own building with web offset and sheet-fed offset presses, a CTP pre-press system and in-house folding, perfect binding and stitching. Owning the entire process lets us control quality, cost and delivery for every job — from a short run of brochures to bulk textbook orders.</p>
@@ -61,7 +60,7 @@ const aboutSchema = {
       <div class="stats stats--4" data-reveal>
         {SITE.stats.map((s) => (
           <div class="stat">
-            <strong data-count={s.value} data-suffix={s.suffix}>{s.value}{s.suffix}</strong>
+            <strong {...(s.label === 'Printing since' ? {} : { 'data-count': s.value, 'data-suffix': s.suffix })}>{s.value}{s.suffix}</strong>
             <span>{s.label}</span>
           </div>
         ))}

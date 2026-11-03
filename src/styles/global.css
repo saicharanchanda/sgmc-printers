@@ -271,6 +271,8 @@ body.menu-open .site-header { transform: none; }
 
 /* ruled notebook paper (hero background) */
 .ruled {
+  /* red margin line sits 12px left of the content edge at every screen width */
+  --margin: calc(max(var(--gutter), (100% - var(--container)) / 2) - 12px);
   background-color: var(--paper);
   background-image:
     linear-gradient(90deg, transparent calc(var(--margin, 6vw) - 1px), rgba(224,64,31,.35) calc(var(--margin, 6vw) - 1px), rgba(224,64,31,.35) var(--margin, 6vw), transparent var(--margin, 6vw)),

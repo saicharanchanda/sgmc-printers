@@ -97,7 +97,7 @@ export const SITE = {
 
   // Only verifiable facts. Add real figures (books per year, clients served) when the client provides them.
   stats: [
-    { value: new Date().getFullYear() - FOUNDED, suffix: '+', label: 'Years of printing' },
+    { value: FOUNDED, suffix: '', label: 'Printing since' },
     { value: 5, suffix: '', label: 'Offset presses in-house' },
     { value: 45, suffix: '+', label: 'Kinds of printed products' },
     { value: 100, suffix: '%', label: 'In-house, under one roof' },

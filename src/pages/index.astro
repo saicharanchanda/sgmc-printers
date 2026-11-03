@@ -10,7 +10,6 @@ import { services, process } from '../data/services';
 import { categories } from '../data/products';
 import { faqs } from '../data/faqs';
 
-const years = new Date().getFullYear() - SITE.foundedYear;
 const yr = String(SITE.foundedYear);
 
 // Spec-sheet notes per machine group (facts from docs/client-brief.md)
@@ -58,7 +57,7 @@ const faqSchema = {
           <a class="btn btn--outline" href="#contents">See what we print</a>
         </div>
         <div class="hero__facts" data-reveal style="--d:.2s">
-          <div><strong>{years}+</strong><span>Years on press</span></div>
+          <div><strong>{yr}</strong><span>Established</span></div>
           <div><strong>5</strong><span>Offset presses</span></div>
           <div><strong>CTP</strong><span>Plate to book</span></div>
         </div>
@@ -72,7 +71,7 @@ const faqSchema = {
             <PhotoBg names={['hero-1', 'hero-2', 'hero-3', 'hero-4']} alt="Offset printing press running at SGMC" overlay="none" eager />
           </div>
           <div class="hero__stamp" aria-hidden="true">
-            <span><small>Since</small><b>{yr}</b><small>{years} years</small></span>
+            <span><small>Since</small><b>{yr}</b><small>SGMC</small></span>
           </div>
         </div>
         <div class="slug">
@@ -180,11 +179,11 @@ const faqSchema = {
       <div style="display:grid;gap:1.4rem">
         <p class="eyebrow" data-reveal>Our story</p>
         <div class="bigyear" aria-hidden="true" data-reveal>{yr.slice(0, 2)}<span>{yr.slice(2)}</span></div>
-        <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>{years} years of putting knowledge on paper.</h2>
+        <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>Putting knowledge on paper since {yr}.</h2>
         <p class="lead" data-reveal>Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
         <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
         <div class="facts" data-reveal>
-          <div><strong>{years}+</strong><span>Years</span></div>
+          <div><strong>4</strong><span>Departments in-house</span></div>
           <div><strong>45+</strong><span>Kinds of product</span></div>
           <div><strong>100%</strong><span>In-house</span></div>
         </div>
@@ -233,7 +232,7 @@ const faqSchema = {
       <div style="display:grid;gap:1.4rem;align-content:start">
         <p class="eyebrow" data-reveal>Why SGMC</p>
         <h2 id="why-h" data-reveal>Heritage, <em>proofed</em> every day.</h2>
-        <p class="lead" data-reveal>Over {years} years of printing experience, an integrated plant and a team that answers the phone. Here's what that means for your job.</p>
+        <p class="lead" data-reveal>Printing experience since {yr}, an integrated plant and a team that answers the phone. Here's what that means for your job.</p>
         <div data-reveal><a class="btn btn--ink" href="/contact/">Start a job <Icon name="arrow" class="arrow" /></a></div>
       </div>
       <div class="why__grid" data-reveal-stagger>
