@@ -1,6 +1,6 @@
 # Temporary preview on GitHub Pages (served at /<repo>/). Final hosting: Netlify / Cloudflare.
-# Builds the designs side by side: main at /<repo>/, design-v2 at /<repo>/v2/, design-v3 at /<repo>/v3/.
-# Pushes to design-v2 / design-v3 re-run this via the redeploy workflow on those branches.
+# Builds the designs side by side: main at /<repo>/, design-v2 at /<repo>/v2/, design-v3 at /<repo>/v3/, design-v4 at /<repo>/v4/.
+# Pushes to design-v2 / v3 / v4 re-run this via the redeploy workflow on those branches.
 name: Deploy to GitHub Pages
 
 on:
@@ -27,6 +27,8 @@ jobs:
         with: { ref: design-v2, path: site-v2 }
       - uses: actions/checkout@v4
         with: { ref: design-v3, path: site-v3 }
+      - uses: actions/checkout@v4
+        with: { ref: design-v4, path: site-v4 }
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -44,7 +46,11 @@ jobs:
         working-directory: site-v3
         env: { BASE_PATH: '/${{ github.event.repository.name }}/v3' }
         run: npm ci && npm run build && node scripts/apply-base.mjs
-      - run: cp -r site-main/dist out && cp -r site-v2/dist out/v2 && cp -r site-v3/dist out/v3
+      - name: Build v4 design
+        working-directory: site-v4
+        env: { BASE_PATH: '/${{ github.event.repository.name }}/v4' }
+        run: npm ci && npm run build && node scripts/apply-base.mjs
+      - run: cp -r site-main/dist out && cp -r site-v2/dist out/v2 && cp -r site-v3/dist out/v3 && cp -r site-v4/dist out/v4
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
