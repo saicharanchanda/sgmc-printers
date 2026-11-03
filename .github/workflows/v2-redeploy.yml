@@ -1,0 +1,18 @@
+# The Pages site is deployed from main (its environment only allows main),
+# so a push here asks main's workflow to rebuild both designs.
+name: Redeploy v2 preview
+
+on:
+  push:
+    branches: [design-v2]
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run pages.yml --ref main --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}

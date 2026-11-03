@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import Media from '../components/Media.astro';
 import PhotoBg from '../components/PhotoBg.astro';
+import PhotoTile from '../components/PhotoTile.astro';
 import FAQ from '../components/FAQ.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { SITE, whatsappLink } from '../config/site';
@@ -12,14 +13,6 @@ import { faqs } from '../data/faqs';
 
 const yr = String(SITE.foundedYear);
 
-// Spec-sheet notes per machine group (facts from docs/client-brief.md)
-const groupMeta: Record<string, { code: string; use: string }> = {
-  'Web Offset Printing': { code: 'WEB-01', use: 'Reel-fed, high-volume runs: textbooks, notebooks, magazines, periodicals.' },
-  'Sheet-Fed Offset Printing': { code: 'SHT-02', use: 'Colour-critical work: covers, brochures, catalogues, posters, short runs.' },
-  'Pre-Press': { code: 'PRE-03', use: 'Files checked, imposed and output straight to plate for sharp, accurate print.' },
-  'Post-Press & Finishing': { code: 'FIN-04', use: 'Printed sheets become finished books, booklets and notebooks.' },
-};
-
 // Client-supplied strengths (docs/client-brief.md §6)
 const why = [
   { icon: 'palette', title: 'In-house design team', text: 'Experienced designers for complete artwork development and pre-press support.' },
@@ -27,6 +20,8 @@ const why = [
   { icon: 'clock', title: 'Dependable delivery', text: 'A firm commitment to agreed production schedules and delivery dates.' },
   { icon: 'shield', title: 'Quality at a fair price', text: 'Consistent print quality and competitive pricing, especially for bulk orders.' },
 ] as const;
+
+const ticker = [...SITE.promise, ...SITE.strengths];
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -36,209 +31,134 @@ const faqSchema = {
 ---
 <BaseLayout
   rawTitle
+  heroDark
   title={`${SITE.name} — Book, Textbook & Offset Printing Press since ${SITE.foundedYear} | ${SITE.city}`}
   description={`${SITE.legalName}, printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, catalogues, brochures and commercial printing on our own web & sheet-fed offset presses in ${SITE.city}.`}
   schema={[faqSchema]}
 >
-  <!-- HERO — ruled page + press sheet -->
-  <section class="hero ruled">
-    <div class="container hero__grid">
-      <div>
-        <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>
-        <h1>
-          <span class="line"><span>Printing the pages</span></span>
-          <span class="line"><span><em>people learn from.</em></span></span>
-        </h1>
-        <p class="lead" data-reveal>
-          Textbooks, notebooks, magazines and commercial print, produced on our own web and sheet-fed offset presses. Plate, press and binding, all in one building.
-        </p>
-        <div class="btn-row" data-reveal style="--d:.1s">
-          <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
-          <a class="btn btn--outline" href="#contents">See what we print</a>
-        </div>
-        <div class="hero__facts" data-reveal style="--d:.2s">
-          <div><strong>{yr}</strong><span>Established</span></div>
-          <div><strong>5</strong><span>Offset presses</span></div>
-          <div><strong>CTP</strong><span>Plate to book</span></div>
-        </div>
-      </div>
-
-      <div class="hero__sheet" data-reveal style="--d:.15s" data-hero-slides>
-        <div class="sheet">
-          <svg class="sheet__reg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="10" cy="10" r="5" /><path d="M10 0v20M0 10h20" /></svg>
-          <svg class="sheet__reg sheet__reg--side" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="10" cy="10" r="5" /><path d="M10 0v20M0 10h20" /></svg>
-          <div class="sheet__frame">
-            <PhotoBg names={['hero-1', 'hero-2', 'hero-3', 'hero-4']} alt="Offset printing press running at SGMC" overlay="none" eager />
-          </div>
-          <div class="hero__stamp" aria-hidden="true">
-            <span><small>Since</small><b>{yr}</b><small>SGMC</small></span>
-          </div>
-        </div>
-        <div class="slug">
-          <span aria-hidden="true">SGMC · Press sheet · 4/4 CMYK</span>
-          <span class="hero__dots" data-slide-dots aria-hidden="true"></span>
-          <span class="slug__inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROMISE -->
-  <section class="promise" aria-label="Our promise">
-    <div class="container promise__grid">
-      {SITE.promise.map((p, i) => (
-        <div class="promise__item"><span>0{i + 1}</span><strong>{p}</strong></div>
-      ))}
-    </div>
-  </section>
-
-  <!-- CONTENTS — products as a book's table of contents -->
-  <section class="section" id="contents" aria-labelledby="contents-h">
+  <!-- HERO — full-bleed press photos -->
+  <section class="hero hero--full on-dark" data-hero-slides>
+    <PhotoBg names={['hero-1', 'hero-2', 'hero-3', 'hero-4']} alt="Offset printing press running at SGMC" overlay="strong" eager />
     <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <p class="eyebrow" data-reveal>What we print</p>
-          <h2 id="contents-h" style="margin-top:1rem" data-reveal>Contents</h2>
-        </div>
-        <p class="lead" data-reveal>Single-colour to full-colour, short runs to bulk. Six chapters of print, from school textbooks to labels and certificates.</p>
+      <p class="eyebrow">{SITE.legalName} · Est. {yr}</p>
+      <h1>
+        <span class="line"><span>Built on presses.</span></span>
+        <span class="line"><span><em>Trusted since {yr}.</em></span></span>
+      </h1>
+      <p class="lead" data-reveal>
+        Textbooks, notebooks, magazines and commercial print on our own web and sheet-fed offset presses. Plate, press and binding, all under one roof.
+      </p>
+      <div class="btn-row" data-reveal style="--d:.1s">
+        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--outline" href={`tel:${SITE.phoneHref}`}><Icon name="phone" /> {SITE.phone}</a>
       </div>
-      <ol class="toc" role="list" data-reveal-stagger>
-        {categories.map((c, i) => (
-          <li data-reveal>
-            <a href={`/products/${c.slug}/`}>
-              <span class="toc__n">0{i + 1}</span>
-              <span class="toc__title">{c.title.replace(/ Printing$/, '')}</span>
-              <span class="toc__page">{c.items.length} titles</span>
-              <span class="toc__thumb" aria-hidden="true"><Media name={`cat-${c.slug}`} alt="" sizes="220px" /></span>
-            </a>
-          </li>
+    </div>
+    <div class="hero__bar">
+      <div class="container">
+        {SITE.stats.map((s) => (
+          <div class="stat">
+            <strong {...(s.label === 'Printing since' ? {} : { 'data-count': s.value, 'data-suffix': s.suffix })}>{s.value}{s.suffix}</strong>
+            <span>{s.label}</span>
+          </div>
         ))}
-      </ol>
+        <span class="hero__dots" data-slide-dots aria-hidden="true"></span>
+      </div>
     </div>
   </section>
 
-  <!-- PRODUCT RUNNING LINE -->
-  <div class="marquee" aria-hidden="true">
+  <!-- PROMISE TICKER -->
+  <div class="marquee ticker" aria-hidden="true">
     {[0, 1].map(() => (
-      <div class="marquee__track">
-        {categories.flatMap((c) => c.items.slice(0, 2)).map((t) => <span class="marquee__item">{t}</span>)}
-      </div>
+      <div class="marquee__track">{ticker.map((t) => <span class="marquee__item">{t}</span>)}</div>
     ))}
   </div>
 
-  <!-- THE PRESS FLOOR — services with live preview -->
-  <section class="section" aria-labelledby="floor-h">
+  <!-- SERVICES -->
+  <section class="section" aria-labelledby="services-h">
     <div class="container">
       <div class="section-head section-head--split">
         <div>
           <p class="eyebrow" data-reveal>Services</p>
-          <h2 id="floor-h" style="margin-top:1rem" data-reveal>On the <em>press floor.</em></h2>
+          <h2 id="services-h" style="margin-top:1rem" data-reveal>Everything <em>in-house.</em></h2>
         </div>
         <div style="display:grid;gap:1.2rem;justify-items:start">
-          <p class="lead" data-reveal>Every stage happens in-house, by our own team. Nothing is outsourced, so quality and dates stay in our hands.</p>
+          <p class="lead" data-reveal>Pre-press, printing and finishing by our own team. Nothing is outsourced, so quality and dates stay in our hands.</p>
           <a class="link-arrow" href="/services/" data-reveal>All services <Icon name="arrow" /></a>
         </div>
       </div>
-      <div class="floor" data-floor>
-        <ol class="floor__list" role="list">
-          {services.map((s, i) => (
-            <li>
-              <a class:list={['floor__item', { 'is-active': i === 0 }]} href={`/services/${s.slug}/`} data-floor-item={i}>
-                <span class="n">0{i + 1}</span>
-                <h3>{s.title}</h3>
-                <Icon name="arrow" />
-                <p>{s.short}</p>
-              </a>
-            </li>
-          ))}
-        </ol>
-        <div class="floor__view" aria-hidden="true">
-          <div class="sheet">
-            <div class="floor__stack">
-              {services.map((s, i) => (
-                <Media name={s.slug} alt="" class={i === 0 ? 'is-active' : ''} sizes="(min-width: 1000px) 45vw, 1px" />
-              ))}
-            </div>
-          </div>
-          <div class="slug"><span data-floor-slug>{services[0].equipment.join(' · ')}</span><span class="slug__inks"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span></div>
-          <template data-floor-slugs>{JSON.stringify(services.map((s) => s.equipment.join(' · ')))}</template>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HERITAGE -->
-  <section class="section section--white section--rule" aria-labelledby="about-h">
-    <div class="container heritage">
-      <div data-reveal>
-        <div class="sheet">
-          <Media name="home-about" alt="Printing press at work in the SGMC facility" word={`Since ${yr}`} />
-        </div>
-        <div class="slug"><span>Archive · The press hall</span><span>Est. {yr}</span></div>
-      </div>
-      <div style="display:grid;gap:1.4rem">
-        <p class="eyebrow" data-reveal>Our story</p>
-        <div class="bigyear" aria-hidden="true" data-reveal>{yr.slice(0, 2)}<span>{yr.slice(2)}</span></div>
-        <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>Putting knowledge on paper since {yr}.</h2>
-        <p class="lead" data-reveal>Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
-        <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
-        <div class="facts" data-reveal>
-          <div><strong>4</strong><span>Departments in-house</span></div>
-          <div><strong>45+</strong><span>Kinds of product</span></div>
-          <div><strong>100%</strong><span>In-house</span></div>
-        </div>
-        <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MACHINE ROOM — spec sheet -->
-  <section class="section section--dark" aria-labelledby="machines-h">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <p class="eyebrow" data-reveal>Infrastructure</p>
-          <h2 id="machines-h" style="margin-top:1rem" data-reveal>The machine <em>room.</em></h2>
-        </div>
-        <p class="lead" data-reveal>Our own building and our own machines, from pre-press to final finishing. Here's the spec sheet.</p>
-      </div>
-      <div class="machine-strip" data-reveal-stagger>
-        {['facility-1', 'facility-2', 'facility-3'].map((n) => (
-          <div class="sheet" style="padding:14px" data-reveal><Media name={n} alt="Machinery at the SGMC press" sizes="(min-width: 1000px) 30vw, 50vw" /></div>
+      <div class="tiles" data-reveal-stagger>
+        {services.map((s) => (
+          <PhotoTile href={`/services/${s.slug}/`} image={`bg-${s.slug}`} title={s.title} kicker={s.kicker} text={s.short} />
         ))}
       </div>
-      <table class="spec" data-reveal>
-        <thead><tr><th>Ref.</th><th>Department</th><th>Machines</th><th>Used for</th></tr></thead>
-        <tbody>
-          {SITE.machineGroups.map((g) => (
-            <tr>
-              <td class="spec__code">{groupMeta[g.group]?.code}</td>
-              <td class="spec__group">{g.group}</td>
-              <td><ul class="spec__machines" role="list">{g.items.map((m) => <li>{m}</li>)}</ul></td>
-              <td class="spec__use">{groupMeta[g.group]?.use}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div class="btn-row" style="margin-top:2.5rem" data-reveal>
+    </div>
+  </section>
+
+  <!-- MACHINES — press band -->
+  <section class="press-band on-dark" aria-labelledby="machines-h">
+    <PhotoBg names={['band-press']} alt="" overlay="strong" />
+    <div class="container press-band__inner">
+      <p class="eyebrow" data-reveal>Infrastructure</p>
+      <h2 id="machines-h" data-reveal>Our own building. <em>Our own machines.</em></h2>
+      <p class="lead" data-reveal>From CTP plates to perfect binding, every machine your job touches is ours.</p>
+      <div class="machine-groups" style="margin-top:2rem" data-reveal-stagger>
+        {SITE.machineGroups.map((g, i) => (
+          <div class="machine-group" data-reveal>
+            <span class="machine-group__n">0{i + 1}</span>
+            <h3>{g.group}</h3>
+            <ul>{g.items.map((m) => <li>{m}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row" style="margin-top:1.5rem" data-reveal>
         <a class="btn" href="/infrastructure/">Tour the infrastructure <Icon name="arrow" class="arrow" /></a>
       </div>
     </div>
   </section>
 
-  <!-- WHY SGMC -->
-  <section class="section" aria-labelledby="why-h">
-    <div class="container why">
-      <div style="display:grid;gap:1.4rem;align-content:start">
-        <p class="eyebrow" data-reveal>Why SGMC</p>
-        <h2 id="why-h" data-reveal>Heritage, <em>proofed</em> every day.</h2>
-        <p class="lead" data-reveal>Printing experience since {yr}, an integrated plant and a team that answers the phone. Here's what that means for your job.</p>
-        <div data-reveal><a class="btn btn--ink" href="/contact/">Start a job <Icon name="arrow" class="arrow" /></a></div>
+  <!-- PRODUCTS -->
+  <section class="section" aria-labelledby="products-h">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>What we print</p>
+          <h2 id="products-h" style="margin-top:1rem" data-reveal>Single colour to <em>full colour.</em></h2>
+        </div>
+        <p class="lead" data-reveal>Short runs to bulk orders, from school textbooks to labels and certificates.</p>
       </div>
-      <div class="why__grid" data-reveal-stagger>
-        {why.map((w, i) => (
+      <div class="tiles tiles--products" data-reveal-stagger>
+        {categories.map((c) => (
+          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.title.replace(/ Printing$/, '')} kicker={`${c.items.length} products`} text={c.short} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HERITAGE -->
+  <section class="section section--white" aria-labelledby="about-h">
+    <div class="container split">
+      <Media name="home-about" alt="Printing press at work in the SGMC facility" word={`Since ${yr}`} parallax />
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Our story</p>
+        <div class="bigyear" aria-hidden="true" data-reveal>{yr.slice(0, 2)}<span>{yr.slice(2)}</span></div>
+        <h2 id="about-h" data-reveal>Putting knowledge on paper.</h2>
+        <p class="lead" data-reveal>Since {yr}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
+        <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section" aria-labelledby="why-h">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow" data-reveal>Why SGMC</p>
+        <h2 id="why-h" data-reveal>{SITE.promise.join(' · ')}</h2>
+      </div>
+      <div class="grid grid-4" data-reveal-stagger>
+        {why.map((w) => (
           <article class="why__item" data-reveal>
-            <div class="why__top"><span class="why__icon"><Icon name={w.icon} /></span><span>0{i + 1}</span></div>
+            <span class="why__icon"><Icon name={w.icon} /></span>
             <h3>{w.title}</h3>
             <p>{w.text}</p>
           </article>
@@ -247,21 +167,21 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- PROCESS — folded signatures (horizontal on desktop) -->
+  <!-- PROCESS -->
   <section class="process section--dark on-dark" aria-labelledby="process-h">
     <div class="process__pin section">
       <div class="container">
         <div class="section-head section-head--split">
           <div>
             <p class="eyebrow">How a job runs</p>
-            <h2 id="process-h" style="margin-top:1rem">Five signatures, <em>one book.</em></h2>
+            <h2 id="process-h" style="margin-top:1rem">Five steps, <em>one team.</em></h2>
           </div>
           <p class="lead">From your first message to the delivery van, one team is accountable for every stage.</p>
         </div>
         <div class="process__track">
           {process.map((p, i) => (
             <article class="process-step">
-              <span class="process-step__n">Sig. 0{i + 1} / 0{process.length}</span>
+              <span class="process-step__n">Step 0{i + 1} / 0{process.length}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
             </article>
@@ -273,24 +193,22 @@ const faqSchema = {
 
   <!-- FAQ -->
   <section class="section" aria-labelledby="faq-h">
-    <div class="container">
-      <div class="split" style="align-items:start">
-        <div style="display:grid;gap:1.4rem">
-          <p class="eyebrow" data-reveal>Questions</p>
-          <h2 id="faq-h" data-reveal>Before you <em>send files.</em></h2>
-          <p class="lead" data-reveal>Something else? Call {SITE.contacts[0].name} on <a href={`tel:${SITE.phoneHref}`} style="text-decoration:underline">{SITE.phone}</a>.</p>
-        </div>
-        <FAQ items={faqs} />
+    <div class="container split" style="align-items:start">
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Questions</p>
+        <h2 id="faq-h" data-reveal>Good to <em>know.</em></h2>
+        <p class="lead" data-reveal>Something else? Call {SITE.contacts[0].name} on <a href={`tel:${SITE.phoneHref}`} style="text-decoration:underline">{SITE.phone}</a>.</p>
       </div>
+      <FAQ items={faqs} />
     </div>
   </section>
 
-  <!-- QUOTE — job ticket -->
-  <section class="section section--white section--rule" aria-labelledby="talk-h" id="quote">
+  <!-- QUOTE -->
+  <section class="section section--white" aria-labelledby="talk-h" id="quote">
     <div class="container contact-grid">
       <div style="display:grid;gap:1.4rem;align-content:start">
         <p class="eyebrow" data-reveal>Get a quote</p>
-        <h2 id="talk-h" data-reveal>Open a <em>job ticket.</em></h2>
+        <h2 id="talk-h" data-reveal>Let's <em>talk print.</em></h2>
         <p class="lead" data-reveal>Tell us the product, quantity, size, page count and colours. We'll reply with a clear quote.</p>
         <ul class="contact-list" data-reveal-stagger>
           {SITE.contacts.map((c) => (

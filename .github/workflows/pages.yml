@@ -1,4 +1,6 @@
 # Temporary preview on GitHub Pages (served at /<repo>/). Final hosting: Netlify / Cloudflare.
+# Builds two designs side by side: main at /<repo>/ and design-v2 at /<repo>/v2/.
+# Pushes to design-v2 re-run this via .github/workflows/v2-redeploy.yml on that branch.
 name: Deploy to GitHub Pages
 
 on:
@@ -18,20 +20,28 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BASE_PATH: /${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main, path: site-main }
+      - uses: actions/checkout@v4
+        with: { ref: design-v2, path: site-v2 }
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
-      - run: node scripts/apply-base.mjs
+          cache-dependency-path: site-*/package-lock.json
+      - name: Build main design
+        working-directory: site-main
+        env: { BASE_PATH: '/${{ github.event.repository.name }}' }
+        run: npm ci && npm run build && node scripts/apply-base.mjs
+      - name: Build v2 design
+        working-directory: site-v2
+        env: { BASE_PATH: '/${{ github.event.repository.name }}/v2' }
+        run: npm ci && npm run build && node scripts/apply-base.mjs
+      - run: cp -r site-main/dist out && cp -r site-v2/dist out/v2
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: out
 
   deploy:
     needs: build
