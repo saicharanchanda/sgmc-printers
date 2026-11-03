@@ -4,6 +4,7 @@ import { SITE, whatsappLink } from '../config/site';
 interface Props { title?: string; text?: string }
 const {
   title = 'Have a job for the press?',
+  // NEEDS BUSINESS CONFIRMATION: "usually within a few hours" is an unagreed response-time promise
   text = 'Send the quantity, size, pages and paper. We’ll come back with a clear quote, usually within a few hours.',
 } = Astro.props;
 ---
