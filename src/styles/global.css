@@ -592,7 +592,7 @@ a.contact-item:hover { color: var(--red); }
 .form__status[data-state='ok'] { background: #e6f4ea; color: #1b5e34; }
 .form__status[data-state='error'] { background: #fdebe6; color: var(--red-deep); }
 .hp { position: absolute; left: -9999px; }
-.map { overflow: hidden; border: 1px solid var(--line-strong); background: var(--paper-2); aspect-ratio: 16 / 7; min-height: 320px; }
+.map { overflow: hidden; border: 1px solid var(--line-strong); background: var(--paper-2); width: 100%; aspect-ratio: 16 / 7; min-height: 320px; }
 .map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(.4) contrast(1.05); }
 
 /* ---------- footer: colophon ---------- */
