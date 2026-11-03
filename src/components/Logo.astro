@@ -5,7 +5,7 @@ import { SITE } from '../config/site';
 interface Props { href?: string }
 const { href = '/' } = Astro.props;
 ---
-<a href={href} class="brand" aria-label={`${SITE.name} — home`}>
+<a href={href} class="brand">
   <svg viewBox="0 0 48 48" aria-hidden="true">
     <circle class="ink" cx="19" cy="20" r="10" fill="#00a0e3" style="mix-blend-mode:multiply" />
     <circle class="ink" cx="29" cy="20" r="10" fill="#e5007d" style="mix-blend-mode:multiply" />
@@ -16,7 +16,7 @@ const { href = '/' } = Astro.props;
     </g>
   </svg>
   <span class="brand__text">
-    <span class="brand__name">Shree Gayatri<span class="brand__name-2">Multi Colour Printers</span></span>
+    <span class="brand__name">Shree Gayatri <span class="brand__name-2">Multi Colour Printers</span></span>
     <span class="brand__sub">Since {SITE.foundedYear} · Hyderabad</span>
   </span>
 </a>
