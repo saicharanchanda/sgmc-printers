@@ -5,6 +5,8 @@ export type ProductCategory = {
   slug: string;
   title: string;
   short: string;
+  /** Hand-written CTA heading at the foot of the category page */
+  ctaTitle: string;
   intro: string;
   items: string[];
   services: string[]; // related service slugs
@@ -17,6 +19,7 @@ export const categories: ProductCategory[] = [
     slug: 'books-educational',
     title: 'Books & Educational Printing',
     short: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.',
+    ctaTitle: 'Printing textbooks or notebooks this year?',
     intro:
       'Educational printing is our core strength. We print school and college textbooks, workbooks, guides and exam material in bulk, on schedule for every academic year.',
     items: [
@@ -39,6 +42,7 @@ export const categories: ProductCategory[] = [
     slug: 'publications',
     title: 'Publications & Commercial Printing',
     short: 'Magazines, journals, annual reports, company profiles, catalogues and directories.',
+    ctaTitle: 'Planning your next issue or annual report?',
     intro:
       'From monthly magazines to annual reports, we print publications with consistent quality issue after issue — on time, every time.',
     items: [
@@ -59,6 +63,7 @@ export const categories: ProductCategory[] = [
     slug: 'advertising-promotional',
     title: 'Advertising & Promotional Printing',
     short: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.',
+    ctaTitle: 'Need brochures, flyers or posters?',
     intro:
       'Marketing material that looks sharp and arrives on time — brochures, flyers, posters and promotional booklets printed in vibrant colour.',
     items: [
@@ -80,6 +85,7 @@ export const categories: ProductCategory[] = [
     slug: 'packaging-labels',
     title: 'Packaging & Label Printing',
     short: 'Product labels, stickers, packaging inserts and product information leaflets.',
+    ctaTitle: 'Need labels, stickers or inserts?',
     intro:
       'Printed labels, inserts and information leaflets that go inside and on your product packaging — accurate, consistent and in the quantities you need.',
     items: ['Product Labels', 'Stickers', 'Packaging Inserts', 'Product Information Leaflets'],
@@ -92,6 +98,7 @@ export const categories: ProductCategory[] = [
     slug: 'specialised',
     title: 'Specialised Printing',
     short: 'Manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
+    ctaTitle: 'Printing manuals, diaries or certificates?',
     intro:
       'Specialised books and documents that need care and accuracy — from technical manuals and dictionaries to religious books and certificates.',
     items: [
@@ -114,6 +121,7 @@ export const categories: ProductCategory[] = [
     slug: 'colour-options',
     title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
+    ctaTitle: 'Not sure which colour option you need?',
     intro:
       'Every job is different. Choose the colour configuration, method and quantity that suits your content and budget — we will advise on the most economical option.',
     items: [
