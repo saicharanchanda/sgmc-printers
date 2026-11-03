@@ -27,7 +27,7 @@ const lines = words.length > 1 ? [words.slice(0, -1).join(' '), words.at(-1)!] :
       </nav>
     )}
     <p class="eyebrow" style="margin-top:1.6rem">{eyebrow}</p>
-    <h1>{lines.map((l, i) => <span class="line"><span set:html={i === lines.length - 1 && lines.length > 1 ? `<em>${l}</em>` : l} /></span>)}</h1>
+    <h1>{lines.map((l, i) => <span class="line"><span set:html={i === lines.length - 1 && lines.length > 1 ? `<span class="proof">${l}</span>` : l} /></span>)}</h1>
     {lead && <p class="lead" data-reveal>{lead}</p>}
     <slot />
   </div>
