@@ -5,6 +5,10 @@ import { services } from '../data/services';
 import { categories } from '../data/products';
 ---
 <form class="form" data-contact-form data-key={SITE.web3formsKey} data-wa={SITE.whatsapp} novalidate={false}>
+  <div class="form__ticket" aria-hidden="true">
+    <span>Job ticket · <b>No. ____</b></span>
+    <span>{SITE.name}</span>
+  </div>
   <div>
     <h2 class="h3">Request a quote</h2>
     <p class="form__note" style="margin-top:.4rem">Fields marked <span style="color:var(--m)">*</span> are required. We usually reply within a few working hours.</p>

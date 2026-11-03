@@ -1,30 +1,48 @@
 ---
 import type { Crumb } from '../layouts/BaseLayout.astro';
-import PhotoBg from './PhotoBg.astro';
-import ColorBar from './ColorBar.astro';
+import Media from './Media.astro';
 interface Props { eyebrow: string; lines: string[]; lead?: string; crumbs?: Crumb[]; bg?: string[]; bgAlt?: string }
 const { eyebrow, lines: rawLines, lead, crumbs = [], bg, bgAlt = '' } = Astro.props;
-// Single-line titles get the editorial treatment: last word drops to its own italic gold line.
+// Single-line titles: last word drops to its own vermilion line.
 const words = rawLines.length === 1 ? rawLines[0].split(' ') : [];
 const lines = words.length > 1 ? [words.slice(0, -1).join(' '), words.at(-1)!] : rawLines;
+const section = crumbs[0]?.name ?? eyebrow;
 ---
-<section class={`page-hero${bg ? ' page-hero--photo on-dark' : ''}`}>
-  {bg && <PhotoBg names={bg} alt={bgAlt} eager />}
+<section class="page-hero">
   <div class="container">
-    {crumbs.length > 0 && (
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <ol>
-          <li><a href="/">Home</a></li>
-          {crumbs.map((c, i) => (
-            <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</li>
-          ))}
-        </ol>
-      </nav>
-    )}
-    <p class="eyebrow" style="margin-top:1.4rem">{eyebrow}</p>
-    <h1>{lines.map((l) => <span class="line"><span set:html={l} /></span>)}</h1>
-    {lead && <p class="lead" data-reveal>{lead}</p>}
-    <slot />
+    <div class="runner" aria-hidden="true">
+      <span>SGMC Printers — {section}</span>
+      <span>Est. 1965</span>
+    </div>
+    <div class={`page-hero__grid${bg ? ' page-hero__grid--img' : ''}`}>
+      <div>
+        {crumbs.length > 0 && (
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              {crumbs.map((c, i) => (
+                <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</li>
+              ))}
+            </ol>
+          </nav>
+        )}
+        <p class="eyebrow" style="margin-top:1.6rem">{eyebrow}</p>
+        <h1>{lines.map((l) => <span class="line"><span set:html={l} /></span>)}</h1>
+        {lead && <p class="lead" data-reveal>{lead}</p>}
+        <slot />
+      </div>
+      {bg && (
+        <div data-reveal style="--d:.15s">
+          <div class="sheet">
+            <svg class="sheet__reg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="10" cy="10" r="5" /><path d="M10 0v20M0 10h20" /></svg>
+            <Media name={bg[0]} alt={bgAlt} eager sizes="(min-width: 1000px) 45vw, 100vw" />
+          </div>
+          <div class="slug" aria-hidden="true">
+            <span>{section} · {eyebrow}</span>
+            <span class="slug__inks"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span>
+          </div>
+        </div>
+      )}
+    </div>
   </div>
 </section>
-<ColorBar />

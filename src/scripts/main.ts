@@ -35,6 +35,7 @@ document.addEventListener('astro:page-load', () => {
   initFilter(signal);
   initForm(signal);
   initSlideshow(signal);
+  initFloor(signal);
   if (!reduceMotion) initMotion();
 
   // Recalculate positions once fonts/images settle
@@ -157,9 +158,6 @@ function initMotion() {
   }
 
   // Photo backgrounds: slow parallax as the section scrolls away
-  document.querySelectorAll<HTMLElement>('.hero--photo [data-photo-bg]').forEach((bg) => {
-    gsap.to(bg, { yPercent: 18, ease: 'none', scrollTrigger: { trigger: bg.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
-  });
   document.querySelectorAll<HTMLElement>('.press-band [data-photo-bg]').forEach((bg) => {
     bg.classList.add('photo-bg--parallax');
     gsap.fromTo(bg, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: bg.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -192,9 +190,28 @@ function initMotion() {
   });
 }
 
+/* ---------- press floor: hovering a service swaps the preview sheet ---------- */
+function initFloor(signal: AbortSignal) {
+  const root = document.querySelector<HTMLElement>('[data-floor]');
+  if (!root) return;
+  const items = [...root.querySelectorAll<HTMLElement>('[data-floor-item]')];
+  const imgs = [...root.querySelectorAll<HTMLElement>('.floor__stack .media')];
+  const slug = root.querySelector<HTMLElement>('[data-floor-slug]');
+  const slugs: string[] = JSON.parse(root.querySelector('template[data-floor-slugs]')?.innerHTML || '[]');
+  const set = (n: number) => {
+    items.forEach((el, k) => el.classList.toggle('is-active', k === n));
+    imgs.forEach((el, k) => el.classList.toggle('is-active', k === n));
+    if (slug && slugs[n]) slug.textContent = slugs[n];
+  };
+  items.forEach((el, n) => {
+    el.addEventListener('mouseenter', () => set(n), { signal });
+    el.addEventListener('focus', () => set(n), { signal });
+  });
+}
+
 /* ---------- hero photo slideshow ---------- */
 function initSlideshow(signal: AbortSignal) {
-  const bg = document.querySelector<HTMLElement>('.hero--photo [data-photo-bg]');
+  const bg = document.querySelector<HTMLElement>('[data-hero-slides] [data-photo-bg]');
   const dotsWrap = document.querySelector<HTMLElement>('[data-slide-dots]');
   const slides = bg ? [...bg.querySelectorAll<HTMLElement>('[data-slide]')] : [];
   if (!dotsWrap || slides.length < 2) return;

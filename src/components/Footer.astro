@@ -3,20 +3,28 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { SITE, whatsappLink } from '../config/site';
 import { services } from '../data/services';
+import { categories } from '../data/products';
 
 const socials = Object.entries(SITE.social).filter(([, url]) => url) as [
   'instagram' | 'facebook' | 'youtube' | 'linkedin',
   string,
 ][];
 const year = new Date().getFullYear();
-const badges = [...SITE.promise, ...SITE.strengths];
 ---
 <footer class="site-footer on-dark">
   <div class="container">
+    <div class="footer-cta">
+      <h2>Ready when your <em>files are.</em></h2>
+      <div class="btn-row">
+        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--outline" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      </div>
+    </div>
+
     <div class="footer-top">
       <div class="footer-about">
         <Logo />
-        <p>Books, publications and commercial printing on our own offset presses since {SITE.foundedYear}.</p>
+        <p>{SITE.legalName}. Books, publications and commercial print on our own offset presses.</p>
         {socials.length > 0 && (
           <div class="socials">
             {socials.map(([name, url]) => (
@@ -27,29 +35,25 @@ const badges = [...SITE.promise, ...SITE.strengths];
       </div>
 
       <div>
-        <h2>Company</h2>
+        <h2 class="footer-h">Services</h2>
+        <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}</ul>
+      </div>
+
+      <div>
+        <h2 class="footer-h">Products</h2>
         <ul>
-          <li><a href="/about/">About us</a></li>
+          {categories.map((c) => <li><a href={`/products/${c.slug}/`}>{c.title.replace(' Printing', '')}</a></li>)}
           <li><a href="/infrastructure/">Infrastructure</a></li>
-          <li><a href="/products/">Products</a></li>
-          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/about/">About us</a></li>
         </ul>
       </div>
 
       <div>
-        <h2>Capabilities</h2>
-        <ul>
-          {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}
-        </ul>
-      </div>
-
-      <div>
-        <h2>Contact</h2>
+        <h2 class="footer-h">The press</h2>
         <address style="font-style:normal">
           <ul>
             <li><a href={SITE.mapLink} target="_blank" rel="noopener">{SITE.address.street}, {SITE.address.locality}, {SITE.address.region} {SITE.address.postalCode}</a></li>
             {SITE.contacts.map((c) => <li><a href={`tel:${c.phoneHref}`}>{c.name}: {c.phone}</a></li>)}
-            <li><a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp us</a></li>
             <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
             {SITE.hours.map((h) => <li>{h.days}: {h.time}</li>)}
           </ul>
@@ -57,13 +61,15 @@ const badges = [...SITE.promise, ...SITE.strengths];
       </div>
     </div>
 
-    <ul class="footer-badges" role="list">
-      {badges.map((b) => <li>{b}</li>)}
-    </ul>
+    <p class="colophon">
+      <b>Colophon</b>
+      Set in Archivo, Newsreader and JetBrains Mono. Proofed in vermilion, printed in press blue —
+      and on paper, by {SITE.legalName}, since {SITE.foundedYear}.
+    </p>
 
     <div class="footer-bottom">
-      <span>© {year} {SITE.legalName}. All rights reserved.</span>
-      <span>Printing since {SITE.foundedYear} · {SITE.city}</span>
+      <span>© {year} {SITE.legalName}</span>
+      <span>{SITE.promise.join(' · ')}</span>
     </div>
   </div>
 </footer>
