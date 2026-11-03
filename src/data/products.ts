@@ -112,7 +112,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: 'colour-options',
-    title: 'Printing Options',
+    title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
     intro:
       'Every job is different. Choose the colour configuration, method and quantity that suits your content and budget — we will advise on the most economical option.',
