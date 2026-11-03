@@ -13,7 +13,7 @@ import CropMarks from '../components/plant/CropMarks.astro';
 import HeroVideo from '../components/plant/HeroVideo.astro';
 import Leadership from '../components/Leadership.astro';
 import { SITE, whatsappLink } from '../config/site';
-import { services, process } from '../data/services';
+import { services } from '../data/services';
 import { categories } from '../data/products';
 import { faqs } from '../data/faqs';
 
@@ -243,25 +243,17 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- PROCESS — folded signatures (horizontal on desktop) -->
-  <section class="process no-pin section--dark on-dark" aria-labelledby="process-h">
-    <div class="process__pin section">
-      <div class="container">
-        <div class="section-head section-head--split">
-          <div>
-            <p class="eyebrow">How a job runs</p>
-            <h2 id="process-h" style="margin-top:1rem">Five signatures, <em>one book.</em></h2>
-          </div>
-          <p class="lead">From your first message to the delivery van, one team is accountable for every stage.</p>
+  <!-- PROCESS — the five steps live on /services/ (UX-06); home links to them -->
+  <section class="section section--dark on-dark" aria-labelledby="process-h">
+    <div class="container">
+      <div class="section-head section-head--split" style="margin-bottom:0">
+        <div>
+          <p class="eyebrow">How a job runs</p>
+          <h2 id="process-h" style="margin-top:1rem">Five signatures, <em>one book.</em></h2>
         </div>
-        <div class="process__track" data-reveal-stagger>
-          {process.map((p, i) => (
-            <article class="process-step" data-reveal>
-              <span class="process-step__n">Sig. 0{i + 1} / 0{process.length}</span>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </article>
-          ))}
+        <div style="display:grid;gap:1.2rem;justify-items:start">
+          <p class="lead">From your first message to the delivery van, one team is accountable for every stage.</p>
+          <a class="link-arrow" href="/services/#process">See the five steps <Icon name="arrow" /></a>
         </div>
       </div>
     </div>
