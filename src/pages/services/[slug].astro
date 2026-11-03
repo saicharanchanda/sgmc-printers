@@ -56,7 +56,7 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
 
   <section class="section" style="padding-top:1rem">
     <div class={`container split accent-${accent}`} style="align-items:start">
-      <div data-reveal style="position:sticky;top:calc(var(--header-h) + 2rem)">
+      <div class="sticky-col" data-reveal>
         <Media name={s.slug} alt={`${s.title} at ${SITE.name}, ${SITE.city}`} word={s.title.split(' ')[0]} eager parallax />
       </div>
       <div style="display:grid;gap:2.5rem">

@@ -20,7 +20,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       <a class="btn btn--sm" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
       <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" data-menu-toggle>
         <span class="menu-toggle__bars"><span></span><span></span><span></span></span>
-        Menu
+        <span class="menu-toggle__open" aria-hidden="true">Menu</span><span class="menu-toggle__close" aria-hidden="true">Close</span>
       </button>
     </div>
   </div>
