@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { SITE, whatsappLink } from '../config/site';
+import { services } from '../data/services';
+
+const socials = Object.entries(SITE.social).filter(([, url]) => url) as [
+  'instagram' | 'facebook' | 'youtube' | 'linkedin',
+  string,
+][];
+const year = new Date().getFullYear();
+const badges = [...SITE.promise, ...SITE.strengths];
+---
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <Logo />
+        <p>Books, publications and commercial printing on our own offset presses since {SITE.foundedYear}.</p>
+        {socials.length > 0 && (
+          <div class="socials">
+            {socials.map(([name, url]) => (
+              <a href={url} target="_blank" rel="noopener" aria-label={name}><Icon name={name} /></a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about/">About us</a></li>
+          <li><a href="/infrastructure/">Infrastructure</a></li>
+          <li><a href="/products/">Products</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Capabilities</h2>
+        <ul>
+          {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h2>Contact</h2>
+        <address style="font-style:normal">
+          <ul>
+            <li><a href={SITE.mapLink} target="_blank" rel="noopener">{SITE.address.street}, {SITE.address.locality}, {SITE.address.region} {SITE.address.postalCode}</a></li>
+            {SITE.contacts.map((c) => <li><a href={`tel:${c.phoneHref}`}>{c.name}: {c.phone}</a></li>)}
+            <li><a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            {SITE.hours.map((h) => <li>{h.days}: {h.time}</li>)}
+          </ul>
+        </address>
+      </div>
+    </div>
+
+    <ul class="footer-badges" role="list">
+      {badges.map((b) => <li>{b}</li>)}
+    </ul>
+
+    <div class="footer-bottom">
+      <span>© {year} {SITE.legalName}. All rights reserved.</span>
+      <span>Printing since {SITE.foundedYear} · {SITE.city}</span>
+    </div>
+  </div>
+</footer>

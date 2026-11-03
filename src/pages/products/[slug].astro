@@ -1,0 +1,101 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import PhotoTile from '../../components/PhotoTile.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE, whatsappLink } from '../../config/site';
+import { categories, type ProductCategory } from '../../data/products';
+import { services } from '../../data/services';
+
+export const getStaticPaths = (() =>
+  categories.map((c) => ({ params: { slug: c.slug }, props: { category: c } }))) satisfies GetStaticPaths;
+
+const { category: c } = Astro.props as { category: ProductCategory };
+const related = services.filter((s) => c.services.includes(s.slug));
+const others = categories.filter((o) => o.slug !== c.slug);
+const crumbs = [
+  { name: 'Products', href: '/products/' },
+  { name: c.title, href: `/products/${c.slug}/` },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: c.title,
+  serviceType: c.title,
+  description: c.seoDescription,
+  url: `${SITE.url}/products/${c.slug}/`,
+  provider: { '@id': `${SITE.url}/#business` },
+  areaServed: { '@type': 'City', name: SITE.city },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: c.title,
+    itemListElement: c.items.map((i) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: `${i} printing` } })),
+  },
+};
+---
+<BaseLayout
+  heroDark
+  title={`${c.seoTitle} in ${SITE.city}`}
+  description={`${c.seoDescription} ${SITE.legalName}, printing since ${SITE.foundedYear}.`}
+  breadcrumbs={crumbs}
+  schema={[schema]}
+>
+  <PageHero bg={[`cat-${c.slug}`]} bgAlt={c.title} eyebrow="Products" lines={[c.title]} lead={c.intro} crumbs={crumbs}>
+    <div class="btn-row" style="margin-top:2rem" data-reveal>
+      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(c.title)}`}>Request a quote <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--wa" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${c.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split" style="align-items:start">
+      <div style="display:grid;gap:1.5rem">
+        <p class="eyebrow" data-reveal>What we print</p>
+        <h2 class="h2" data-reveal>{c.items.length} products in this range</h2>
+        <ul class="item-grid" role="list" data-reveal-stagger>
+          {c.items.map((i) => (
+            <li data-reveal><Icon name="check" /> {i}</li>
+          ))}
+        </ul>
+        <p class="muted" data-reveal>Available in black & white, single-colour, two-colour, four-colour or full colour — bulk or short-run.</p>
+      </div>
+      <div data-reveal style="position:sticky;top:calc(var(--header-h) + 2rem)">
+        <Media name={`cat-${c.slug}`} alt={c.title} word={c.title.split(' ')[0]} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="how-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">How we produce it</p>
+        <h2 id="how-h" class="h2">Related services</h2>
+      </div>
+      <div class="tiles" data-reveal-stagger>
+        {related.map((s) => (
+          <PhotoTile href={`/services/${s.slug}/`} image={`bg-${s.slug}`} title={s.title} kicker={s.kicker} text={s.short} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="more-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Explore more</p>
+        <h2 id="more-h" class="h2">Other products</h2>
+      </div>
+      <div class="tiles tiles--products" data-reveal-stagger>
+        {others.slice(0, 3).map((o) => (
+          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.title} kicker={`${o.items.length} products`} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title={`Planning ${c.title.toLowerCase().replace(' printing', '')}?`} />
+</BaseLayout>

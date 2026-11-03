@@ -1,0 +1,35 @@
+---
+/**
+ * Tall photo tile with the title overlaid in white (reference: Solo Printing service tiles).
+ * Uses src/assets/images/<image>.jpg; falls back to a dark ink tile if the photo is missing.
+ */
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { findImage } from '../lib/images';
+
+interface Props {
+  href: string;
+  image: string;
+  title: string;
+  text?: string;
+  kicker?: string;
+  class?: string;
+  sizes?: string;
+}
+const { href, image, title, text, kicker, class: className = '', sizes = '(min-width: 1100px) 33vw, (min-width: 640px) 50vw, 100vw' } = Astro.props;
+const img = await findImage(image);
+---
+<a href={href} class={`tile ${className}`} data-reveal>
+  {img ? (
+    <Picture src={img} alt="" formats={['webp']} widths={[480, 800, 1200]} sizes={sizes} class="tile__img" />
+  ) : (
+    <span class="tile__img tile__img--empty"></span>
+  )}
+  <span class="tile__shade"></span>
+  <span class="tile__body">
+    {kicker && <span class="tile__kicker">{kicker}</span>}
+    <span class="tile__title">{title}</span>
+    {text && <span class="tile__text">{text}</span>}
+    <span class="tile__cta">Explore <Icon name="arrow" /></span>
+  </span>
+</a>

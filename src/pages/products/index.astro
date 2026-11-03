@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE, whatsappLink } from '../../config/site';
+import { categories } from '../../data/products';
+
+const crumbs = [{ name: 'Products', href: '/products/' }];
+const catalogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: `${SITE.name} printing products`,
+  itemListElement: categories.map((c) => ({
+    '@type': 'OfferCatalog',
+    name: c.title,
+    url: `${SITE.url}/products/${c.slug}/`,
+    itemListElement: c.items.map((i) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: `${i} printing` },
+      seller: { '@id': `${SITE.url}/#business` },
+    })),
+  })),
+};
+---
+<BaseLayout
+  heroDark
+  title={`Printing Products — Textbooks, Magazines, Brochures & Labels in ${SITE.city}`}
+  description={`All types of single and multi-colour printing: textbooks, notebooks, magazines, journals, annual reports, catalogues, brochures, flyers, posters, labels, manuals, calendars and certificates in ${SITE.city}.`}
+  breadcrumbs={crumbs}
+  schema={[catalogSchema]}
+>
+  <PageHero
+    bg={['bg-products']}
+    bgAlt="Printed books stacked after binding"
+    eyebrow="Products"
+    lines={['All types of', 'single & multi-colour', 'printing.']}
+    lead="From school textbooks and notebooks to magazines, brochures, labels and certificates — here’s what we print. Don’t see your product? Just ask."
+    crumbs={crumbs}
+  >
+    <nav class="hero-pills" aria-label="Jump to category" data-reveal>
+      {categories.map((c) => <a href={`#${c.slug}`} class="btn btn--sm btn--outline">{c.title.replace(' Printing', '')}</a>)}
+    </nav>
+  </PageHero>
+
+  <section class="section">
+    <div class="container zz">
+      {categories.map((c) => (
+        <article class="zz__item" id={c.slug}>
+          <div data-reveal>
+            <Media name={`cat-${c.slug}`} alt={c.title} class="zz__media" word={c.title.split(' ')[0]} parallax />
+          </div>
+          <div class="zz__body">
+            <span class="zz__kicker" data-reveal>{c.items.length} products</span>
+            <h2 class="h2" data-reveal>{c.title}</h2>
+            <p class="lead" data-reveal>{c.intro}</p>
+            <ul class="item-list" role="list" data-reveal>
+              {c.items.map((i) => <li>{i}</li>)}
+            </ul>
+            <div class="btn-row" data-reveal>
+              <a class="btn" href={`/products/${c.slug}/`}>View details <Icon name="arrow" class="arrow" /></a>
+              <a class="btn btn--outline" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${c.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Get a price</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CTA title="Need something not listed?" text="If it’s printed on paper, we can most likely produce it. Share your requirement and we’ll advise on the best way to print it." />
+</BaseLayout>

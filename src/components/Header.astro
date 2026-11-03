@@ -1,0 +1,57 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { NAV, SITE, whatsappLink } from '../config/site';
+
+const path = Astro.url.pathname.replace(/\/?$/, '/');
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const hours = SITE.hours[0];
+---
+<div class="progress" aria-hidden="true"></div>
+<header class="site-header" data-header>
+  <div class="topbar">
+    <div class="container">
+      <span class="topbar__left">Printing since {SITE.foundedYear} · {SITE.city}</span>
+      <div class="topbar__right">
+        <span class="topbar__hours">{hours.days.replace('Monday', 'Mon').replace('Saturday', 'Sat')} {hours.time}</span>
+        <span class="sep topbar__hours" aria-hidden="true">·</span>
+        <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>
+        <a class="topbar__quote" href="/contact/">Request a quote</a>
+      </div>
+    </div>
+  </div>
+  <div class="headbar">
+    <div class="container">
+      <Logo />
+      <nav class="nav" aria-label="Main">
+        {NAV.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn--sm" href="/contact/">Get a quote</a>
+        <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" data-menu-toggle>
+          <span class="menu-toggle__bars"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+  <nav aria-label="Mobile">
+    {NAV.map((item, i) => (
+      <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+        <small>0{i + 1}</small>{item.label}
+      </a>
+    ))}
+  </nav>
+  <div class="mobile-menu__foot">
+    {SITE.contacts.map((c) => <a href={`tel:${c.phoneHref}`}>{c.name} · {c.phone}</a>)}
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    <div class="btn-row">
+      <a class="btn" href="/contact/">Request a quote</a>
+      <a class="btn btn--wa" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+---
+// Printer's colour-control strip — the CMYK patches found on every press sheet.
+const patches = [
+  ['C', 'var(--c)'],
+  ['M', 'var(--m)'],
+  ['Y', 'var(--y)'],
+  ['K', 'var(--k)'],
+  ['C 50', '#80d6f7'],
+  ['M 50', '#f5a6cf'],
+  ['Y 50', '#fff899'],
+  ['K 50', '#8a8a8a'],
+  ['TEAL', 'var(--teal)'],
+  ['GOLD', 'var(--gold)'],
+  ['REG', 'var(--ink)'],
+];
+---
+<div class="colorbar" aria-hidden="true">
+  {patches.map(([label, color]) => <span style={`background:${color}`}><small>{label}</small></span>)}
+</div>

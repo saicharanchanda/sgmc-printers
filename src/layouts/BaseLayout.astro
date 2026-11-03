@@ -1,0 +1,164 @@
+---
+import '@fontsource-variable/fraunces/wght.css';
+import '@fontsource-variable/fraunces/wght-italic.css';
+import '@fontsource-variable/work-sans';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, whatsappLink } from '../config/site';
+
+export interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  /** Extra JSON-LD objects for this page (Service, FAQPage, …) */
+  schema?: Record<string, unknown>[];
+  /** Breadcrumb trail (Home is added automatically) */
+  breadcrumbs?: Crumb[];
+  /** Use the full title as-is (no "| SGMC Printers" suffix) */
+  rawTitle?: boolean;
+  /** Page starts with a dark photo hero → light header until scrolled */
+  heroDark?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = '/og-image.png',
+  noindex = false,
+  schema = [],
+  breadcrumbs,
+  rawTitle = false,
+  heroDark = false,
+} = Astro.props;
+
+const fullTitle = rawTitle ? title : `${title} | ${SITE.name}`;
+const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/').replace(/^\/404\/$/, '/404'), SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}/#business`,
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  description: SITE.description,
+  url: `${SITE.url}/`,
+  logo: `${SITE.url}/icon-512.png`,
+  image: ogImage,
+  telephone: SITE.phoneHref,
+  email: SITE.email,
+  foundingDate: String(SITE.foundedYear),
+  priceRange: '₹₹',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.region,
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  hasMap: SITE.mapLink,
+  areaServed: [{ '@type': 'City', name: SITE.city }, { '@type': 'Country', name: 'India' }],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: SITE.openingHours.days.map((d) => `https://schema.org/${d}`),
+      opens: SITE.openingHours.opens,
+      closes: SITE.openingHours.closes,
+    },
+  ],
+  sameAs: Object.values(SITE.social).filter(Boolean),
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: `${SITE.url}/`,
+  name: SITE.name,
+  publisher: { '@id': `${SITE.url}/#business` },
+  inLanguage: 'en-IN',
+};
+
+const crumbSchema = breadcrumbs && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ name: 'Home', href: '/' }, ...breadcrumbs].map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: new URL(c.href, SITE.url).href,
+  })),
+};
+
+const jsonLd = [business, website, crumbSchema, ...schema].filter(Boolean);
+---
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta name="theme-color" content="#142320" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Local SEO -->
+    <meta name="geo.region" content={`IN`} />
+    <meta name="geo.placename" content={SITE.city} />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+    <!-- Open Graph / social previews (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+
+    <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header heroDark={heroDark} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <a class="fab" href={whatsappLink()} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+      <Icon name="whatsapp" />
+      <span class="fab__tip">Chat on WhatsApp</span>
+    </a>
+
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+---
+/**
+ * Smart image slot.
+ * Looks for  src/assets/images/<name>.(jpg|jpeg|png|webp|avif)
+ *  - found     → optimized, responsive <Picture> (AVIF/WebP, lazy-loaded)
+ *  - not found → branded CMYK artwork placeholder (so the site always looks finished)
+ * Adding a real photo needs NO code change — just drop a file with the right name.
+ */
+import { Picture } from 'astro:assets';
+import { findImage } from '../lib/images';
+
+interface Props {
+  name: string;
+  alt: string;
+  class?: string;
+  word?: string;
+  eager?: boolean;
+  parallax?: boolean;
+  sizes?: string;
+}
+const { name, alt, class: className = '', word, eager = false, parallax = false, sizes = '(min-width: 960px) 50vw, 100vw' } = Astro.props;
+
+const image = await findImage(name);
+
+// Deterministic placeholder style per name
+const hash = [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+const tones = [
+  { tone: 'var(--c)', bg: '#dff3fb' },
+  { tone: 'var(--m)', bg: '#fde3f0' },
+  { tone: '#f2c200', bg: '#fff7d1' },
+  { tone: '#142320', bg: '#e9e4d8' },
+];
+const t = tones[hash % 4];
+const kinds = ['halftone', 'circles', 'stack', 'stripes'] as const;
+const kind = kinds[(hash >>> 3) % kinds.length];
+---
+{image ? (
+  <div class={`media ${className}`} data-parallax-wrap={parallax ? '' : undefined}>
+    <Picture
+      src={image}
+      alt={alt}
+      formats={['webp']}
+      widths={[480, 800, 1200, 1600]}
+      sizes={sizes}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+      data-parallax={parallax ? '0.12' : undefined}
+    />
+  </div>
+) : (
+  <div class={`media media--placeholder ${className}`} role="img" aria-label={alt} style={`--tone:${t.tone};--tone-bg:${t.bg}`}>
+    {kind === 'halftone' && <div class="media__art art-halftone" />}
+    {kind === 'stripes' && <div class="media__art art-stripes" style="opacity:.35" />}
+    {kind === 'circles' && (
+      <div class="media__art art-circles" style={`background:${t.bg}`}>
+        <i class="ac" style="background:var(--c);top:12%;left:10%" />
+        <i class="ac" style="background:var(--m);top:12%;right:10%" />
+        <i class="ac" style="background:var(--y);bottom:8%;left:22%" />
+      </div>
+    )}
+    {kind === 'stack' && (
+      <div class="media__art art-stack" style={`background:${t.bg}`}>
+        <i class="as" style="transform:rotate(-10deg) translate(-8%,4%);background:var(--y)" />
+        <i class="as" style="transform:rotate(4deg) translate(6%,-2%);background:var(--c)" />
+        <i class="as" style="transform:rotate(-2deg)" />
+      </div>
+    )}
+    {word && <span class="art-word" aria-hidden="true">{word}</span>}
+  </div>
+)}

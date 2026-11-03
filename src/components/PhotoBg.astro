@@ -1,0 +1,35 @@
+---
+/**
+ * Full-bleed background photo(s) — e.g. printing machines behind a hero.
+ * Pass one or more image names from src/assets/images. Several → crossfading slideshow.
+ * No photos yet → dark CMYK "press room" fallback so the section still looks finished.
+ */
+import { Picture } from 'astro:assets';
+import { findImages } from '../lib/images';
+
+interface Props { names: string[]; alt?: string; eager?: boolean; overlay?: 'strong' | 'medium' | 'soft' }
+const { names, alt = '', eager = false, overlay = 'strong' } = Astro.props;
+const images = await findImages(names);
+---
+<div class={`photo-bg photo-bg--${overlay}`} data-photo-bg aria-hidden={alt ? undefined : 'true'}>
+  {images.length > 0 ? (
+    images.map((img, i) => (
+      <div class={`photo-bg__slide${i === 0 ? ' is-active' : ''}`} data-slide>
+        <Picture
+          src={img}
+          alt={i === 0 ? alt : ''}
+          formats={['webp']}
+          widths={[768, 1280, 1920, 2560]}
+          sizes="100vw"
+          loading={eager && i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={eager && i === 0 ? 'high' : 'auto'}
+        />
+      </div>
+    ))
+  ) : (
+    <div class="photo-bg__fallback">
+      <i></i><i></i><i></i>
+    </div>
+  )}
+  <div class="photo-bg__overlay"></div>
+</div>

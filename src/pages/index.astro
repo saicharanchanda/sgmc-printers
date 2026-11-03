@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Media from '../components/Media.astro';
+import PhotoBg from '../components/PhotoBg.astro';
+import ColorBar from '../components/ColorBar.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE, whatsappLink } from '../config/site';
+import { services, process } from '../data/services';
+import { categories } from '../data/products';
+import { faqs } from '../data/faqs';
+
+const years = new Date().getFullYear() - SITE.foundedYear;
+
+const capabilities = [
+  { title: 'Pre-Press & CTP', text: 'Computer-to-plate imaging for sharp, accurate plates on every job.' },
+  { title: 'Web Offset', text: 'High-volume reel-fed runs for textbooks, notebooks and magazines.' },
+  { title: 'Sheet-Fed Offset', text: 'Single- to four-colour work on a wide range of paper and board.' },
+  { title: 'Folding', text: 'Accurate folding of signatures, leaflets and inserts.' },
+  { title: 'Perfect Binding', text: 'Clean, durable glued spines for books, guides and catalogues.' },
+  { title: 'Pinning & Stitching', text: 'Stitched booklets, notebooks and workbooks, finished in-house.' },
+];
+
+// Client-approved strengths (see docs/client-brief.md → "Why choose SGMC")
+const why = [
+  { icon: 'palette', title: 'In-House Design Team', text: 'Experienced designers offering complete artwork development and pre-press support.' },
+  { icon: 'press', title: 'Advanced Machinery', text: 'Multi-colour offset presses, web printing, CTP and integrated finishing facilities.' },
+  { icon: 'clock', title: 'On-Time Delivery', text: 'A strong commitment to agreed production schedules and delivery deadlines.' },
+  { icon: 'shield', title: 'Quality & Competitive Pricing', text: 'Consistent print quality and commercially competitive pricing for bulk orders.' },
+] as const;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<BaseLayout
+  rawTitle
+  title={`${SITE.name} — Book, Textbook & Offset Printing Press since ${SITE.foundedYear} | ${SITE.city}`}
+  description={`${SITE.legalName}, printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, catalogues, brochures and commercial printing on our own web & sheet-fed offset presses in ${SITE.city}.`}
+  schema={[faqSchema]}
+>
+  <!-- HERO — framed machine photo slideshow -->
+  <section class="hero hero--photo on-dark">
+    <PhotoBg names={['hero-1', 'hero-2', 'hero-3', 'hero-4']} alt="Offset printing press running" eager />
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Book printing · Commercial printing · Finishing</p>
+        <h1>
+          <span class="line"><span>Quality printing,</span></span>
+          <span class="line"><span><em>since {SITE.foundedYear}.</em></span></span>
+        </h1>
+        <p class="lead" data-reveal>
+          Textbooks, notebooks, magazines and commercial print from a printing house trusted since {SITE.foundedYear}. From CTP pre-press to web and sheet-fed offset to binding — all on our own presses, under one roof.
+        </p>
+        <div class="btn-row" data-reveal style="--d:.1s">
+          <a class="btn" href="/contact/">Request a quote <Icon name="arrow" class="arrow" /></a>
+          <a class="btn btn--outline" href="/services/">Our services</a>
+        </div>
+        <div class="hero__dots" data-slide-dots aria-hidden="true"></div>
+      </div>
+      <div class="seal" aria-hidden="true" data-reveal style="--d:.3s">
+        <span class="seal__num">{years}</span>
+        <span class="seal__ribbon">Years of printing</span>
+        <span class="seal__years">{SITE.foundedYear} — {new Date().getFullYear()}</span>
+        <span class="seal__name">SGMC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LET'S GET STARTED -->
+  <section class="starter" aria-labelledby="start-h">
+    <div class="container starter__inner">
+      <div>
+        <p class="eyebrow">Let’s get started</p>
+        <h2 id="start-h">Let’s work on your next print job.</h2>
+        <p>Send your quantity, size, page count and deadline. You’ll get a clear quote from our team — fast.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="/contact/">Request a quote</a>
+        <a class="btn btn--outline" href={`tel:${SITE.phoneHref}`}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+  <ColorBar />
+
+  <!-- HERITAGE -->
+  <section class="section" aria-labelledby="about-h">
+    <div class="container split">
+      <div class="filmstrip" data-reveal>
+        <Media name="home-about" alt="Printing press at work in the SGMC facility" word={`Since ${SITE.foundedYear}`} />
+      </div>
+      <div style="display:grid;gap:1.5rem">
+        <p class="eyebrow" data-reveal>Since {SITE.foundedYear}</p>
+        <h2 id="about-h" data-reveal>{years} years on the <em>press floor.</em></h2>
+        <p class="lead" data-reveal>
+          Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.
+        </p>
+        <p class="muted" data-reveal>Today we run web offset and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building — quality printing at competitive prices, delivered on time.</p>
+        <div class="facts" data-reveal>
+          <div><strong>{years}+</strong><span>Years</span></div>
+          <div><strong>5</strong><span>Offset presses</span></div>
+          <div><strong>1 roof</strong><span>Plate to bound book</span></div>
+        </div>
+        <div data-reveal><a class="btn btn--outline" href="/about/">Who we are</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section section--rule" aria-labelledby="cap-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>Capabilities</p>
+        <h2 id="cap-h" data-reveal>From plate to bound book, <em>under one roof.</em></h2>
+      </div>
+      <div class="capgrid" data-reveal-stagger>
+        {capabilities.map((c) => (
+          <div class="cap" data-reveal>
+            <svg class="regmark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="7" /><path d="M16 2v28M2 16h28" /></svg>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIDE THE PLANT -->
+  <section class="section section--rule" aria-labelledby="plant-h" style="padding-top:0;border-top:0">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>Inside the press</p>
+        <h2 id="plant-h" data-reveal>A look inside our facility.</h2>
+      </div>
+      <div class="grid grid-3" data-reveal-stagger>
+        <div data-reveal><Media name="facility-1" alt="Operator at an offset press" word="Press" class="zz__media" sizes="(min-width: 1000px) 33vw, 100vw" /></div>
+        <div data-reveal><Media name="facility-2" alt="Sheet-fed offset printing machine" word="Offset" class="zz__media" sizes="(min-width: 1000px) 33vw, 100vw" /></div>
+        <div data-reveal><Media name="facility-3" alt="Printed sheets at the press delivery" word="Output" class="zz__media" sizes="(min-width: 1000px) 33vw, 100vw" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS (teal list) -->
+  <section class="section section--teal" aria-labelledby="products-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>What we print</p>
+        <h2 id="products-h" data-reveal>Products</h2>
+        <p class="lead" data-reveal>All types of single-colour and multi-colour printing — from school textbooks and magazines to brochures, labels and certificates.</p>
+      </div>
+      <ul class="prodlist" role="list" data-reveal-stagger>
+        {categories.map((c) => (
+          <li data-reveal>
+            <a href={`/products/${c.slug}/`}>
+              <span class="prodlist__title">{c.title.replace(' Printing', '')}</span>
+              <span class="prodlist__meta">{c.items.length} products</span>
+              <Icon name="arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn" href="/products/" data-reveal>See all products</a>
+    </div>
+  </section>
+
+  <!-- SERVICES (photo cards) -->
+  <section class="section" aria-labelledby="services-h">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>What we do</p>
+          <h2 id="services-h" style="margin-top:1rem" data-reveal>Services</h2>
+        </div>
+        <div style="display:grid;gap:1.2rem;justify-items:start">
+          <p class="lead" data-reveal>Every service is handled in-house by our own team, in our own building.</p>
+          <a class="link-arrow" href="/services/" data-reveal>All services <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <div class="svc-grid" data-reveal-stagger>
+        {services.map((s) => (
+          <a class="svc" href={`/services/${s.slug}/`} data-reveal>
+            <Media name={s.slug} alt={`${s.title} at ${SITE.name}`} word={s.title.split(' ')[0]} sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" />
+            <div class="svc__body">
+              <h3>{s.title}</h3>
+              <p>{s.short}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE SGMC -->
+  <section class="section section--white section--rule" aria-labelledby="why-h">
+    <div class="container why">
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Why choose us</p>
+        <h2 id="why-h" data-reveal>Why choose <em>SGMC Printers?</em></h2>
+        <p class="lead" data-reveal>Where heritage meets quality, technology and reliability.</p>
+        <p class="muted" data-reveal>With over {years} years of printing heritage, SGMC Printers combines generations of industry experience with integrated printing infrastructure and a commitment to customer satisfaction.</p>
+        <div data-reveal><a class="btn" href="/contact/">Request a quote</a></div>
+      </div>
+      <div class="why__grid" data-reveal-stagger>
+        {why.map((w) => (
+          <div class="why__item" data-reveal>
+            <span class="why__icon"><Icon name={w.icon} /></span>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INFRASTRUCTURE BAND — machine photo background -->
+  <section class="press-band on-dark frame" aria-labelledby="press-h">
+    <PhotoBg names={['band-press']} alt="Inside the SGMC printing facility" overlay="medium" />
+    <div class="container press-band__inner">
+      <p class="eyebrow" data-reveal>Our infrastructure</p>
+      <h2 id="press-h" data-reveal>Our own building. <em>Our own machines.</em></h2>
+      <p class="lead" data-reveal>A comprehensive range of offset printing machinery and integrated production facilities — so we manage the complete printing process, from pre-press to final finishing.</p>
+      <div class="machine-groups" data-reveal-stagger>
+        {SITE.machineGroups.map((g) => (
+          <div class="machine-group" data-reveal>
+            <h3>{g.group}</h3>
+            <ul role="list">{g.items.map((m) => <li>{m}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row" data-reveal style="margin-top:1rem">
+        <a class="btn" href="/infrastructure/">Explore our infrastructure <Icon name="arrow" class="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS (horizontal scroll on desktop) -->
+  <section class="process section--dark on-dark" aria-labelledby="process-h">
+    <div class="process__pin section">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <div>
+            <p class="eyebrow">Our process</p>
+            <h2 id="process-h" style="margin-top:1rem">From estimate <em>to delivery.</em></h2>
+          </div>
+          <p class="lead">One building, one team, one accountable partner — at every stage of your job.</p>
+        </div>
+        <div class="process__track">
+          {process.map((p, i) => (
+            <article class="process-step">
+              <span class="process-step__n">0{i + 1}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="split" style="align-items:start">
+        <div style="display:grid;gap:1.4rem">
+          <p class="eyebrow" data-reveal>FAQ</p>
+          <h2 id="faq-h" data-reveal>Questions, <em>answered.</em></h2>
+          <p class="lead" data-reveal>Can’t find what you’re looking for? Call us on <a href={`tel:${SITE.phoneHref}`} style="text-decoration:underline">{SITE.phone}</a>.</p>
+        </div>
+        <FAQ items={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- LET'S TALK — form + contacts -->
+  <section class="section section--white section--rule" aria-labelledby="talk-h" id="quote">
+    <div class="container contact-grid">
+      <div style="display:grid;gap:1.4rem;align-content:start">
+        <p class="eyebrow" data-reveal>{SITE.promise.join(' · ')}</p>
+        <h2 id="talk-h" data-reveal>Let’s <em>talk.</em></h2>
+        <p class="lead" data-reveal>Tell us the product, quantity, size, page count and colours — we’ll come back with a clear quote.</p>
+        <ul class="contact-list" data-reveal-stagger>
+          {SITE.contacts.map((c) => (
+            <li data-reveal>
+              <a class="contact-item" href={`tel:${c.phoneHref}`}>
+                <span class="contact-item__icon"><Icon name="phone" /></span>
+                <span><small>{c.name}</small><strong>{c.phone}</strong></span>
+              </a>
+            </li>
+          ))}
+          <li data-reveal>
+            <a class="contact-item" href={whatsappLink()} target="_blank" rel="noopener">
+              <span class="contact-item__icon" style="background:#1faa53;color:#fff"><Icon name="whatsapp" /></span>
+              <span><small>WhatsApp</small><strong>Chat with us</strong></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div data-reveal><ContactForm /></div>
+    </div>
+  </section>
+</BaseLayout>

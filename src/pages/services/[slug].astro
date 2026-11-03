@@ -1,0 +1,102 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTA from '../../components/CTA.astro';
+import PhotoTile from '../../components/PhotoTile.astro';
+import { SITE, whatsappLink } from '../../config/site';
+import { services, type Service } from '../../data/services';
+
+export const getStaticPaths = (() =>
+  services.map((s, i) => ({
+    params: { slug: s.slug },
+    props: { service: s, index: i },
+  }))) satisfies GetStaticPaths;
+
+const { service: s, index } = Astro.props as { service: Service; index: number };
+const others = services.filter((o) => o.slug !== s.slug);
+const crumbs = [
+  { name: 'Services', href: '/services/' },
+  { name: s.title, href: `/services/${s.slug}/` },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.title,
+  serviceType: s.title,
+  description: s.seoDescription,
+  url: `${SITE.url}/services/${s.slug}/`,
+  provider: { '@id': `${SITE.url}/#business` },
+  areaServed: { '@type': 'City', name: SITE.city },
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: s.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
+---
+<BaseLayout
+  heroDark
+  title={`${s.seoTitle} in ${SITE.city}`}
+  description={`${s.seoDescription} ${SITE.name}, ${SITE.city}.`}
+  breadcrumbs={crumbs}
+  schema={[serviceSchema, faqSchema]}
+>
+  <PageHero bg={[`bg-${s.slug}`]} bgAlt={`${s.title} machine at ${SITE.name}`} eyebrow={s.kicker} lines={[s.title]} lead={s.intro} crumbs={crumbs}>
+    <div class="btn-row" style="margin-top:2rem" data-reveal>
+      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Get a quote <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--wa" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${s.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+    </div>
+  </PageHero>
+
+  <section class="section" style="padding-top:1rem">
+    <div class={`container split accent-${accent}`} style="align-items:start">
+      <div data-reveal style="position:sticky;top:calc(var(--header-h) + 2rem)">
+        <Media name={s.slug} alt={`${s.title} at ${SITE.name}, ${SITE.city}`} word={s.title.split(' ')[0]} eager parallax />
+      </div>
+      <div style="display:grid;gap:2.5rem">
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>Overview</h2>
+          {s.body.map((p) => <p class="lead" data-reveal>{p}</p>)}
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>What’s included</h2>
+          <ul class="checklist" data-reveal>{s.features.map((f) => <li>{f}</li>)}</ul>
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>Machines used</h2>
+          <ul class="equipment" role="list" data-reveal>{s.equipment.map((m) => <li><Icon name="press" /> {m}</li>)}</ul>
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>Ideal for</h2>
+          <ul class="pills" data-reveal>{s.idealFor.map((f) => <li>{f}</li>)}</ul>
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>Frequently asked</h2>
+          <FAQ items={s.faqs} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="more-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Explore more</p>
+        <h2 id="more-h" class="h2">Other services</h2>
+      </div>
+      <div class="tiles" data-reveal-stagger>
+        {others.slice(0, 3).map((o) => (
+          <PhotoTile href={`/services/${o.slug}/`} image={`bg-${o.slug}`} title={o.title} kicker={o.kicker} text={o.short} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title={`Need ${s.title.toLowerCase()}?`} />
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE, whatsappLink } from '../config/site';
+
+const crumbs = [{ name: 'Contact', href: '/contact/' }];
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: `${SITE.url}/contact/`,
+  mainEntity: { '@id': `${SITE.url}/#business` },
+};
+---
+<BaseLayout
+  heroDark
+  title={`Contact Us — Free Printing Quote in ${SITE.city}`}
+  description={`Contact ${SITE.legalName}, ${SITE.city}. Call ${SITE.contacts[0].name} ${SITE.contacts[0].phone} or ${SITE.contacts[1].name} ${SITE.contacts[1].phone}, or send your printing requirement for a free quote.`}
+  breadcrumbs={crumbs}
+  schema={[contactSchema]}
+>
+  <PageHero
+    bg={['bg-contact']}
+    bgAlt={`${SITE.name} printing press`}
+    eyebrow="Contact"
+    lines={['Let’s talk', 'about your print job.']}
+    lead={`Call ${SITE.contacts[0].name} or ${SITE.contacts[1].name}, WhatsApp us, or send your requirement below — product, quantity, size, pages, colours and binding — for a clear, no-obligation quote.`}
+    crumbs={crumbs}
+  />
+
+  <section class="section" style="padding-top:1rem">
+    <div class="container contact-grid">
+      <ul class="contact-list" data-reveal-stagger>
+        {SITE.contacts.map((c) => (
+          <li data-reveal>
+            <a class="contact-item" href={`tel:${c.phoneHref}`}>
+              <span class="contact-item__icon"><Icon name="phone" /></span>
+              <span><small>Call {c.name}</small><strong>{c.phone}</strong></span>
+            </a>
+          </li>
+        ))}
+        <li data-reveal>
+          <a class="contact-item" href={whatsappLink()} target="_blank" rel="noopener">
+            <span class="contact-item__icon" style="background:#e3f8eb;color:#1faa53"><Icon name="whatsapp" /></span>
+            <span><small>WhatsApp</small><strong>Chat with us instantly</strong></span>
+          </a>
+        </li>
+        <li data-reveal>
+          <a class="contact-item" href={`mailto:${SITE.email}`}>
+            <span class="contact-item__icon"><Icon name="mail" /></span>
+            <span><small>Email</small><strong>{SITE.email}</strong></span>
+          </a>
+        </li>
+        <li data-reveal>
+          <a class="contact-item" href={SITE.mapLink} target="_blank" rel="noopener">
+            <span class="contact-item__icon"><Icon name="pin" /></span>
+            <span>
+              <small>Visit</small>
+              <address style="font-style:normal"><strong>{SITE.legalName}</strong><br />{SITE.address.street}, {SITE.address.locality}, {SITE.address.region} {SITE.address.postalCode}</address>
+            </span>
+          </a>
+        </li>
+        <li data-reveal>
+          <div class="contact-item">
+            <span class="contact-item__icon"><Icon name="clock" /></span>
+            <span><small>Working hours</small>{SITE.hours.map((h) => <span style="display:block"><strong>{h.days}:</strong> {h.time}</span>)}</span>
+          </div>
+        </li>
+      </ul>
+
+      <div data-reveal><ContactForm /></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0" aria-label="Map">
+    <div class="container">
+      <div class="map" data-reveal>
+        <iframe
+          src={SITE.mapEmbed}
+          title={`Map showing ${SITE.legalName} location`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

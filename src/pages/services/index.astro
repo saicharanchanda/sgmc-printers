@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE } from '../../config/site';
+import { services, process } from '../../data/services';
+
+const accents = ['c', 'm', 'y', 'k', 'c', 'm'];
+const crumbs = [{ name: 'Services', href: '/services/' }];
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Printing services by ${SITE.name}`,
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE.url}/services/${s.slug}/`,
+    name: s.title,
+  })),
+};
+---
+<BaseLayout
+  heroDark
+  title={`Printing Services in ${SITE.city} — Offset, Digital & Packaging`}
+  description={`One-stop printing services in ${SITE.city}: design & prepress, multi-colour offset, digital printing, binding & finishing, packaging and commercial printing.`}
+  breadcrumbs={crumbs}
+  schema={[listSchema]}
+>
+  <PageHero
+    bg={['bg-services']}
+    bgAlt={`Printing machines at ${SITE.name}`}
+    eyebrow="Our services"
+    lines={['Every print need,', 'under one roof.']}
+    lead="We manage your project from idea to delivery — quickly, flexibly and with complete transparency. Whether you’re a large brand or printing for the first time, you get the same care and quality."
+    crumbs={crumbs}
+  >
+    <nav class="hero-pills" aria-label="Jump to service" data-reveal>
+      {services.map((s) => <a href={`#${s.slug}`} class="btn btn--sm btn--outline">{s.title}</a>)}
+    </nav>
+  </PageHero>
+
+  <section class="section" style="padding-top:2rem">
+    <div class="container zz">
+      {services.map((s, i) => (
+        <article class={`zz__item accent-${accents[i]}`} id={s.slug}>
+          <div data-reveal>
+            <Media name={s.slug} alt={`${s.title} at ${SITE.name}`} class="zz__media" word={s.title.split(' ')[0]} parallax />
+          </div>
+          <div class="zz__body">
+            <span class="zz__kicker" data-reveal>{s.kicker}</span>
+            <h2 class="h2" data-reveal>{s.title}</h2>
+            <p class="lead" data-reveal>{s.intro}</p>
+            <ul class="checklist" data-reveal>
+              {s.features.slice(0, 4).map((f) => <li>{f}</li>)}
+            </ul>
+            <div class="btn-row" data-reveal>
+              <a class="btn" href={`/services/${s.slug}/`}>Explore {s.title.split(' ')[0].toLowerCase()} <Icon name="arrow" class="arrow" /></a>
+              <a class="btn btn--outline" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Get a quote</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="proc-h">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Our process</p>
+        <h2 id="proc-h">Simple, transparent, on time.</h2>
+      </div>
+      <div class="grid grid-3" data-reveal-stagger style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+        {process.map((p, i) => (
+          <article class="process-step" data-reveal style={`--accent:${['var(--c)', 'var(--m)', 'var(--y)', '#fff', 'var(--c)'][i]}`}>
+            <span class="process-step__n" style="font-size:3rem">0{i + 1}</span>
+            <h3 style="font-size:1.2rem">{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>

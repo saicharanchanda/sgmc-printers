@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import { SITE, whatsappLink } from '../config/site';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Let’s work on your next print job.',
+  text = 'Share your requirement — quantity, size, pages and paper — and get a clear quote, usually within a few hours.',
+} = Astro.props;
+---
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta on-dark" data-reveal>
+      <div>
+        <p class="eyebrow">Let’s get started</p>
+        <h2 style="margin-top:1rem">{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="/contact/">Request a quote <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--outline" href={`tel:${SITE.phoneHref}`}>Call {SITE.phone}</a>
+        <a class="btn btn--wa" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>

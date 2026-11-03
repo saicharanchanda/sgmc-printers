@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config/site';
+import { services } from '../data/services';
+import { categories } from '../data/products';
+---
+<form class="form" data-contact-form data-key={SITE.web3formsKey} data-wa={SITE.whatsapp} novalidate={false}>
+  <div>
+    <h2 class="h3">Request a quote</h2>
+    <p class="form__note" style="margin-top:.4rem">Fields marked <span style="color:var(--m)">*</span> are required. We usually reply within a few working hours.</p>
+  </div>
+  <div class="form__row">
+    <div class="field">
+      <label for="f-name">Your name <span>*</span></label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for="f-phone">Phone / WhatsApp <span>*</span></label>
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+\-\s()]{8,}" required />
+    </div>
+  </div>
+  <div class="form__row">
+    <div class="field">
+      <label for="f-email">Email</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" />
+    </div>
+    <div class="field">
+      <label for="f-qty">Quantity</label>
+      <input id="f-qty" name="quantity" type="text" placeholder="e.g. 1,000 pcs" />
+    </div>
+  </div>
+  <div class="field">
+    <label for="f-service">What do you need? <span>*</span></label>
+    <select id="f-service" name="service" required>
+      <optgroup label="Products">
+        {categories.map((c) => <option value={c.title}>{c.title}</option>)}
+      </optgroup>
+      <optgroup label="Services">
+        {services.map((s) => <option value={s.title}>{s.title}</option>)}
+      </optgroup>
+      <option value="Other">Something else</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="f-msg">Details <span>*</span></label>
+    <textarea id="f-msg" name="message" required placeholder="Product, size, pages, colours, binding, deadline…"></textarea>
+  </div>
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <div class="form__status" data-form-status role="status" aria-live="polite" hidden></div>
+  <div class="btn-row">
+    <button class="btn" type="submit">Send enquiry <Icon name="arrow" class="arrow" /></button>
+  </div>
+</form>

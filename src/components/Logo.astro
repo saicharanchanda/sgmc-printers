@@ -1,0 +1,22 @@
+---
+// Placeholder logo: printer's registration mark with CMYK ink dots + letter-spaced wordmark.
+// Replace with the client's logo SVG when available.
+import { SITE } from '../config/site';
+interface Props { href?: string }
+const { href = '/' } = Astro.props;
+---
+<a href={href} class="brand" aria-label={`${SITE.name} — home`}>
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <circle class="ink" cx="19" cy="20" r="10" fill="#00aeef" style="mix-blend-mode:multiply" />
+    <circle class="ink" cx="29" cy="20" r="10" fill="#ec008c" style="mix-blend-mode:multiply" />
+    <circle class="ink" cx="24" cy="29" r="10" fill="#fbbf24" style="mix-blend-mode:multiply" />
+    <g stroke="currentColor" stroke-width="1.6" fill="none">
+      <circle cx="24" cy="24" r="6.5" />
+      <path d="M24 3v11M24 34v11M3 24h11M34 24h11" />
+    </g>
+  </svg>
+  <span class="brand__text">
+    <span class="brand__name">SGMC Printers</span>
+    <span class="brand__sub">Shree Gayatri Multi Colour</span>
+  </span>
+</a>

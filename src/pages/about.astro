@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Media from '../components/Media.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { SITE } from '../config/site';
+
+const crumbs = [{ name: 'About', href: '/about/' }];
+const years = new Date().getFullYear() - SITE.foundedYear;
+
+const promise = [
+  { icon: 'shield', title: 'Quality Printing', text: 'CTP plates, well-maintained offset presses and checks at every stage — so every copy matches the approved proof.' },
+  { icon: 'rupee', title: 'Competitive Prices', text: 'Owning our building and machinery means no middlemen and no outsourcing mark-ups — savings we pass on.' },
+  { icon: 'clock', title: 'Timely Delivery', text: 'Printing and binding under one roof keeps schedules in our control, including academic-year deadlines.' },
+] as const;
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: `${SITE.url}/about/`,
+  mainEntity: { '@id': `${SITE.url}/#business` },
+};
+---
+<BaseLayout
+  heroDark
+  title={`About Us — Printing Since ${SITE.foundedYear}`}
+  description={`${SITE.legalName} has been printing since ${SITE.foundedYear}. Books, educational and commercial printing from our own building with in-house offset presses, CTP and binding.`}
+  breadcrumbs={crumbs}
+  schema={[aboutSchema]}
+>
+  <PageHero
+    bg={['bg-about']}
+    bgAlt="Workers operating an offset press in a busy print shop"
+    eyebrow={`Since ${SITE.foundedYear}`}
+    lines={[`${years}+ years`, 'of trusted printing.']}
+    lead={`${SITE.legalName} has served schools, colleges, publishers and businesses since ${SITE.foundedYear} — with quality printing, competitive prices and timely delivery.`}
+    crumbs={crumbs}
+  />
+
+  <section class="section">
+    <div class="container split">
+      <Media name="about-heritage" alt="Printing press in the press hall" word={`Est. ${SITE.foundedYear}`} parallax />
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Our story</p>
+        <h2 data-reveal>Six decades of putting knowledge on paper.</h2>
+        <!-- TODO: replace with the client's own story (founder, milestones) -->
+        <p class="lead" data-reveal>Since {SITE.foundedYear}, Shree Gayatri Multi Colour Printers has grown into a complete, in-house printing facility trusted for textbooks, publications and commercial work.</p>
+        <p class="muted" data-reveal>Today we operate from our own building with web offset and sheet-fed offset presses, a CTP pre-press system and in-house folding, perfect binding and stitching. Owning the entire process lets us control quality, cost and delivery for every job — from a short run of brochures to bulk textbook orders.</p>
+        <div class="btn-row" data-reveal>
+          <a class="btn" href="/infrastructure/">Our infrastructure <Icon name="arrow" class="arrow" /></a>
+          <a class="btn btn--outline" href="/contact/">Visit our press</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="stats-h">
+    <div class="container">
+      <h2 id="stats-h" class="sr-only">SGMC in numbers</h2>
+      <div class="stats stats--4" data-reveal>
+        {SITE.stats.map((s) => (
+          <div class="stat">
+            <strong data-count={s.value} data-suffix={s.suffix}>{s.value}{s.suffix}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="promise-h">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow" data-reveal>Our promise</p>
+        <h2 id="promise-h" data-reveal>{SITE.promise.join(' · ')}</h2>
+      </div>
+      <div class="grid grid-3" data-reveal-stagger>
+        {promise.map((v) => (
+          <div class="card" data-reveal>
+            <span class="feature__icon"><Icon name={v.icon} /></span>
+            <h3>{v.title}</h3>
+            <p class="muted">{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="facility-h">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Inside the press</p>
+          <h2 id="facility-h" style="margin-top:1rem" data-reveal>Our facility</h2>
+        </div>
+        <p class="lead" data-reveal>{SITE.strengths.join(' · ')}.</p>
+      </div>
+      <div class="grid grid-3" data-reveal-stagger>
+        <div data-reveal><Media name="facility-1" alt="Operator at an offset press" word="Press" class="zz__media" /></div>
+        <div data-reveal><Media name="facility-2" alt="Sheet-fed offset printing machine" word="Offset" class="zz__media" /></div>
+        <div data-reveal><Media name="facility-3" alt="Printed sheets at the press delivery" word="Output" class="zz__media" /></div>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>

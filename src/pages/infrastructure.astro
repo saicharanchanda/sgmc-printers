@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoBg from '../components/PhotoBg.astro';
+import Media from '../components/Media.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { SITE } from '../config/site';
+
+const crumbs = [{ name: 'Infrastructure', href: '/infrastructure/' }];
+
+const groupInfo: Record<string, { image: string; text: string; href: string }> = {
+  'Web Offset Printing': {
+    image: 'bg-web-offset-printing',
+    text: 'Reel-fed presses for high-volume textbooks, notebooks, magazines and periodicals.',
+    href: '/services/web-offset-printing/',
+  },
+  'Sheet-Fed Offset Printing': {
+    image: 'bg-sheet-fed-offset-printing',
+    text: 'Sheet-fed presses for colour-critical covers, brochures, catalogues and short runs.',
+    href: '/services/sheet-fed-offset-printing/',
+  },
+  'Pre-Press': {
+    image: 'bg-prepress',
+    text: 'Computer-to-plate output straight from your files for sharp, accurate plates.',
+    href: '/services/prepress/',
+  },
+  'Post-Press & Finishing': {
+    image: 'bg-binding-finishing',
+    text: 'Folding, perfect binding and pinning / stitching to deliver finished books.',
+    href: '/services/binding-finishing/',
+  },
+};
+
+const capabilities = [
+  'School and College Textbooks',
+  'Educational and Academic Publications',
+  'Magazines and Periodicals',
+  'Brochures and Flyers',
+  'Single-Colour and Multi-Colour Printing',
+  'Commercial and Bulk Printing',
+];
+
+const icons = ['shield', 'press', 'box', 'check'] as const;
+---
+<BaseLayout
+  heroDark
+  title={`Our Infrastructure — Web & Sheet-Fed Offset Presses, CTP and Binding`}
+  description={`${SITE.legalName} operates from its own building with Komori and Orient web offset presses, Komori and L37 sheet-fed offset presses, CTP pre-press, folding, perfect binding and stitching.`}
+  breadcrumbs={crumbs}
+>
+  <PageHero
+    bg={['band-press']}
+    bgAlt="Printing facility floor"
+    eyebrow="Infrastructure & facilities"
+    lines={['Complete in-house', 'printing facility.']}
+    lead="We operate from our own building, equipped with a comprehensive range of offset printing machinery and integrated production facilities — managing the complete printing process, from pre-press to final finishing, under one roof."
+    crumbs={crumbs}
+  />
+
+  <!-- Strengths -->
+  <section class="section section--tight section--white" aria-label="Our strengths">
+    <div class="container">
+      <div class="strengths" data-reveal-stagger>
+        {SITE.strengths.map((s, i) => (
+          <div class="strength" data-reveal>
+            <span class="feature__icon"><Icon name={icons[i]} /></span>
+            <strong>{s}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Machinery groups — each over its own machine photo -->
+  <section class="section" aria-labelledby="mach-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>Machinery & equipment</p>
+        <h2 id="mach-h" data-reveal>Our machines</h2>
+      </div>
+      <div class="machine-panels">
+        {SITE.machineGroups.map((g, i) => {
+          const info = groupInfo[g.group];
+          return (
+            <article class="machine-panel on-dark" data-reveal>
+              <PhotoBg names={[info.image]} alt={g.group} overlay="medium" />
+              <div class="machine-panel__body">
+                <span class="machine-panel__n">0{i + 1}</span>
+                <h3 class="h2">{g.group}</h3>
+                <p class="lead">{info.text}</p>
+                <ul class="machine-list" role="list">
+                  {g.items.map((m) => <li><strong>{m}</strong></li>)}
+                </ul>
+                <a class="link-arrow" href={info.href}>Learn more <Icon name="arrow" /></a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="section section--white" aria-labelledby="cap-h">
+    <div class="container split">
+      <Media name="facility-3" alt="Printed sheets coming off an offset press" word="Capabilities" parallax />
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Our printing capabilities</p>
+        <h2 id="cap-h" data-reveal>We cater to a wide range of printing requirements.</h2>
+        <ul class="checklist" data-reveal>{capabilities.map((c) => <li>{c}</li>)}</ul>
+        <p class="muted" data-reveal>With our comprehensive machinery and in-house production capabilities, we deliver quality printing and finishing solutions — all under one roof.</p>
+        <div data-reveal><a class="btn" href="/products/">See all products <Icon name="arrow" class="arrow" /></a></div>
+      </div>
+    </div>
+  </section>
+
+  <CTA title="See our facility for yourself." text="You’re welcome to visit our press. Call ahead and we’ll show you around." />
+</BaseLayout>
