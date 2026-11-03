@@ -586,6 +586,8 @@ a.contact-item:hover { color: var(--red); }
 .field textarea { min-height: 120px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--red); }
 .field input:user-invalid, .field textarea:user-invalid { border-color: var(--red-deep); }
+.field__err { font-size: .85rem; font-weight: 600; color: var(--red-deep); }
+.field [aria-invalid='true'] { border-color: var(--red-deep); }
 .form__note { font-size: .9rem; color: var(--ink-3); }
 .form .btn-row .btn { width: 100%; }
 .form__status { padding: 1rem 1.2rem; font-weight: 550; }

@@ -254,9 +254,38 @@ function initForm(signal: AbortSignal) {
   const select = form.querySelector<HTMLSelectElement>('select[name="service"]');
   if (pre && select) [...select.options].forEach((o) => o.value === pre && (o.selected = true));
 
+  // Inline errors (A-07): shown on `invalid`, cleared on `input`, linked via aria-describedby.
+  type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+  const fields = [...form.querySelectorAll<Field>('[aria-describedby$="-err"]')];
+  const errFor = (f: Field) => document.getElementById(`${f.id}-err`);
+  const clear = (f: Field) => {
+    const err = errFor(f);
+    if (err) { err.hidden = true; err.textContent = ''; }
+    f.removeAttribute('aria-invalid');
+  };
+  // Native validation runs before `submit` (which then never fires), and cancelling `invalid`
+  // also cancels the browser's own focus move — so focus the first invalid field ourselves.
+  let focusQueued = false;
+  fields.forEach((f) => {
+    f.addEventListener('invalid', (e) => {
+      e.preventDefault(); // our message replaces the native bubble
+      if (!focusQueued) {
+        focusQueued = true;
+        queueMicrotask(() => { focusQueued = false; form.querySelector<Field>('[aria-invalid="true"]')?.focus(); });
+      }
+      const err = errFor(f);
+      if (!err) return;
+      err.textContent = (f.validity.valueMissing ? f.dataset.msgMissing : f.dataset.msgInvalid) || f.validationMessage;
+      err.hidden = false;
+      f.setAttribute('aria-invalid', 'true');
+    }, { signal });
+    f.addEventListener('input', () => clear(f), { signal });
+    f.addEventListener('change', () => clear(f), { signal });
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!form.reportValidity()) return;
+    if (!form.checkValidity()) return;
     const data = new FormData(form);
     if (data.get('botcheck')) return;
 

@@ -18,17 +18,20 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
   <div class="form__row">
     <div class="field">
       <label for="f-name">Your name <span>*</span></label>
-      <input id="f-name" name="name" type="text" autocomplete="name" required />
+      <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-err" data-msg-missing="Please enter your name." />
+      <span class="field__err" id="f-name-err" role="alert" hidden></span>
     </div>
     <div class="field">
       <label for="f-phone">Phone / WhatsApp <span>*</span></label>
-      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern={PHONE_PATTERN} title="10–15 digits. You can include + and spaces." required />
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern={PHONE_PATTERN} title="10–15 digits. You can include + and spaces." required aria-describedby="f-phone-err" data-msg-missing="Please enter a phone or WhatsApp number." data-msg-invalid="Enter 10–15 digits. You can include + and spaces." />
+      <span class="field__err" id="f-phone-err" role="alert" hidden></span>
     </div>
   </div>
   <div class="form__row">
     <div class="field">
       <label for="f-email">Email</label>
-      <input id="f-email" name="email" type="email" autocomplete="email" />
+      <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="f-email-err" data-msg-invalid="Please enter a valid email address, or leave it blank." />
+      <span class="field__err" id="f-email-err" role="alert" hidden></span>
     </div>
     <div class="field">
       <label for="f-qty">Quantity</label>
@@ -37,7 +40,7 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
   </div>
   <div class="field">
     <label for="f-service">What do you need? <span>*</span></label>
-    <select id="f-service" name="service" required>
+    <select id="f-service" name="service" required aria-describedby="f-service-err" data-msg-missing="Please choose a product or service.">
       <option value="" disabled selected>Select a product or service…</option>
       <optgroup label="Products">
         {categories.map((c) => <option value={c.title}>{c.title}</option>)}
@@ -47,10 +50,12 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
       </optgroup>
       <option value="Other">Something else</option>
     </select>
+      <span class="field__err" id="f-service-err" role="alert" hidden></span>
   </div>
   <div class="field">
     <label for="f-msg">Details <span>*</span></label>
-    <textarea id="f-msg" name="message" required placeholder="Product, size, pages, colours, binding, deadline…"></textarea>
+    <textarea id="f-msg" name="message" required aria-describedby="f-msg-err" data-msg-missing="Please tell us a little about the job." placeholder="Product, size, pages, colours, binding, deadline…"></textarea>
+      <span class="field__err" id="f-msg-err" role="alert" hidden></span>
   </div>
   <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <div class="form__status" data-form-status role="status" aria-live="polite" hidden></div>
