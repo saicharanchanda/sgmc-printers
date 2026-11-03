@@ -27,7 +27,19 @@ document.addEventListener('astro:page-load', () => {
   initSlideshow(signal);
   initFloor(signal);
   if (!reduceMotion) initAmbient(signal);
+  initHeroVideo();
 });
+
+/* ---------- hero background video: desktop only, fades in over the still once playing ---------- */
+function initHeroVideo() {
+  const wrap = document.querySelector<HTMLElement>('[data-hero-video]');
+  const video = wrap?.querySelector('video');
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+  if (!wrap || !video?.dataset.src || reduceMotion || saveData || !window.matchMedia('(min-width: 768px)').matches) return;
+  video.addEventListener('playing', () => wrap.classList.add('is-playing'), { once: true });
+  video.src = video.dataset.src;
+  video.play().catch(() => {}); // autoplay refused → the still stays
+}
 
 document.addEventListener('astro:before-swap', () => {
   pageAbort?.abort();

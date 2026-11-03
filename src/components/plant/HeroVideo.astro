@@ -1,0 +1,16 @@
+---
+/**
+ * Background video for the hero (reference: ssvfabinds.com).
+ * The PhotoBg still underneath is the poster and the LCP image; the video is only
+ * fetched on desktop (>=768px), without reduced motion or Data Saver, and fades in
+ * once it is actually playing. Replace public/video/press-loop.mp4 with the client's
+ * own press footage (muted, 10-20 s, 720p, under ~4 MB) when they send it.
+ */
+interface Props { src?: string }
+const { src = 'video/press-loop.mp4' } = Astro.props;
+const url = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}${src}`;
+---
+<div class="hero-video" data-hero-video aria-hidden="true">
+  <video muted loop playsinline preload="none" data-src={url}></video>
+  <div class="hero-video__overlay"></div>
+</div>

@@ -9,6 +9,7 @@ import PaperRun from '../components/plant/PaperRun.astro';
 import Roller from '../components/plant/Roller.astro';
 import TextureBg from '../components/plant/TextureBg.astro';
 import CropMarks from '../components/plant/CropMarks.astro';
+import HeroVideo from '../components/plant/HeroVideo.astro';
 import { SITE, whatsappLink } from '../config/site';
 import { services, process } from '../data/services';
 import { categories } from '../data/products';
@@ -47,6 +48,7 @@ const faqSchema = {
   <!-- HERO — full-bleed press photo, darkened so the headline leads -->
   <section class="hero hero--plant on-dark">
     <PhotoBg names={['hero-1']} alt="Offset printing press running at SGMC" overlay="plant" eager />
+    <HeroVideo />
     <Roller class="hero__roller" />
     <div class="container">
       <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>

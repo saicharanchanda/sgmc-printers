@@ -37,3 +37,9 @@ Replace with the client's own photos when available — keep the same file names
 | `facility-1.jpg` | Pexels | https://www.pexels.com/photo/37394505/ |
 | `facility-2.jpg` | Unsplash | https://unsplash.com/photos/1729944950511-e9c71556cfd4 |
 | `facility-3.jpg` | Pexels | https://www.pexels.com/photo/9550363/ |
+
+## Video
+
+| File | Source |
+|---|---|
+| `public/video/press-loop.mp4` (hero background, v3) | Pexels — "Two Men Operating a Printing Press in Workshop" by Somogro Bangladesh, https://www.pexels.com/video/two-men-operating-a-printing-press-in-workshop-38826343/ (Pexels licence: free commercial use). Stand-in until the client sends their own press footage. |
