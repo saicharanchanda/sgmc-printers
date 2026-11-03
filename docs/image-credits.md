@@ -42,4 +42,4 @@ Replace with the client's own photos when available — keep the same file names
 
 | File | Source |
 |---|---|
-| `public/video/press-loop.mp4` (hero background, v3) | Pexels — "Two Men Operating a Printing Press in Workshop" by Somogro Bangladesh, https://www.pexels.com/video/two-men-operating-a-printing-press-in-workshop-38826343/ (Pexels licence: free commercial use). Stand-in until the client sends their own press footage. |
+| `public/video/press-loop.mp4` (hero background, v3) | Pexels — "Industrial Printing Press Operating" (folding machine) by Dominiquemel16 Ramos, https://www.pexels.com/video/industrial-printing-press-operating-37533325/ (Pexels licence: free commercial use). Stand-in until the client sends their own press footage. |

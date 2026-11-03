@@ -107,10 +107,10 @@ function initReveal() {
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
   );
-  // A fully clipped heading (ink wipe start state) never "intersects", so watch its parent instead.
+  // A fully clipped heading or tile (wipe start state) never "intersects", so watch its parent instead.
   const watched = new Map<Element, Element[]>();
   document.querySelectorAll('[data-reveal], [data-stack], [data-crop], .eyebrow').forEach((el) => {
-    const target = el.matches('h2[data-reveal]') ? el.parentElement ?? el : el;
+    const target = el.matches('h2[data-reveal], .tile[data-reveal]') ? el.parentElement ?? el : el;
     watched.set(target, [...(watched.get(target) ?? []), el]);
     io.observe(target);
   });

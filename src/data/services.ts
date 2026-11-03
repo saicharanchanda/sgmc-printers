@@ -38,7 +38,7 @@ export const services: Service[] = [
     ],
     equipment: ['Komori Coldset Web Offset', 'Orient Web Offset – 4i'],
     idealFor: ['School textbooks & workbooks', 'Notebooks & exercise books', 'Magazines & periodicals', 'Question papers & answer books'],
-    seoTitle: 'Web Offset Printing — Textbooks, Notebooks & Magazines',
+    seoTitle: 'Web Offset Printing — Textbooks & Magazines',
     seoDescription:
       'Web offset printing for textbooks, notebooks, magazines and bulk publications on Komori and Orient web offset presses. Fast, consistent, economical long runs.',
     faqs: [
@@ -72,7 +72,7 @@ export const services: Service[] = [
     ],
     equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine'],
     idealFor: ['Book covers', 'Brochures & catalogues', 'Annual reports & company profiles', 'Posters & calendars'],
-    seoTitle: 'Sheet-Fed Offset Printing — Brochures, Catalogues & Covers',
+    seoTitle: 'Sheet-Fed Offset Printing — Brochures & Catalogues',
     seoDescription:
       'Sheet-fed offset printing on Komori and L37 presses: brochures, catalogues, annual reports, book covers and posters in single to full colour.',
     faqs: [
@@ -140,7 +140,7 @@ export const services: Service[] = [
     ],
     equipment: ['Folding Machines', 'Perfect Binding', 'Pinning / Stitching'],
     idealFor: ['Textbooks & reference books', 'Notebooks', 'Magazines & booklets', 'Manuals & handbooks'],
-    seoTitle: 'Book Binding & Finishing — Perfect Binding, Folding, Stitching',
+    seoTitle: 'Book Binding — Perfect Binding, Folding & Stitching',
     seoDescription:
       'In-house post-press: folding, perfect binding and pinning / saddle stitching for textbooks, notebooks, magazines, manuals and booklets.',
     faqs: [
@@ -174,7 +174,7 @@ export const services: Service[] = [
     ],
     equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine', 'Orient Web Offset – 4i'],
     idealFor: ['Textbooks', 'Answer books & question papers', 'Certificates', 'Brochures & magazines'],
-    seoTitle: 'Single-Colour, Two-Colour & Four-Colour Printing',
+    seoTitle: 'Single, Two & Four-Colour Offset Printing',
     seoDescription:
       'Black & white, single-colour, two-colour, four-colour and full-colour offset printing, plus variable data printing for numbering and personalisation.',
     faqs: [
@@ -208,7 +208,7 @@ export const services: Service[] = [
     ],
     equipment: ['Komori Coldset Web Offset', 'Orient Web Offset – 4i', 'Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine'],
     idealFor: ['Schools & education boards', 'Publishers', 'Corporates', 'Hospitals & institutions'],
-    seoTitle: 'Bulk Printing & Short-Run Printing',
+    seoTitle: 'Bulk & Short-Run Printing',
     seoDescription:
       'Bulk printing for schools, publishers and institutions on web offset presses, plus economical short-run printing — all printed and bound in-house.',
     faqs: [

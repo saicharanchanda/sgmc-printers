@@ -41,8 +41,8 @@ const faqSchema = {
 ---
 <BaseLayout
   rawTitle
-  title={`${SITE.name} — Book, Textbook & Offset Printing Press since ${SITE.foundedYear} | ${SITE.city}`}
-  description={`${SITE.legalName}, printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, catalogues, brochures and commercial printing on our own web & sheet-fed offset presses in ${SITE.city}.`}
+  title={`${SITE.name} | Offset Printing ${SITE.city}`}
+  description={`Printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, brochures and commercial print on our own web & sheet-fed offset presses in ${SITE.city}.`}
   schema={[faqSchema]}
 >
   <!-- HERO — full-bleed press photo, darkened so the headline leads -->
@@ -65,7 +65,7 @@ const faqSchema = {
       </div>
       <div class="hero__facts" data-stack>
         <div><strong>{yr}</strong><span>Established</span></div>
-        <div><strong data-count="5">5</strong><span>Offset presses</span></div>
+        <div><strong data-count="45" data-suffix="+">45+</strong><span>Kinds of product</span></div>
         <div><strong>CTP</strong><span>Plate to book</span></div>
       </div>
     </div>
@@ -131,9 +131,9 @@ const faqSchema = {
         </div>
       </div>
       <div class="floor" data-floor>
-        <ol class="floor__list" role="list">
+        <ol class="floor__list" role="list" data-reveal-stagger>
           {services.map((s, i) => (
-            <li>
+            <li data-reveal>
               <a class:list={['floor__item', { 'is-active': i === 0 }]} href={`/services/${s.slug}/`} data-floor-item={i}>
                 <span class="n">0{i + 1}</span>
                 <h3>{s.title}</h3>
@@ -175,7 +175,7 @@ const faqSchema = {
         <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
         <div class="facts" data-stack>
           <div><strong data-count="4">4</strong><span>Departments in-house</span></div>
-          <div><strong data-count="45" data-suffix="+">45+</strong><span>Kinds of product</span></div>
+          <div><strong data-count="6">6</strong><span>Printing services</span></div>
           <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
         </div>
         <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
@@ -254,9 +254,9 @@ const faqSchema = {
           </div>
           <p class="lead">From your first message to the delivery van, one team is accountable for every stage.</p>
         </div>
-        <div class="process__track">
+        <div class="process__track" data-reveal-stagger>
           {process.map((p, i) => (
-            <article class="process-step">
+            <article class="process-step" data-reveal>
               <span class="process-step__n">Sig. 0{i + 1} / 0{process.length}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>

@@ -51,7 +51,7 @@ export const categories: ProductCategory[] = [
       'Research Publications',
     ],
     services: ['sheet-fed-offset-printing', 'web-offset-printing', 'binding-finishing'],
-    seoTitle: 'Magazine, Journal, Catalogue & Annual Report Printing',
+    seoTitle: 'Magazine, Journal & Catalogue Printing',
     seoDescription:
       'Printing of magazines, journals, periodicals, annual reports, company profiles, catalogues, directories and research publications.',
   },
@@ -106,7 +106,7 @@ export const categories: ProductCategory[] = [
       'Certificates',
     ],
     services: ['sheet-fed-offset-printing', 'binding-finishing', 'colour-printing'],
-    seoTitle: 'Manual, Technical, Religious Book & Diary Printing',
+    seoTitle: 'Manual, Technical & Religious Book Printing',
     seoDescription:
       'Printing of training and instruction manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
   },
@@ -128,7 +128,7 @@ export const categories: ProductCategory[] = [
       'Short-Run Printing',
     ],
     services: ['colour-printing', 'bulk-printing', 'web-offset-printing'],
-    seoTitle: 'Black & White, Single, Two & Four-Colour Offset Printing',
+    seoTitle: 'Black & White and Colour Offset Printing',
     seoDescription:
       'All printing options: black & white, single-colour, two-colour, four-colour and full-colour offset printing, variable data, bulk and short-run.',
   },

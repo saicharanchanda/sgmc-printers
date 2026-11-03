@@ -835,3 +835,39 @@ body::after {
 .hero-video video { width: 100%; height: 100%; object-fit: cover; }
 .hero-video__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,28,51,.9) 0%, rgba(20,28,51,.84) 45%, rgba(20,28,51,.55) 100%); }
 @media (max-width: 767px) { .hero-video { display: none; } }
+
+/* ---------- more press motion (once, 200-600ms, transform/opacity/clip only) ---------- */
+
+/* photos settle into their frame like a sheet registering on the plate */
+.motion [data-reveal] .media img, .motion [data-reveal].media img { transform: scale(1.06); transition: transform .6s var(--ease-out); }
+.motion [data-reveal].is-in .media img, .motion [data-reveal].is-in.media img { transform: none; }
+.motion .media[data-parallax-wrap] img { transform: none; transition: none; }
+
+/* photo tiles: ink rises from the bottom as the tile enters */
+.motion .tile[data-reveal] { clip-path: inset(100% 0 0 0); opacity: 1; transform: none; }
+.motion .tile[data-reveal].is-in { clip-path: inset(0); transition: clip-path .6s var(--ease-out) var(--d, 0s); }
+
+/* buttons: an ink fill sweeps across on hover */
+.btn { background-image: linear-gradient(var(--hbg), var(--hbg)); background-repeat: no-repeat; background-size: 0% 100%; transition: background-size .35s var(--ease-out), color .3s var(--ease-out), border-color .3s var(--ease-out), transform .3s var(--ease-out); }
+.btn:hover { background-color: var(--bg); background-image: linear-gradient(var(--hbg), var(--hbg)); background-size: 100% 100%; }
+
+/* text links: the underline is drawn by a roller */
+.motion .link-arrow { background-size: 0% 2px; background-position: 0 100%; transition: background-size .4s var(--ease-out), gap .3s var(--ease-out), color .3s; }
+.motion .link-arrow.is-in, .motion .link-arrow:hover, .motion [data-reveal].is-in .link-arrow, .motion .is-in > .link-arrow { background-size: 100% 2px; }
+
+/* machine table: rows feed in one after another once the crop marks are down */
+.motion [data-crop] .spec tbody tr { opacity: 0; transform: translate3d(-12px, 0, 0); }
+.motion [data-crop].is-in .spec tbody tr { opacity: 1; transform: none; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+.motion [data-crop].is-in .spec tbody tr:nth-child(1) { transition-delay: .25s; }
+.motion [data-crop].is-in .spec tbody tr:nth-child(2) { transition-delay: .33s; }
+.motion [data-crop].is-in .spec tbody tr:nth-child(3) { transition-delay: .41s; }
+.motion [data-crop].is-in .spec tbody tr:nth-child(4) { transition-delay: .49s; }
+.motion [data-crop] .spec[data-reveal] { opacity: 1; transform: none; }
+
+/* process: each step's fold corner presses down as it arrives */
+.motion .process-step[data-reveal]::after { transform: scale(0); transform-origin: top right; }
+.motion .process-step[data-reveal].is-in::after { transform: none; transition: transform .45s var(--ease-out) calc(var(--d, 0s) + .2s); }
+
+/* registration-mark eyebrow icon turns a quarter as it snaps true */
+.motion .eyebrow::before { transform: rotate(-90deg); transition: transform .5s var(--ease-out) .1s; }
+.motion .eyebrow.is-in::before { transform: none; }
