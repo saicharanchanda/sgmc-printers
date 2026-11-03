@@ -97,7 +97,7 @@ const faqSchema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {categories.map((c) => (
-          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.title.replace(/ Printing$/, '')} kicker={`${c.items.length} products`} text={c.short} />
+          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.cardTitle} kicker={`${c.items.length} products`} text={c.short} />
         ))}
       </div>
     </div>
