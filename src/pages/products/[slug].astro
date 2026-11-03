@@ -53,15 +53,31 @@ const schema = {
 
   <section class="section">
     <div class="container split" style="align-items:start">
-      <div style="display:grid;gap:1.5rem">
-        <p class="eyebrow" data-reveal>What we print</p>
-        <h2 class="h2" data-reveal>{c.items.length} products in this range</h2>
-        <ul class="item-grid" role="list" data-reveal-stagger>
-          {c.items.map((i) => (
-            <li data-reveal><Icon name="check" /> {i}</li>
-          ))}
-        </ul>
-        <p class="muted" data-reveal>Available in black & white, single-colour, two-colour, four-colour or full colour — bulk or short-run.</p>
+      <div style="display:grid;gap:2.5rem">
+        <div style="display:grid;gap:1.2rem">
+          <p class="eyebrow" data-reveal>Overview</p>
+          <h2 class="h3" data-reveal>{c.detail.heading}</h2>
+          {c.detail.body.map((p) => <p class="lead" data-reveal>{p}</p>)}
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>What we print in this range</h2>
+          <ul class="item-grid" role="list" data-reveal-stagger>
+            {c.items.map((i) => (
+              <li data-reveal><Icon name="check" /> {i}</li>
+            ))}
+          </ul>
+          <p class="muted" data-reveal>Available in black & white, single-colour, two-colour, four-colour or full colour — bulk or short-run.</p>
+        </div>
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>How it is produced</h2>
+          <p data-reveal>{c.detail.produced}</p>
+        </div>
+        {/* NEEDS BUSINESS CONFIRMATION: "Quantities and turnaround" subsection (minimum order quantity,
+            typical turnaround in working days, paper/board weights) is omitted until the business confirms them. */}
+        <div style="display:grid;gap:1.2rem">
+          <h2 class="h3" data-reveal>What to send us</h2>
+          <p data-reveal>{c.detail.send}</p>
+        </div>
       </div>
       <div class="sticky-col" data-reveal>
         <Media name={`cat-${c.slug}`} alt={c.title} word={c.title.split(' ')[0]} />
