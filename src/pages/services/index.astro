@@ -47,7 +47,7 @@ const listSchema = {
       {services.map((s, i) => (
         <article class={`zz__item accent-${accents[i]}`} id={s.slug}>
           <div data-reveal>
-            <Media name={s.slug} alt={`${s.title} at ${SITE.name}`} class="zz__media" word={s.title.split(' ')[0]} parallax />
+            <Media name={s.slug} alt={`${s.title} at ${SITE.name}`} class="zz__media" word={s.label} parallax />
           </div>
           <div class="zz__body">
             <span class="zz__kicker" data-reveal>{s.kicker}</span>
@@ -57,7 +57,7 @@ const listSchema = {
               {s.features.slice(0, 4).map((f) => <li>{f}</li>)}
             </ul>
             <div class="btn-row" data-reveal>
-              <a class="btn" href={`/services/${s.slug}/`}>Explore {s.title.split(' ')[0].toLowerCase()} <Icon name="arrow" class="arrow" /></a>
+              <a class="btn" href={`/services/${s.slug}/`}>{s.cta} <Icon name="arrow" class="arrow" /></a>
               <a class="btn btn--outline" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Get a quote</a>
             </div>
           </div>

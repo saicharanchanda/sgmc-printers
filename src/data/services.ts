@@ -6,6 +6,10 @@ export type Service = {
   slug: string;
   title: string;
   kicker: string;
+  /** Short hand-written name for pills and photo overlays ("Web offset") */
+  label: string;
+  /** Hand-written button text for the link to this service's page */
+  cta: string;
   short: string;
   intro: string;
   body: string[];
@@ -21,6 +25,8 @@ export const services: Service[] = [
   {
     slug: 'web-offset-printing',
     title: 'Web Offset Printing',
+    label: 'Web offset',
+    cta: 'See web offset printing',
     kicker: 'High-volume production',
     short: 'Reel-fed web offset for textbooks, notebooks, magazines and long runs — fast, consistent and economical.',
     intro:
@@ -55,6 +61,8 @@ export const services: Service[] = [
   {
     slug: 'sheet-fed-offset-printing',
     title: 'Sheet-Fed Offset Printing',
+    label: 'Sheet-fed',
+    cta: 'See sheet-fed printing',
     kicker: 'Sharp, rich colour',
     short: 'Sheet-fed offset for colour-critical work — book covers, brochures, catalogues, annual reports and posters.',
     intro:
@@ -89,6 +97,8 @@ export const services: Service[] = [
   {
     slug: 'prepress',
     title: 'Pre-Press & CTP',
+    label: 'Pre-press',
+    cta: 'See pre-press & CTP',
     kicker: 'Where quality starts',
     short: 'File checking, imposition and computer-to-plate (CTP) plate making — accurate plates for a perfect run.',
     intro:
@@ -123,6 +133,8 @@ export const services: Service[] = [
   {
     slug: 'binding-finishing',
     title: 'Binding & Finishing',
+    label: 'Binding',
+    cta: 'See binding & finishing',
     kicker: 'Ready to deliver',
     short: 'Folding, perfect binding and pinning / stitching — books, notebooks and booklets finished in-house.',
     intro:
@@ -157,6 +169,8 @@ export const services: Service[] = [
   {
     slug: 'colour-printing',
     title: 'Single to Full-Colour Printing',
+    label: 'Colour',
+    cta: 'See colour options',
     kicker: 'Every colour option',
     short: 'Black & white, single-colour, two-colour, four-colour and full-colour printing — plus variable data.',
     intro:
@@ -191,6 +205,8 @@ export const services: Service[] = [
   {
     slug: 'bulk-printing',
     title: 'Bulk & Short-Run Printing',
+    label: 'Bulk',
+    cta: 'See bulk & short-run',
     kicker: 'Any quantity',
     short: 'Large bulk orders for institutions and publishers — and short runs when you need smaller quantities.',
     intro:
