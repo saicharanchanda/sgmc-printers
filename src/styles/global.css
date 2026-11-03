@@ -993,3 +993,11 @@ h2, .h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
 .eyebrow { color: var(--red-deep); }
 .on-dark .eyebrow, .section--dark .eyebrow { color: var(--gold); }
 .process-step__n, .on-dark .process-step__n { color: var(--red-deep); }
+
+/* R-03: at 320px the brand + menu button were 7px wider than the header */
+@media (max-width: 360px) {
+  .brand__name { font-size: 1rem; }
+  .brand svg { height: 32px; }
+  .menu-toggle { padding: 0 .6rem; gap: .4rem; }
+  .site-header .container { gap: .75rem; }
+}
