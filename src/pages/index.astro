@@ -108,7 +108,7 @@ const faqSchema = {
           <li data-reveal>
             <a href={`/products/${c.slug}/`}>
               <span class="toc__n">0{i + 1}</span>
-              <span class="toc__title">{c.title.replace(' Printing', '')}</span>
+              <span class="toc__title">{c.title.replace(/ Printing$/, '')}</span>
               <span class="toc__page">{c.items.length} titles</span>
               <span class="toc__thumb" aria-hidden="true"><Media name={`cat-${c.slug}`} alt="" sizes="220px" /></span>
             </a>

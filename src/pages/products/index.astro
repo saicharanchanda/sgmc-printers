@@ -40,7 +40,7 @@ const catalogSchema = {
     crumbs={crumbs}
   >
     <nav class="hero-pills" aria-label="Jump to category" data-reveal>
-      {categories.map((c) => <a href={`#${c.slug}`} class="btn btn--sm btn--outline">{c.title.replace(' Printing', '')}</a>)}
+      {categories.map((c) => <a href={`#${c.slug}`} class="btn btn--sm btn--outline">{c.title.replace(/ Printing$/, '')}</a>)}
     </nav>
   </PageHero>
 
