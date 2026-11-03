@@ -69,7 +69,8 @@ public/                 ← favicon, icons, og-image, manifest, _headers
 
 - Per-page titles, descriptions, canonical URLs, Open Graph/Twitter cards
 - JSON-LD: LocalBusiness (address, geo, hours), WebSite, BreadcrumbList, Service, FAQPage, OfferCatalog
-- Auto sitemap + robots.txt, clean URLs, 404 page
+- Auto sitemap (`/sitemap-index.xml`, all 18 pages with lastmod + priority) and `/robots.txt`, clean URLs, 404 page
+- Preview builds (GitHub Pages, `BASE_PATH` set) are `noindex` with `Disallow: /`, so the temporary github.io copy never competes with the real domain
 - Dedicated SEO landing page per service (`/services/offset-printing/` etc.)
 - Responsive images (AVIF/WebP), self-hosted fonts, ~50 KB gzipped JS, prefetching
 - View transitions between pages, smooth scrolling, scroll animations (disabled for reduced-motion users)

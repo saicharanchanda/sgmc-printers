@@ -37,6 +37,8 @@ const {
   heroDark = false,
 } = Astro.props;
 
+// Temporary preview builds (GitHub Pages) are kept out of search results.
+const isPreview = Boolean(process.env.BASE_PATH);
 const fullTitle = rawTitle ? title : `${title} | ${SITE.name}`;
 const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/').replace(/^\/404\/$/, '/404'), SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
@@ -108,7 +110,7 @@ const jsonLd = [business, website, crumbSchema, ...schema].filter(Boolean);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {(noindex || isPreview) && <meta name="robots" content="noindex, follow" />}
 
     <meta name="theme-color" content="#142320" />
     <meta name="format-detection" content="telephone=no" />
