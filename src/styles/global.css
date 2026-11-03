@@ -463,7 +463,9 @@ a.card:hover, .card--hover:hover { transform: translateY(-4px); box-shadow: var(
 @media (min-width: 1000px) {
   .process__pin { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--header-h) + 2rem); }
   .process__track { display: flex; gap: 1.25rem; width: max-content; padding-right: var(--gutter); }
-  .process-step { width: 380px; min-height: 330px; padding: 2.4rem; }
+  /* fixed width belongs to the home page's flex track only; /services/ uses an auto-fit grid */
+  .process .process__track > .process-step { width: 380px; }
+  .process-step { min-height: 330px; padding: 2.4rem; }
   .process.no-pin .process__track { flex-wrap: wrap; width: auto; }
   .process.no-pin .process-step { width: calc(33% - 1rem); }
 }
