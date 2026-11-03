@@ -45,7 +45,10 @@ const fitDescription = (d: string, max = 160) => {
   return sentence > 90 ? cut.slice(0, sentence + 1) : `${cut.slice(0, cut.lastIndexOf(' '))}…`;
 };
 const metaDescription = fitDescription(description);
-const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/').replace(/^\/404\/$/, '/404'), SITE.url).href;
+// Canonical points at the production host, so the preview's BASE_PATH (e.g. /sgmc-printers/v4) is stripped.
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const sitePath = Astro.url.pathname.startsWith(basePath) ? Astro.url.pathname.slice(basePath.length) : Astro.url.pathname;
+const canonical = new URL((sitePath || '/').replace(/\/?$/, '/').replace(/^\/404\/$/, '/404'), SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 
 const business = {
