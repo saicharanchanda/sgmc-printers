@@ -17,7 +17,8 @@ const img = own ?? (await findImage(fallback));
       {img ? (
         <Picture src={img} alt={`${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
       ) : <span class="machine-card__empty" />}
-      {!own && <span class="machine-card__tag">Photo coming soon</span>}
+      {/* Machine photos are AI-generated / stock (docs/machine-image-prompts.md), so label them honestly */}
+      <span class="machine-card__tag">{own ? 'Representative image' : 'Photo coming soon'}</span>
     </div>
   </div>
   <figcaption class="slug">
