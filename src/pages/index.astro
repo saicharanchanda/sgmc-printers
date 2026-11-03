@@ -5,6 +5,10 @@ import Media from '../components/Media.astro';
 import PhotoBg from '../components/PhotoBg.astro';
 import FAQ from '../components/FAQ.astro';
 import ContactForm from '../components/ContactForm.astro';
+import PaperRun from '../components/plant/PaperRun.astro';
+import Roller from '../components/plant/Roller.astro';
+import TextureBg from '../components/plant/TextureBg.astro';
+import CropMarks from '../components/plant/CropMarks.astro';
 import { SITE, whatsappLink } from '../config/site';
 import { services, process } from '../data/services';
 import { categories } from '../data/products';
@@ -40,45 +44,27 @@ const faqSchema = {
   description={`${SITE.legalName}, printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, catalogues, brochures and commercial printing on our own web & sheet-fed offset presses in ${SITE.city}.`}
   schema={[faqSchema]}
 >
-  <!-- HERO — ruled page + press sheet -->
-  <section class="hero ruled">
-    <div class="container hero__grid">
-      <div>
-        <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>
-        <h1>
-          <span class="line"><span>Printing the pages</span></span>
-          <span class="line"><span><em>people learn from.</em></span></span>
-        </h1>
-        <p class="lead" data-reveal>
-          Textbooks, notebooks, magazines and commercial print, produced on our own web and sheet-fed offset presses. Plate, press and binding, all in one building.
-        </p>
-        <div class="btn-row" data-reveal style="--d:.1s">
-          <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
-          <a class="btn btn--outline" href="#contents">See what we print</a>
-        </div>
-        <div class="hero__facts" data-reveal style="--d:.2s">
-          <div><strong>{yr}</strong><span>Established</span></div>
-          <div><strong>5</strong><span>Offset presses</span></div>
-          <div><strong>CTP</strong><span>Plate to book</span></div>
-        </div>
+  <!-- HERO — full-bleed press photo, darkened so the headline leads -->
+  <section class="hero hero--plant on-dark">
+    <PhotoBg names={['hero-1']} alt="Offset printing press running at SGMC" overlay="plant" eager />
+    <Roller class="hero__roller" />
+    <div class="container">
+      <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>
+      <h1>
+        <span class="line"><span>Printing the pages</span></span>
+        <span class="line"><span><em>people learn from.</em></span></span>
+      </h1>
+      <p class="lead" data-reveal>
+        Textbooks, notebooks, magazines and commercial print, produced on our own web and sheet-fed offset presses. Plate, press and binding, all in one building.
+      </p>
+      <div class="btn-row" data-reveal style="--d:.1s">
+        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--outline" href="#contents">See what we print</a>
       </div>
-
-      <div class="hero__sheet" data-reveal style="--d:.15s" data-hero-slides>
-        <div class="sheet">
-          <svg class="sheet__reg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="10" cy="10" r="5" /><path d="M10 0v20M0 10h20" /></svg>
-          <svg class="sheet__reg sheet__reg--side" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="10" cy="10" r="5" /><path d="M10 0v20M0 10h20" /></svg>
-          <div class="sheet__frame">
-            <PhotoBg names={['hero-1', 'hero-2', 'hero-3', 'hero-4']} alt="Offset printing press running at SGMC" overlay="none" eager />
-          </div>
-          <div class="hero__stamp" aria-hidden="true">
-            <span><small>Since</small><b>{yr}</b><small>SGMC</small></span>
-          </div>
-        </div>
-        <div class="slug">
-          <span aria-hidden="true">SGMC · Press sheet · 4/4 CMYK</span>
-          <span class="hero__dots" data-slide-dots aria-hidden="true"></span>
-          <span class="slug__inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span>
-        </div>
+      <div class="hero__facts" data-stack>
+        <div><strong>{yr}</strong><span>Established</span></div>
+        <div><strong data-count="5">5</strong><span>Offset presses</span></div>
+        <div><strong>CTP</strong><span>Plate to book</span></div>
       </div>
     </div>
   </section>
@@ -126,8 +112,11 @@ const faqSchema = {
     ))}
   </div>
 
+  <PaperRun />
+
   <!-- THE PRESS FLOOR — services with live preview -->
-  <section class="section" aria-labelledby="floor-h">
+  <section class="section has-texture" aria-labelledby="floor-h">
+    <TextureBg name="facility-1" />
     <div class="container">
       <div class="section-head section-head--split">
         <div>
@@ -182,18 +171,21 @@ const faqSchema = {
         <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>Putting knowledge on paper since {yr}.</h2>
         <p class="lead" data-reveal>Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
         <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
-        <div class="facts" data-reveal>
-          <div><strong>4</strong><span>Departments in-house</span></div>
-          <div><strong>45+</strong><span>Kinds of product</span></div>
-          <div><strong>100%</strong><span>In-house</span></div>
+        <div class="facts" data-stack>
+          <div><strong data-count="4">4</strong><span>Departments in-house</span></div>
+          <div><strong data-count="45" data-suffix="+">45+</strong><span>Kinds of product</span></div>
+          <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
         </div>
         <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
       </div>
     </div>
   </section>
 
+  <PaperRun />
+
   <!-- MACHINE ROOM — spec sheet -->
-  <section class="section section--dark" aria-labelledby="machines-h">
+  <section class="section section--dark has-texture" aria-labelledby="machines-h">
+    <TextureBg name="facility-2" />
     <div class="container">
       <div class="section-head section-head--split">
         <div>
@@ -207,6 +199,7 @@ const faqSchema = {
           <div class="sheet" style="padding:14px" data-reveal><Media name={n} alt="Machinery at the SGMC press" sizes="(min-width: 1000px) 30vw, 50vw" /></div>
         ))}
       </div>
+      <CropMarks>
       <table class="spec" data-reveal>
         <thead><tr><th>Ref.</th><th>Department</th><th>Machines</th><th>Used for</th></tr></thead>
         <tbody>
@@ -220,6 +213,7 @@ const faqSchema = {
           ))}
         </tbody>
       </table>
+      </CropMarks>
       <div class="btn-row" style="margin-top:2.5rem" data-reveal>
         <a class="btn" href="/infrastructure/">Tour the infrastructure <Icon name="arrow" class="arrow" /></a>
       </div>
@@ -248,7 +242,7 @@ const faqSchema = {
   </section>
 
   <!-- PROCESS — folded signatures (horizontal on desktop) -->
-  <section class="process section--dark on-dark" aria-labelledby="process-h">
+  <section class="process no-pin section--dark on-dark" aria-labelledby="process-h">
     <div class="process__pin section">
       <div class="container">
         <div class="section-head section-head--split">
@@ -270,6 +264,8 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <PaperRun />
 
   <!-- FAQ -->
   <section class="section" aria-labelledby="faq-h">

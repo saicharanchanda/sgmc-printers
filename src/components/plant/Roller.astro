@@ -1,0 +1,18 @@
+---
+// Line-art impression cylinder, slowly turning in a hero corner (ambient, hidden on phones).
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+const spokes = Array.from({ length: 12 }, (_, i) => (i * Math.PI) / 6);
+---
+<svg class={`roller ${className}`} viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" aria-hidden="true">
+  <g class="roller__spin">
+    <circle cx="100" cy="100" r="96" />
+    <circle cx="100" cy="100" r="78" />
+    <circle cx="100" cy="100" r="16" />
+    <circle cx="100" cy="100" r="6" />
+    {spokes.map((a) => (
+      <line x1={100 + Math.cos(a) * 16} y1={100 + Math.sin(a) * 16} x2={100 + Math.cos(a) * 78} y2={100 + Math.sin(a) * 78} />
+    ))}
+    <path d="M100 4v10M100 186v10M4 100h10M186 100h10" />
+  </g>
+</svg>

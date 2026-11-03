@@ -1,0 +1,19 @@
+---
+/**
+ * Machinery photo laid under a section's own background colour at low opacity,
+ * so it reads as texture. Drifts slightly with scroll on desktop (see main.ts initAmbient).
+ * Small, low-quality WebP on purpose: at ~12% opacity nobody sees the detail.
+ */
+import { Picture } from 'astro:assets';
+import { findImage } from '../../lib/images';
+
+interface Props { name: string }
+const img = await findImage(Astro.props.name);
+---
+{img && (
+  <div class="texture-bg" aria-hidden="true">
+    <div class="texture-bg__drift" data-ambient-parallax>
+      <Picture src={img} alt="" formats={['webp']} widths={[960, 1440]} sizes="100vw" quality={40} loading="lazy" decoding="async" />
+    </div>
+  </div>
+)}

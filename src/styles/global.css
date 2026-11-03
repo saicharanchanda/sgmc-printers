@@ -43,6 +43,14 @@
   --shadow-lg: 0 40px 70px -34px rgba(20, 28, 51, 0.55);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+
+  /* -- AMBIENT MOTION DIAL ------------------------------------------
+     One knob for everything atmospheric: machinery textures, their
+     parallax drift, the paper web and the hero roller.
+       1 = as designed    0.5 = half strength    0 = all off
+     Scroll reveals (wipes, fades, stacks) are not affected.          */
+  --ambient: 1;
   --header-h: 84px;
 }
 @media (max-width: 760px) { :root { --header-h: 70px; } }
@@ -51,9 +59,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 1rem); }
-html.lenis, html.lenis body { height: auto; }
-.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
 body {
   font-family: var(--font-body);
@@ -616,7 +621,7 @@ a.contact-item:hover { color: var(--red); }
 /* ---------- reveal ---------- */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] { opacity: 0; transform: translateY(24px); }
-  [data-reveal].is-in { opacity: 1; transform: none; transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  [data-reveal].is-in { opacity: 1; transform: none; transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); transition-delay: var(--d, 0s); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
@@ -633,10 +638,9 @@ a.contact-item:hover { color: var(--red); }
    ================================================================ */
 .photo-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: var(--ink); }
 .photo-bg--parallax { inset: -10% 0; }
-.photo-bg__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+.photo-bg__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s var(--ease-out); }
 .photo-bg__slide.is-active { opacity: 1; }
 .photo-bg__slide picture, .photo-bg__slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
-@media (prefers-reduced-motion: no-preference) { .photo-bg__slide.is-active img { animation: kenburns 9s ease-out both; } }
 @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
 .photo-bg__overlay { position: absolute; inset: 0; }
 .photo-bg--strong .photo-bg__overlay { background: linear-gradient(90deg, rgba(20,28,51,.9), rgba(20,28,51,.55)); }
@@ -733,3 +737,94 @@ body.menu-open .menu-toggle__close { display: inline; }
 .brand__name { font-size: 1.32rem; line-height: .95; display: grid; gap: .1rem; }
 .brand__name .brand__name-2 { color: var(--red); font-size: .74em; letter-spacing: .02em; }
 @media (max-width: 400px) { .brand__name { font-size: 1.12rem; } .brand svg { height: 36px; } }
+
+/* ================================================================
+   PLANT LAYER (v3): machinery texture + restrained print motion
+   All timings 200-600ms on --ease-out, scroll effects fire once,
+   transform/opacity/clip only (no layout shift). Ambient loops scale
+   with --ambient and switch off below 768px and for reduced motion.
+   ================================================================ */
+
+/* site-wide halftone + paper grain, almost subliminal */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 300; pointer-events: none;
+  background:
+    radial-gradient(rgba(20,28,51,.9) .6px, transparent .9px) 0 0 / 3px 3px,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .025; mix-blend-mode: multiply;
+}
+
+/* hero: full-bleed press photo, ink overlay heavier on the text side */
+.hero--plant { isolation: isolate; color: #fff; padding: clamp(5rem, 11vw, 9rem) 0 clamp(3.5rem, 7vw, 5.5rem); min-height: min(88svh, 860px); display: flex; align-items: center; }
+.hero--plant h1 { max-width: 14ch; }
+.hero--plant h1 em { background: none; padding-bottom: 0; }
+.hero--plant .lead { color: rgba(255,255,255,.86); }
+.photo-bg--plant .photo-bg__overlay { background: linear-gradient(90deg, rgba(20,28,51,.9) 0%, rgba(20,28,51,.84) 45%, rgba(20,28,51,.55) 100%); }
+.hero--plant .hero__facts { border-top-color: rgba(255,255,255,.35); }
+.hero--plant .hero__facts div { border-right-color: rgba(255,255,255,.18); }
+.hero--plant .hero__facts span { color: rgba(255,255,255,.66); }
+.hero__roller { position: absolute; z-index: 0; right: -70px; top: -70px; width: clamp(260px, 30vw, 420px); color: #ff7a5c; opacity: calc(.15 * var(--ambient)); pointer-events: none; }
+.roller__spin { transform-origin: 100px 100px; transform-box: view-box; }
+.hero--plant .container { position: relative; z-index: 1; }
+
+/* machinery texture under a section's own colour */
+.has-texture { isolation: isolate; overflow: hidden; }
+.has-texture > .container { position: relative; z-index: 1; }
+.texture-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: calc(.07 * var(--ambient)); filter: grayscale(1) contrast(1.1); }
+.section--dark .texture-bg { opacity: calc(.14 * var(--ambient)); }
+.texture-bg__drift { position: absolute; inset: -12% 0; will-change: transform; }
+.texture-bg picture, .texture-bg img { width: 100%; height: 100%; object-fit: cover; }
+
+/* paper web run: section divider */
+.paper-run { position: relative; height: 10px; overflow: hidden; opacity: calc(.6 * var(--ambient)); border-block: 1px solid var(--line); background: var(--white); }
+.paper-run__web { position: absolute; inset: 0 auto 0 0; width: 200%; background: repeating-linear-gradient(90deg, transparent 0 46px, var(--line-strong) 46px 47px, transparent 47px 92px, rgba(224,64,31,.35) 92px 94px); }
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .paper-run__web { animation: web-run 26s linear infinite; }
+  .roller__spin { animation: roller-turn 48s linear infinite; }
+}
+@keyframes web-run { to { transform: translate3d(-50%, 0, 0); } }
+@keyframes roller-turn { to { transform: rotate(360deg); } }
+.ambient-off .paper-run__web, .ambient-off .roller__spin { animation: none; }
+@media (max-width: 767px) { .hero__roller { display: none; } .texture-bg__drift { inset: 0; } }
+
+/* hero headline lines rise once */
+.motion .hero .line > span, .motion .page-hero .line > span { animation: line-up .6s var(--ease-out) both; }
+.motion .line:nth-child(2) > span { animation-delay: .08s; }
+@keyframes line-up { from { transform: translate3d(0, 105%, 0); } }
+
+/* CMYK registration: eyebrow mis-registers, then snaps true (180ms, once) */
+.motion .eyebrow { text-shadow: -2px 0 rgba(0,160,227,.75), 2px 1px rgba(229,0,125,.7), 1px -2px rgba(255,222,0,.85); transition: text-shadow .18s var(--ease-out) .12s; }
+.motion .eyebrow.is-in { text-shadow: 0 0 rgba(0,160,227,0), 0 0 rgba(229,0,125,0), 0 0 rgba(255,222,0,0); }
+
+/* ink roller sweep: headings wipe in left to right (500ms, once) */
+.motion h2[data-reveal] { opacity: 1; transform: none; clip-path: inset(-.2em 100% -.25em -.1em); }
+.motion h2[data-reveal].is-in { clip-path: inset(-.2em -.1em -.25em -.1em); transition: clip-path .5s var(--ease-out) var(--d, 0s); }
+
+/* sheet stacking: stat blocks drop and settle, 400ms each, 80ms apart */
+.motion [data-stack] > * { opacity: 0; transform: translate3d(0, -14px, 0); }
+.motion [data-stack].is-in > * { opacity: 1; transform: none; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+.motion [data-stack].is-in > :nth-child(2) { transition-delay: .08s; }
+.motion [data-stack].is-in > :nth-child(3) { transition-delay: .16s; }
+.motion [data-stack].is-in > :nth-child(4) { transition-delay: .24s; }
+
+/* press-sheet frame around the machine table: crop marks draw in */
+.cropbox { position: relative; padding: clamp(1rem, 2.5vw, 1.75rem); }
+.crop { position: absolute; width: 22px; height: 22px; pointer-events: none; }
+.crop::before, .crop::after { content: ''; position: absolute; background: rgba(255,255,255,.55); }
+.crop::before { width: 100%; height: 1px; }
+.crop::after { width: 1px; height: 100%; }
+.crop--tl { top: 0; left: 0; } .crop--tl::before, .crop--tl::after { top: 0; left: 0; }
+.crop--tr { top: 0; right: 0; } .crop--tr::before, .crop--tr::after { top: 0; right: 0; }
+.crop--bl { bottom: 0; left: 0; } .crop--bl::before, .crop--bl::after { bottom: 0; left: 0; }
+.crop--br { bottom: 0; right: 0; } .crop--br::before, .crop--br::after { bottom: 0; right: 0; }
+.crop--tl::before, .crop--bl::before { transform-origin: left; }
+.crop--tr::before, .crop--br::before { transform-origin: right; }
+.crop--tl::after, .crop--tr::after { transform-origin: top; }
+.crop--bl::after, .crop--br::after { transform-origin: bottom; }
+.motion .crop::before { transform: scaleX(0); }
+.motion .crop::after { transform: scaleY(0); }
+.motion [data-crop].is-in .crop::before, .motion [data-crop].is-in .crop::after { transform: none; transition: transform .5s var(--ease-out) .1s; }
+
+/* process: static grid, no scroll-jacking */
+.process__pin { min-height: 0; }

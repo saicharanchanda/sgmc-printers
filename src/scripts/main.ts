@@ -1,32 +1,22 @@
 /**
  * Site-wide interactions. Bundled once by Astro; works with View Transitions:
- * persistent things (Lenis smooth scroll) are created once, page-level things
- * are set up on `astro:page-load` and torn down on `astro:before-swap`.
+ * page-level things are set up on `astro:page-load` and torn down on `astro:before-swap`.
+ * No animation library: CSS does the motion, this file only flips classes once
+ * (IntersectionObserver) and drives the light background parallax.
  */
-import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------- smooth scroll (once) ---------- */
-let lenis: Lenis | null = null;
-if (!reduceMotion) {
-  lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, anchors: { offset: -90 } });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis!.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
+const root = document.documentElement;
+/** Ambient motion dial, set in global.css (`--ambient`, 0 = off … 1 = full). */
+const ambient = () => Math.max(0, Math.min(1, parseFloat(getComputedStyle(root).getPropertyValue('--ambient')) || 0));
+if (!reduceMotion) root.classList.add('motion');
 
 let pageAbort: AbortController | null = null;
 let observers: IntersectionObserver[] = [];
-let mm: gsap.MatchMedia | null = null;
 
 document.addEventListener('astro:page-load', () => {
   pageAbort = new AbortController();
   const { signal } = pageAbort;
+  root.classList.toggle('ambient-off', ambient() === 0);
 
   initHeader(signal);
   initMenu(signal);
@@ -36,24 +26,13 @@ document.addEventListener('astro:page-load', () => {
   initForm(signal);
   initSlideshow(signal);
   initFloor(signal);
-  if (!reduceMotion) initMotion();
-
-  // Recalculate positions once fonts/images settle
-  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  if (!reduceMotion) initAmbient(signal);
 });
 
 document.addEventListener('astro:before-swap', () => {
   pageAbort?.abort();
   observers.forEach((o) => o.disconnect());
   observers = [];
-  mm?.revert();
-  mm = null;
-  ScrollTrigger.getAll().forEach((t) => t.kill());
-  lenis?.start();
-});
-
-document.addEventListener('astro:after-swap', () => {
-  lenis?.resize();
 });
 
 /* ---------- header: solid on scroll, hide on scroll down ---------- */
@@ -91,7 +70,6 @@ function initMenu(signal: AbortSignal) {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     menu.toggleAttribute('inert', !open);
-    open ? lenis?.stop() : lenis?.start();
   };
   set(false);
   toggle.addEventListener('click', () => set(!document.body.classList.contains('menu-open')), { signal });
@@ -100,7 +78,7 @@ function initMenu(signal: AbortSignal) {
   window.matchMedia('(min-width: 1100px)').addEventListener('change', (e) => e.matches && set(false), { signal });
 }
 
-/* ---------- reveal on scroll ---------- */
+/* ---------- scroll-in: reveal, ink wipe, CMYK registration, sheet stack, crop marks — once each ---------- */
 function initReveal() {
   document.querySelectorAll<HTMLElement>('[data-reveal-stagger]').forEach((group) => {
     group.querySelectorAll<HTMLElement>(':scope > [data-reveal]').forEach((el, i) => {
@@ -110,19 +88,18 @@ function initReveal() {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        }
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
       });
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
   );
-  document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  document.querySelectorAll('[data-reveal], [data-stack], [data-crop], .eyebrow').forEach((el) => io.observe(el));
   observers.push(io);
 }
 
-/* ---------- number counters ---------- */
+/* ---------- number counters: one 400ms step, in time with the sheet drop ---------- */
 function initCounters() {
   const fmt = new Intl.NumberFormat('en-IN');
   const io = new IntersectionObserver(
@@ -133,14 +110,15 @@ function initCounters() {
         io.unobserve(el);
         const end = Number(el.dataset.count);
         const suffix = el.dataset.suffix ?? '';
-        if (reduceMotion) return void (el.textContent = fmt.format(end) + suffix);
-        const obj = { v: 0 };
-        gsap.to(obj, {
-          v: end,
-          duration: 2,
-          ease: 'power3.out',
-          onUpdate: () => (el.textContent = fmt.format(Math.round(obj.v)) + suffix),
-        });
+        const put = (v: number) => (el.textContent = fmt.format(v) + suffix);
+        if (reduceMotion) return void put(end);
+        const t0 = performance.now();
+        const tick = (t: number) => {
+          const p = Math.min(1, (t - t0) / 400);
+          put(Math.round(end * (1 - (1 - p) ** 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
       });
     },
     { threshold: 0.6 },
@@ -149,45 +127,26 @@ function initCounters() {
   observers.push(io);
 }
 
-/* ---------- GSAP motion ---------- */
-function initMotion() {
-  // Hero headline: lines slide up
-  const heroLines = document.querySelectorAll('.hero .line > span, .page-hero .line > span');
-  if (heroLines.length) {
-    gsap.from(heroLines, { yPercent: 110, duration: 1.1, ease: 'power4.out', stagger: 0.09, delay: 0.1 });
-  }
-
-  // Photo backgrounds: slow parallax as the section scrolls away
-  document.querySelectorAll<HTMLElement>('.press-band [data-photo-bg]').forEach((bg) => {
-    bg.classList.add('photo-bg--parallax');
-    gsap.fromTo(bg, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: bg.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
-
-  // Image parallax
-  document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
-    const amt = Number(el.dataset.parallax || 0.1) * 100;
-    gsap.fromTo(el, { yPercent: -amt / 2 }, {
-      yPercent: amt / 2,
-      ease: 'none',
-      scrollTrigger: { trigger: el.closest('.media') ?? el, start: 'top bottom', end: 'bottom top', scrub: true },
+/* ---------- ambient parallax: machinery textures + photo bands, desktop only ---------- */
+function initAmbient(signal: AbortSignal) {
+  const els = [...document.querySelectorAll<HTMLElement>('[data-ambient-parallax], .press-band [data-photo-bg], [data-parallax]')];
+  const strength = 0.1 * ambient(); // ~10% of scroll
+  if (!els.length || !strength || !window.matchMedia('(min-width: 768px)').matches) return;
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const vh = window.innerHeight;
+    els.forEach((el) => {
+      const box = (el.parentElement ?? el).getBoundingClientRect();
+      if (box.bottom < 0 || box.top > vh) return;
+      const offset = (box.top + box.height / 2 - vh / 2) * -strength;
+      el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
     });
-  });
-
-  // Process: horizontal scroll on desktop
-  mm = gsap.matchMedia();
-  mm.add('(min-width: 1000px)', () => {
-    const section = document.querySelector<HTMLElement>('.process');
-    const pin = section?.querySelector<HTMLElement>('.process__pin');
-    const track = section?.querySelector<HTMLElement>('.process__track');
-    if (!section || !pin || !track) return;
-    const distance = () => Math.max(0, track.scrollWidth - (pin.querySelector('.container') as HTMLElement).clientWidth);
-    if (distance() < 40) { section.classList.add('no-pin'); return; }
-    gsap.to(track, {
-      x: () => -distance(),
-      ease: 'none',
-      scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${distance()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true },
-    });
-  });
+  };
+  const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true, signal });
+  window.addEventListener('resize', onScroll, { passive: true, signal });
 }
 
 /* ---------- press floor: hovering a service swaps the preview sheet ---------- */
@@ -253,9 +212,7 @@ function initFilter(signal: AbortSignal) {
       items.forEach((it) => {
         const show = cat === 'all' || it.dataset.cat === cat;
         it.hidden = !show;
-        if (show && !reduceMotion) gsap.fromTo(it, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
       });
-      ScrollTrigger.refresh();
     }, { signal }),
   );
 }

@@ -7,7 +7,7 @@
 import { Picture } from 'astro:assets';
 import { findImages } from '../lib/images';
 
-interface Props { names: string[]; alt?: string; eager?: boolean; overlay?: 'strong' | 'medium' | 'soft' | 'none' }
+interface Props { names: string[]; alt?: string; eager?: boolean; overlay?: 'strong' | 'medium' | 'soft' | 'plant' | 'none' }
 const { names, alt = '', eager = false, overlay = 'strong' } = Astro.props;
 const images = await findImages(names);
 ---
