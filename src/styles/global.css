@@ -728,3 +728,8 @@ body.menu-open .menu-toggle__close { display: inline; }
 
 /* side photo that follows the text — desktop only; on phones the columns stack and it must scroll normally */
 @media (min-width: 960px) { .sticky-col { position: sticky; top: calc(var(--header-h) + 2rem); } }
+
+/* full company name in the logo (two lines) */
+.brand__name { font-size: 1.32rem; line-height: .95; display: grid; gap: .1rem; }
+.brand__name .brand__name-2 { color: var(--red); font-size: .74em; letter-spacing: .02em; }
+@media (max-width: 400px) { .brand__name { font-size: 1.12rem; } .brand svg { height: 36px; } }

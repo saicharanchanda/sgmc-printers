@@ -52,7 +52,7 @@ const year = new Date().getFullYear();
         <h2 class="footer-h">The press</h2>
         <address style="font-style:normal">
           <ul>
-            <li><a href={SITE.mapLink} target="_blank" rel="noopener">{SITE.address.street}, {SITE.address.locality}, {SITE.address.region} {SITE.address.postalCode}</a></li>
+            {SITE.offices.map((o) => <li><a href={o.map} target="_blank" rel="noopener"><strong style="display:block">{o.label}</strong>{o.lines.join(', ')}</a></li>)}
             {SITE.contacts.map((c) => <li><a href={`tel:${c.phoneHref}`}>{c.name}: {c.phone}</a></li>)}
             <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
             {SITE.hours.map((h) => <li>{h.days}: {h.time}</li>)}
