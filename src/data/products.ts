@@ -5,6 +5,8 @@ export type ProductCategory = {
   slug: string;
   title: string;
   short: string;
+  /** What the list items are called in counts ("9 options"); defaults to "products" */
+  itemNoun?: string;
   /** Hand-written title for the home-page photo card */
   cardTitle: string;
   /** Hand-written CTA heading at the foot of the category page */
@@ -180,6 +182,7 @@ export const categories: ProductCategory[] = [
     title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
     cardTitle: 'Colour, bulk & short-run options',
+    itemNoun: 'options',
     ctaTitle: 'Not sure which colour option you need?',
     intro:
       'Every job is different. Choose the colour configuration, method and quantity that suits your content and budget — we will advise on the most economical option.',

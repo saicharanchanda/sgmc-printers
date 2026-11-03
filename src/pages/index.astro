@@ -67,7 +67,7 @@ const faqSchema = {
       </div>
       <div class="hero__facts" data-stack>
         <div><strong>{yr}</strong><span>Established</span></div>
-        <div><strong data-count="45" data-suffix="+">45+</strong><span>Kinds of product</span></div>
+        <div><strong data-count="45" data-suffix="+">45+</strong><span>Product types</span></div>
         <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
       </div>
     </div>
@@ -97,7 +97,7 @@ const faqSchema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {categories.map((c) => (
-          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.cardTitle} kicker={`${c.items.length} products`} text={c.short} />
+          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.cardTitle} kicker={`${c.items.length} ${c.itemNoun ?? 'products'}`} text={c.short} />
         ))}
       </div>
     </div>
@@ -171,10 +171,10 @@ const faqSchema = {
         <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>Putting knowledge on paper since {yr}.</h2>
         <p class="lead" data-reveal>Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
         <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
-        <div class="facts" data-stack>
+        {/* "100% in-house" is shown once, in the hero facts (C-09) */}
+        <div class="facts" data-stack style="grid-template-columns:repeat(2,1fr)">
           <div><strong data-count="4">4</strong><span>Departments in-house</span></div>
           <div><strong data-count="6">6</strong><span>Printing services</span></div>
-          <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
         </div>
         <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
       </div>

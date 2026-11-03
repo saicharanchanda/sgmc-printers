@@ -35,7 +35,7 @@ const catalogSchema = {
     bg={['bg-products']}
     bgAlt="Printed books stacked after binding"
     eyebrow="Products"
-    lines={['All types of', 'single & multi-colour', 'printing.']}
+    lines={['Everything we print,', 'from textbooks to labels.']}
     lead="From school textbooks and notebooks to magazines, brochures, labels and certificates — here’s what we print. Don’t see your product? Just ask."
     crumbs={crumbs}
   >
@@ -52,7 +52,7 @@ const catalogSchema = {
             <Media name={`cat-${c.slug}`} alt={c.title} class="zz__media" word={c.title.split(' ')[0]} parallax />
           </div>
           <div class="zz__body">
-            <span class="zz__kicker" data-reveal>{c.items.length} products</span>
+            <span class="zz__kicker" data-reveal>{c.items.length} {c.itemNoun ?? 'products'}</span>
             <h2 class="h2" data-reveal>{c.title}</h2>
             <p class="lead" data-reveal>{c.intro}</p>
             <ul class="item-list" role="list" data-reveal>

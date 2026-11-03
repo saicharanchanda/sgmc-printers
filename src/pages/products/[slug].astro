@@ -107,7 +107,7 @@ const schema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {others.slice(0, 3).map((o) => (
-          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.title} kicker={`${o.items.length} products`} />
+          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.title} kicker={`${o.items.length} ${o.itemNoun ?? 'products'}`} />
         ))}
       </div>
     </div>
