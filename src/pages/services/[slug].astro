@@ -98,5 +98,5 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
     </div>
   </section>
 
-  <CTA title={`Need ${s.title.toLowerCase()}?`} />
+  <CTA title={s.ctaTitle ?? `Need ${s.title.toLowerCase()}?`} />
 </BaseLayout>

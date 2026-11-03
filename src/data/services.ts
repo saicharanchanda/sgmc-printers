@@ -10,6 +10,8 @@ export type Service = {
   label: string;
   /** Hand-written button text for the link to this service's page */
   cta: string;
+  /** CTA heading on the detail page; defaults to "Need <title>?" (lower-cased, so set it for acronyms) */
+  ctaTitle?: string;
   short: string;
   intro: string;
   body: string[];
@@ -99,6 +101,7 @@ export const services: Service[] = [
     title: 'Pre-Press & CTP',
     label: 'Pre-press',
     cta: 'See pre-press & CTP',
+    ctaTitle: 'Need pre-press or CTP plates?',
     kicker: 'Where quality starts',
     short: 'File checking, imposition and computer-to-plate (CTP) plate making — accurate plates for a perfect run.',
     intro:
