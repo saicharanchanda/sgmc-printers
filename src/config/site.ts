@@ -17,6 +17,8 @@ export const SITE = {
   description:
     'Shree Gayatri Multi Colour Printers — trusted since 1965 for textbook, book, magazine and commercial printing on our own web offset and sheet-fed offset presses. Single-colour to full-colour, bulk and short-run, all under one roof.',
 
+  // TODO(P0-5) NEEDS BUSINESS CONFIRMATION: final production domain. Placeholder below is baked
+  // into every canonical, OG URL, sitemap entry and schema @id — set it before launch.
   url: 'https://www.sgmcprinters.com', // TODO: final domain bought on GoDaddy (no trailing slash)
 
   foundedYear: FOUNDED,
@@ -89,6 +91,8 @@ export const SITE = {
 
   // Free form backend — get a key at https://web3forms.com (sent to the client's email)
   // Leave '' and the form falls back to sending the enquiry via WhatsApp.
+  // TODO(P0-3) NEEDS BUSINESS CONFIRMATION: Web3Forms access key + the inbox quotes should go to.
+  // Until set, every enquiry depends on WhatsApp opening — no email is ever sent.
   web3formsKey: '', // TODO
 
   promise: ['Quality Printing', 'Competitive Prices', 'Timely Delivery'],

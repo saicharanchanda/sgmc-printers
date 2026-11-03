@@ -260,6 +260,7 @@ function initForm(signal: AbortSignal) {
       status.textContent = msg;
     };
 
+    // TODO(P0-3): no key configured yet (SITE.web3formsKey), so this WhatsApp fallback is the only path.
     if (!key) {
       const lines = [
         `Hi, I'm ${data.get('name')}.`,
