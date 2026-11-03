@@ -174,10 +174,12 @@ const jsonLd = [business, website, crumbSchema, ...schema].filter(Boolean);
     </main>
     <Footer />
 
-    <a class="fab" href={whatsappLink()} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-      <Icon name="whatsapp" />
-      <span class="fab__tip">Chat on WhatsApp</span>
-    </a>
+    <aside aria-label="Quick contact" data-fab>
+      <a class="fab" href={whatsappLink()} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+        <Icon name="whatsapp" />
+        <span class="fab__tip">Chat on WhatsApp</span>
+      </a>
+    </aside>
 
     <script>
       import '../scripts/main';
