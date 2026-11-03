@@ -52,15 +52,17 @@ const contactSchema = {
             <span><small>Email</small><strong>{SITE.email}</strong></span>
           </a>
         </li>
-        <li data-reveal>
-          <a class="contact-item" href={SITE.mapLink} target="_blank" rel="noopener">
-            <span class="contact-item__icon"><Icon name="pin" /></span>
-            <span>
-              <small>Visit</small>
-              <address style="font-style:normal"><strong>{SITE.legalName}</strong><br />{SITE.address.street}, {SITE.address.locality}, {SITE.address.region} {SITE.address.postalCode}</address>
-            </span>
-          </a>
-        </li>
+        {SITE.offices.map((o) => (
+          <li data-reveal>
+            <a class="contact-item" href={o.map} target="_blank" rel="noopener">
+              <span class="contact-item__icon"><Icon name="pin" /></span>
+              <span>
+                <small>{o.label}</small>
+                <address style="font-style:normal">{o.lines.map((l) => <span style="display:block">{l}</span>)}</address>
+              </span>
+            </a>
+          </li>
+        ))}
         <li data-reveal>
           <div class="contact-item">
             <span class="contact-item__icon"><Icon name="clock" /></span>

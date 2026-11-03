@@ -10,7 +10,7 @@
 const FOUNDED = 1965;
 
 export const SITE = {
-  name: 'SGMC Printers',
+  name: 'Shree Gayatri Multi Colour Printers',
   legalName: 'Shree Gayatri Multi Colour Printers',
   shortName: 'SGMC',
   tagline: 'Quality Printing | Competitive Prices | Timely Delivery',
@@ -20,19 +20,32 @@ export const SITE = {
   url: 'https://www.sgmcprinters.com', // TODO: final domain bought on GoDaddy (no trailing slash)
 
   foundedYear: FOUNDED,
-  city: 'Your City', // TODO: e.g. Hyderabad — used heavily for local SEO
-  region: 'Your State', // TODO: e.g. Telangana
+  city: 'Hyderabad',
+  region: 'Telangana',
   country: 'IN',
 
+  // Head office (used for Google structured data and the map)
   address: {
-    street: 'Your Street, Your Area', // TODO
-    locality: 'Your City', // TODO
-    region: 'Your State', // TODO
-    postalCode: '000000', // TODO
+    street: "Near Ali Cafe 'X' Roads, Amberpet",
+    locality: 'Hyderabad',
+    region: 'Telangana',
+    postalCode: '500013',
     country: 'IN',
   },
+  offices: [
+    {
+      label: 'Head Office',
+      lines: ["Near Ali Cafe 'X' Roads, Amberpet", 'Hyderabad – 500 013, Telangana'],
+      map: 'https://www.google.com/maps/search/?api=1&query=Ali+Cafe+X+Roads+Amberpet+Hyderabad+500013',
+    },
+    {
+      label: 'Branch Office',
+      lines: ['Green Industrial Park, Dandu Malkapur (V)', 'Choutuppal (M), Yadadri Bhuvanagiri District – 508 252, Telangana'],
+      map: 'https://www.google.com/maps/search/?api=1&query=Green+Industrial+Park+Dandu+Malkapur+Choutuppal+508252',
+    },
+  ],
 
-  geo: { lat: 17.385, lng: 78.4867 }, // TODO: exact pin from Google Maps (right-click → coordinates)
+  geo: { lat: 17.3937, lng: 78.5166 }, // approx. Ali Cafe X Roads, Amberpet — TODO: exact pin from Google Maps
 
   // Primary number (call buttons, WhatsApp, Google data)
   phone: '+91 97010 99777',
@@ -42,7 +55,7 @@ export const SITE = {
     { name: 'Ramesh', phone: '+91 97010 99777', phoneHref: '+919701099777' },
     { name: 'Gopal Krishna', phone: '+91 99491 77795', phoneHref: '+919949177795' },
   ],
-  email: 'info@sgmcprinters.com', // TODO
+  email: 'sgmcprinters@gmail.com',
 
   hours: [
     { days: 'Monday – Saturday', time: '9:30 AM – 7:30 PM' }, // TODO: confirm
@@ -56,8 +69,8 @@ export const SITE = {
   },
 
   // Google Maps "Embed a map" src URL (Share → Embed a map → copy src)
-  mapEmbed: 'https://www.google.com/maps?q=17.385,78.4867&z=15&output=embed', // TODO
-  mapLink: 'https://maps.google.com/?q=17.385,78.4867', // TODO: Google Business Profile link
+  mapEmbed: 'https://www.google.com/maps?q=Ali+Cafe+X+Roads,+Amberpet,+Hyderabad+500013&z=15&output=embed',
+  mapLink: 'https://www.google.com/maps/search/?api=1&query=Ali+Cafe+X+Roads+Amberpet+Hyderabad+500013', // TODO: Google Business Profile link
 
   social: {
     instagram: '', // TODO: full URLs, leave '' to hide

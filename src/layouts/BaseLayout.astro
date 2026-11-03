@@ -48,7 +48,7 @@ const business = {
   '@type': 'LocalBusiness',
   '@id': `${SITE.url}/#business`,
   name: SITE.legalName,
-  alternateName: SITE.name,
+  alternateName: ['SGMC Printers', 'SGMC'],
   description: SITE.description,
   url: `${SITE.url}/`,
   logo: `${SITE.url}/icon-512.png`,
@@ -67,6 +67,19 @@ const business = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
   hasMap: SITE.mapLink,
+  department: {
+    '@type': 'LocalBusiness',
+    name: `${SITE.legalName} — ${SITE.offices[1].label}`,
+    telephone: SITE.phoneHref,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Green Industrial Park, Dandu Malkapur (V), Choutuppal (M)',
+      addressLocality: 'Yadadri Bhuvanagiri District',
+      addressRegion: 'Telangana',
+      postalCode: '508252',
+      addressCountry: 'IN',
+    },
+  },
   areaServed: [{ '@type': 'City', name: SITE.city }, { '@type': 'Country', name: 'India' }],
   openingHoursSpecification: [
     {
