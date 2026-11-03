@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import Media from '../components/Media.astro';
 import PhotoBg from '../components/PhotoBg.astro';
+import PhotoTile from '../components/PhotoTile.astro';
 import FAQ from '../components/FAQ.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PaperRun from '../components/plant/PaperRun.astro';
@@ -81,28 +82,24 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- CONTENTS — products as a book's table of contents -->
+  <!-- PRODUCTS — photo cards per category -->
   <section class="section" id="contents" aria-labelledby="contents-h">
     <div class="container">
       <div class="section-head section-head--split">
         <div>
           <p class="eyebrow" data-reveal>What we print</p>
-          <h2 id="contents-h" style="margin-top:1rem" data-reveal>Contents</h2>
+          <h2 id="contents-h" style="margin-top:1rem" data-reveal>Print solutions for <em>every need.</em></h2>
         </div>
-        <p class="lead" data-reveal>Single-colour to full-colour, short runs to bulk. Six chapters of print, from school textbooks to labels and certificates.</p>
+        <div style="display:grid;gap:1.2rem;justify-items:start">
+          <p class="lead" data-reveal>Single-colour to full-colour, short runs to bulk, from school textbooks to labels and certificates.</p>
+          <a class="link-arrow" href="/products/" data-reveal>All products <Icon name="arrow" /></a>
+        </div>
       </div>
-      <ol class="toc" role="list" data-reveal-stagger>
-        {categories.map((c, i) => (
-          <li data-reveal>
-            <a href={`/products/${c.slug}/`}>
-              <span class="toc__n">0{i + 1}</span>
-              <span class="toc__title">{c.title.replace(/ Printing$/, '')}</span>
-              <span class="toc__page">{c.items.length} titles</span>
-              <span class="toc__thumb" aria-hidden="true"><Media name={`cat-${c.slug}`} alt="" sizes="220px" /></span>
-            </a>
-          </li>
+      <div class="tiles tiles--products" data-reveal-stagger>
+        {categories.map((c) => (
+          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.title.replace(/ Printing$/, '')} kicker={`${c.items.length} products`} text={c.short} />
         ))}
-      </ol>
+      </div>
     </div>
   </section>
 

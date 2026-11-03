@@ -976,3 +976,12 @@ h1 em, h2 em, .proof { color: var(--red); background: none; padding: 0; }
 }
 .toc__page, .colophon { font-size: .95rem; }
 .lead, .faq .faq__a, .footer-about p, .cta p, .spec__machines, .machine-list strong, .machine-group ul { font-family: var(--font-display); }
+
+/* product cards (home): premium, calmer type scale */
+.tiles--products .tile { min-height: clamp(280px, 26vw, 340px); }
+.tile__title { font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+.tile__shade { background: linear-gradient(180deg, rgba(8,16,38,0) 25%, rgba(8,16,38,.9) 100%); }
+.tile__cta { color: var(--gold); }
+h2, .h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+.promise__item { align-items: center; }
+.promise__item strong { font-size: clamp(1.15rem, 1.8vw, 1.45rem); font-weight: 700; letter-spacing: -0.01em; }
