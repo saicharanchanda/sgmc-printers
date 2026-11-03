@@ -962,3 +962,17 @@ h1 em, h2 em, .proof { color: var(--red); background: none; padding: 0; }
 .team__mono { width: 62px; height: 62px; display: grid; place-items: center; margin-bottom: .9rem; border-radius: 50%; background: var(--ink); color: var(--gold); font-weight: 800; font-size: 1.25rem; letter-spacing: .04em; }
 .team__name { font-size: 1.3rem; }
 .team__role { color: var(--ink-3); font-size: .95rem; line-height: 1.45; }
+
+/* ---------- one typeface, one voice ----------
+   Everything is Manrope. No slanted text anywhere, and every small caps label
+   (eyebrows, breadcrumbs, stat captions, form labels, tags) shares one style. */
+*, *::before, *::after { font-style: normal !important; }
+.eyebrow, .breadcrumbs ol, .brand__sub, .slug, .runner, .zz__kicker, .tile__kicker, .toc__n, .toc__page,
+.stat span, .facts span, .hero__facts span, .field label, .contact-item small, .form__ticket, .footer-h,
+.site-footer h2.footer-h, .footer-bottom, .process-step__n, .machine-card__tag, .spec thead th, .spec__code,
+.machine-group h3, .machine-dept__n + div .eyebrow, .header-phone small, .mobile-menu nav a small, .menu-toggle,
+.product__cat, .service-card__num, .why__top span, .promise__item span, .colophon b, .faq summary::before {
+  font-family: var(--font-display); font-weight: 600; letter-spacing: .08em;
+}
+.toc__page, .colophon { font-size: .95rem; }
+.lead, .faq .faq__a, .footer-about p, .cta p, .spec__machines, .machine-list strong, .machine-group ul { font-family: var(--font-display); }
