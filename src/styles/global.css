@@ -757,6 +757,8 @@ body::after {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: .025; mix-blend-mode: multiply;
 }
+/* UX-12: not worth a full-screen blend layer on phones */
+@media (max-width: 767px) { body::after { content: none; } }
 
 /* hero: full-bleed press photo, ink overlay heavier on the text side */
 .hero--plant { isolation: isolate; color: #fff; padding: clamp(5rem, 11vw, 9rem) 0 clamp(3.5rem, 7vw, 5.5rem); min-height: min(88svh, 860px); display: flex; align-items: center; }
