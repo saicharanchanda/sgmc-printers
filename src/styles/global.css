@@ -987,3 +987,9 @@ h1 em, h2 em, .proof { color: var(--red); background: none; padding: 0; }
 h2, .h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
 .promise__item { align-items: center; }
 .promise__item strong { font-size: clamp(1.15rem, 1.8vw, 1.45rem); font-weight: 700; letter-spacing: -0.01em; }
+
+/* A-01 contrast: small gold text on light surfaces uses the deeper gold (6.1:1 on #f4f6fa).
+   Gold stays for anything on navy. Step numbers sit on white cards even inside dark sections. */
+.eyebrow { color: var(--red-deep); }
+.on-dark .eyebrow, .section--dark .eyebrow { color: var(--gold); }
+.process-step__n, .on-dark .process-step__n { color: var(--red-deep); }
