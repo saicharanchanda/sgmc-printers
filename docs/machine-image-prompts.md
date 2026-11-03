@@ -13,6 +13,27 @@ So the machine images are AI-generated with the prompts below.
 | Google Gemini / Imagen | Yes, per Google's terms | Fast, free tier |
 | Midjourney | Paid plan only | Best-looking, least literal |
 
+## Workflow with Adobe Express + Gemini (what we have)
+
+**Step 1: generate in Adobe Express** (commercially safe Firefly model)
+1. adobe.com/express → **Generate image** (text to image).
+2. Paste the machine prompt **plus** the shared style paragraph below.
+3. Content type: **Photo**. Aspect ratio: **Landscape (4:3)**.
+4. Generate, pick the best of the variations, then **Download → JPG**.
+5. If none are right, generate again. Changing one detail ("from the left side", "wider shot") helps more than rewording everything.
+
+**Step 2: fix flaws in Gemini** (only if needed)
+1. In the Gemini app, upload the image and ask for one change at a time, e.g.:
+   - "Remove all text and logos from the machine, keep everything else identical."
+   - "Make the machine look cleaner and newer, keep the same angle and lighting."
+   - "Remove the person." / "Make the operator face away from the camera."
+2. Download the result. Check the corners for a visible Gemini watermark and crop it out if present.
+   The site crops machine photos to 4:3 anyway, so a small corner trim is fine.
+
+**If Express can't get a machine right** (CTP and folding machines are the hardest), generate it in
+Gemini instead: paste the same prompt and add "landscape 4:3 aspect ratio". Keep all nine in **one
+Gemini chat** and say "same style as the previous image", so the lighting and look stay consistent.
+
 ## Output settings (all images)
 
 - **Aspect ratio 4:3, landscape**, at least **2000 px wide**

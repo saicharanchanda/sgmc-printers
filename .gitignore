@@ -8,3 +8,4 @@ dist/
 # local only
 .claude/
 remote-connection-test.txt
+incoming-images/
