@@ -20,6 +20,8 @@ let n = 0;
 for await (const file of walk('dist')) {
   let s = await readFile(file, 'utf8');
   s = s.replace(attr, (m, pre, off, str) => (str.startsWith(already, off + m.length) ? m : `${pre}${base}/`));
+  // Astro's redirect stubs: <meta http-equiv="refresh" content="0;url=/...">
+  s = s.replace(/(content="\d+;\s*url=)\/(?!\/)/g, (m, pre, off, str) => (str.startsWith(already, off + m.length) ? m : `${pre}${base}/`));
   if (file.endsWith('.webmanifest')) s = s.replace(/"(src|start_url)":\s*"\/(?!\/)/g, `"$1": "${base}/`);
   await writeFile(file, s);
   n++;

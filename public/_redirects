@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects (production). The static build also emits a meta-refresh page at the old URL.
+/products/colour-options/ /products/printing-options/ 301
+/products/colour-options /products/printing-options/ 301

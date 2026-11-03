@@ -32,7 +32,7 @@ Replace with the client's own photos when available — keep the same file names
 | `cat-advertising-promotional.jpg` | Unsplash | https://unsplash.com/photos/1769893715447-8f12c382e49c |
 | `cat-packaging-labels.jpg` | Unsplash | https://unsplash.com/photos/1597587606035-b64422b50f82 |
 | `cat-specialised.jpg` | Unsplash | https://unsplash.com/photos/1595123550384-b81222e23cf9 |
-| `cat-colour-options.jpg` | Unsplash | https://unsplash.com/photos/1565562141896-9e2423ad19b5 |
+| `cat-printing-options.jpg` (was cat-colour-options.jpg) | Unsplash | https://unsplash.com/photos/1565562141896-9e2423ad19b5 |
 | `about-heritage.jpg` | Unsplash | https://unsplash.com/photos/1581508512961-0e3b9524db40 |
 | `facility-1.jpg` | Pexels | https://www.pexels.com/photo/37394505/ |
 | `facility-2.jpg` | Unsplash | https://unsplash.com/photos/1729944950511-e9c71556cfd4 |

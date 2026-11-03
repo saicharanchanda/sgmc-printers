@@ -22,10 +22,12 @@ export default defineConfig({
   base: process.env.BASE_PATH || undefined,
   trailingSlash: 'ignore',
   build: { format: 'directory' },
+  // P2-4: the 'Additional Printing Services' page moved from colour-options to printing-options
+  redirects: { '/products/colour-options/': '/products/printing-options/' },
   prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => !page.includes('/404') && !page.includes('/colour-options'),
       serialize: (item) => ({ ...item, lastmod: buildDate.toISOString(), ...pageMeta(item.url) }),
     }),
   ],

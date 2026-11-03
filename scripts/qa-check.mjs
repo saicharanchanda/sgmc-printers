@@ -37,6 +37,7 @@ async function* walk(dir) {
 // Every built page, as a URL path: dist/services/index.html -> /services/
 const pages = [];
 for await (const f of walk(DIST)) {
+  if (/http-equiv="refresh"/.test(await readFile(f, 'utf8'))) continue; // redirect stubs are not pages
   const rel = relative(DIST, f).split(sep).join('/');
   pages.push('/' + rel.replace(/(^|\/)index\.html$/, '$1'));
 }

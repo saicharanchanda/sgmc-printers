@@ -178,7 +178,7 @@ export const categories: ProductCategory[] = [
       'Printing of training and instruction manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
   },
   {
-    slug: 'colour-options',
+    slug: 'printing-options', // was colour-options; old URL redirects (astro.config redirects + public/_redirects)
     title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
     cardTitle: 'Colour, bulk & short-run options',
