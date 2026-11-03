@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import PhotoBg from '../components/PhotoBg.astro';
+import MachineCard from '../components/MachineCard.astro';
 import Media from '../components/Media.astro';
 import Icon from '../components/Icon.astro';
 import CTA from '../components/CTA.astro';
@@ -9,23 +9,31 @@ import { SITE } from '../config/site';
 
 const crumbs = [{ name: 'Infrastructure', href: '/infrastructure/' }];
 
-const groupInfo: Record<string, { image: string; text: string; href: string }> = {
+const groupInfo: Record<string, { title: string; code: string; image: string; text: string; href: string }> = {
   'Web Offset Printing': {
+    title: 'Web Offset Printing Machines',
+    code: 'WEB',
     image: 'bg-web-offset-printing',
     text: 'Reel-fed presses for high-volume textbooks, notebooks, magazines and periodicals.',
     href: '/services/web-offset-printing/',
   },
   'Sheet-Fed Offset Printing': {
+    title: 'Sheet-Fed Offset Printing Machines',
+    code: 'SHT',
     image: 'bg-sheet-fed-offset-printing',
     text: 'Sheet-fed presses for colour-critical covers, brochures, catalogues and short runs.',
     href: '/services/sheet-fed-offset-printing/',
   },
   'Pre-Press': {
+    title: 'Pre-Press Facilities',
+    code: 'PRE',
     image: 'bg-prepress',
     text: 'Computer-to-plate output straight from your files for sharp, accurate plates.',
     href: '/services/prepress/',
   },
   'Post-Press & Finishing': {
+    title: 'Post-Press & Finishing Facilities',
+    code: 'FIN',
     image: 'bg-binding-finishing',
     text: 'Folding, perfect binding and pinning / stitching to deliver finished books.',
     href: '/services/binding-finishing/',
@@ -79,20 +87,29 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
         <p class="eyebrow" data-reveal>Machinery & equipment</p>
         <h2 id="mach-h" data-reveal>Our machines</h2>
       </div>
-      <div class="machine-panels">
+      <div class="machine-depts">
         {SITE.machineGroups.map((g, i) => {
           const info = groupInfo[g.group];
           return (
-            <article class="machine-panel on-dark" data-reveal>
-              <PhotoBg names={[info.image]} alt={g.group} overlay="medium" />
-              <div class="machine-panel__body">
-                <span class="machine-panel__n">0{i + 1}</span>
-                <h3 class="h2">{g.group}</h3>
-                <p class="lead">{info.text}</p>
-                <ul class="machine-list" role="list">
-                  {g.items.map((m) => <li><strong>{m}</strong></li>)}
-                </ul>
-                <a class="link-arrow" href={info.href}>Learn more <Icon name="arrow" /></a>
+            <article class="machine-dept" id={info.code.toLowerCase()}>
+              <header class="machine-dept__head">
+                <span class="machine-dept__n">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3 class="h2" data-reveal>{info.title}</h3>
+                  <p class="lead" data-reveal>{info.text}</p>
+                  <a class="link-arrow" href={info.href} data-reveal>Learn more <Icon name="arrow" /></a>
+                </div>
+              </header>
+              <div class="machine-grid" data-reveal-stagger>
+                {g.items.map((m, j) => (
+                  <MachineCard
+                    name={m}
+                    photo={SITE.machinePhotos[m]}
+                    fallback={info.image}
+                    dept={info.title}
+                    code={`${info.code}.${j + 1}`}
+                  />
+                ))}
               </div>
             </article>
           );

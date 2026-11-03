@@ -81,6 +81,20 @@ export const SITE = {
     { group: 'Post-Press & Finishing', items: ['Folding Machines', 'Perfect Binding', 'Pinning / Stitching'] },
   ],
 
+  // One photo per machine: save the client's photo as src/assets/images/<file>.jpg (any of jpg/png/webp).
+  // Until a photo exists, the card falls back to the department's general photo.
+  machinePhotos: {
+    'Komori Coldset Web Offset': 'machine-komori-coldset-web',
+    'Orient Web Offset – 4i': 'machine-orient-web-4i',
+    'L37 Offset Printing Machine': 'machine-l37-offset',
+    'Komori 25 × 36': 'machine-komori-25x36',
+    'Komori 18 × 25': 'machine-komori-18x25',
+    'CTP (Computer-to-Plate) System': 'machine-ctp',
+    'Folding Machines': 'machine-folding',
+    'Perfect Binding': 'machine-perfect-binding',
+    'Pinning / Stitching': 'machine-pinning-stitching',
+  } as Record<string, string>,
+
   // Only verifiable facts. Add real figures (books per year, clients served) when the client provides them.
   stats: [
     { value: new Date().getFullYear() - FOUNDED, suffix: '+', label: 'Years of printing' },

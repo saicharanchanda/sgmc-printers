@@ -1,0 +1,28 @@
+---
+/**
+ * One machine, mounted like a press sheet (crop marks + slug line).
+ * Photo: src/assets/images/<photo>.jpg — falls back to the department photo until the client's own arrives.
+ */
+import { Picture } from 'astro:assets';
+import { findImage } from '../lib/images';
+
+interface Props { name: string; photo?: string; fallback: string; dept: string; code: string }
+const { name, photo, fallback, dept, code } = Astro.props;
+const own = photo ? await findImage(photo) : null;
+const img = own ?? (await findImage(fallback));
+---
+<figure class="machine-card" data-reveal>
+  <div class="sheet">
+    <div class="machine-card__img">
+      {img ? (
+        <Picture src={img} alt={`${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
+      ) : <span class="machine-card__empty" />}
+      {!own && <span class="machine-card__tag">Photo coming soon</span>}
+    </div>
+  </div>
+  <figcaption class="slug">
+    <span><b>{code}</b> · {dept}</span>
+    <span class="slug__inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span>
+  </figcaption>
+  <h3 class="machine-card__name">{name}</h3>
+</figure>

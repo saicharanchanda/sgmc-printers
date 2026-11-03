@@ -701,3 +701,20 @@ a.contact-item:hover { color: var(--red); }
 
 /* big multi-line h1: vermilion only — the wavy proof line would collide with the next line */
 h1 em { background: none; padding-bottom: 0; }
+
+/* ---------- machine catalogue (infrastructure page) ---------- */
+.machine-depts { display: grid; gap: clamp(4rem, 8vw, 6.5rem); }
+.machine-dept__head { display: grid; gap: 1rem 2rem; align-items: start; padding-top: 1.4rem; border-top: 2px solid var(--ink); margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+@media (min-width: 900px) { .machine-dept__head { grid-template-columns: 6rem 1fr; } }
+.machine-dept__n { font-weight: 860; font-stretch: 62%; font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: .8; color: var(--red); }
+.machine-dept__head > div { display: grid; gap: 1rem; justify-items: start; }
+.machine-dept__head .h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+.machine-grid { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.machine-card { display: grid; gap: .2rem; }
+.machine-card__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--paper-2); box-shadow: var(--shadow-lg); }
+.machine-card__img picture, .machine-card__img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--ease); }
+.machine-card:hover .machine-card__img img { transform: scale(1.04); }
+.machine-card__empty { position: absolute; inset: 0; background: linear-gradient(135deg, #1d2847, var(--ink)); }
+.machine-card__tag { position: absolute; left: .75rem; top: .75rem; padding: .3rem .6rem; background: rgba(20,28,51,.82); color: #fff; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; }
+.machine-card .slug b { color: var(--red); font-weight: 400; }
+.machine-card__name { font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 760; font-stretch: 78%; padding-inline: 22px; margin-top: .3rem; }
