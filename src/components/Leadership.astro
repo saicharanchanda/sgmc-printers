@@ -1,0 +1,34 @@
+---
+/**
+ * Leadership team cards (names + designations from the client, docs/client-brief.md).
+ * No portraits yet: a gold monogram stands in. Add `photo` names later if the client sends them.
+ */
+import { SITE } from '../config/site';
+
+interface Props { heading?: string; lead?: string }
+const {
+  heading = 'The family behind the press.',
+  lead = `The Vadlamani family and team have led ${SITE.legalName} with one standard since ${SITE.foundedYear}: quality, fair prices and dates that hold.`,
+} = Astro.props;
+const initials = (name: string) => name.replace(/^[A-Z]\.\s*/, '').split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
+---
+<section class="section section--white" aria-labelledby="team-h">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow" data-reveal>Leadership</p>
+        <h2 id="team-h" style="margin-top:1rem" data-reveal>{heading}</h2>
+      </div>
+      <p class="lead" data-reveal>{lead}</p>
+    </div>
+    <ul class="team" role="list" data-reveal-stagger>
+      {SITE.leadership.map((p) => (
+        <li class="team__card" data-reveal>
+          <span class="team__mono" aria-hidden="true">{initials(p.name)}</span>
+          <h3 class="team__name">{p.name}</h3>
+          <p class="team__role">{p.role}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -10,6 +10,7 @@ import Roller from '../components/plant/Roller.astro';
 import TextureBg from '../components/plant/TextureBg.astro';
 import CropMarks from '../components/plant/CropMarks.astro';
 import HeroVideo from '../components/plant/HeroVideo.astro';
+import Leadership from '../components/Leadership.astro';
 import { SITE, whatsappLink } from '../config/site';
 import { services, process } from '../data/services';
 import { categories } from '../data/products';
@@ -53,8 +54,8 @@ const faqSchema = {
     <div class="container">
       <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>
       <h1>
-        <span class="line"><span>Printing the pages</span></span>
-        <span class="line"><span><em>people learn from.</em></span></span>
+        <span class="line"><span>Printing excellence</span></span>
+        <span class="line"><span><em>across generations.</em></span></span>
       </h1>
       <p class="lead" data-reveal>
         Textbooks, notebooks, magazines and commercial print, produced on our own web and sheet-fed offset presses. Plate, press and binding, all in one building.
@@ -66,7 +67,7 @@ const faqSchema = {
       <div class="hero__facts" data-stack>
         <div><strong>{yr}</strong><span>Established</span></div>
         <div><strong data-count="45" data-suffix="+">45+</strong><span>Kinds of product</span></div>
-        <div><strong>CTP</strong><span>Plate to book</span></div>
+        <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
       </div>
     </div>
   </section>
@@ -182,6 +183,8 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <Leadership />
 
   <PaperRun />
 

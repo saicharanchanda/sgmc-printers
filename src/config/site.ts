@@ -57,6 +57,14 @@ export const SITE = {
   ],
   email: 'sgmcprinters@gmail.com',
 
+  // Leadership team (designations as recommended to the client)
+  leadership: [
+    { name: 'Ramesh Vadlamani', role: 'Chairman' },
+    { name: 'Gopal Krishna Vadlamani', role: 'Director – Business Development & Client Relations' },
+    { name: 'P. Radha Madhav', role: 'Director – Sales & Marketing' },
+    { name: 'Hrushikesh Vadlamani', role: 'Executive Director – Strategy & Operations' },
+  ],
+
   hours: [
     { days: 'Monday – Saturday', time: '9:30 AM – 7:30 PM' }, // TODO: confirm
     { days: 'Sunday', time: 'Closed' },

@@ -1,10 +1,10 @@
 # The Pages site is deployed from main (its environment only allows main),
 # so a push here asks main's workflow to rebuild both designs.
-name: Redeploy v3 preview
+name: Redeploy v4 preview
 
 on:
   push:
-    branches: [design-v3]
+    branches: [design-v4]
 
 permissions:
   actions: write

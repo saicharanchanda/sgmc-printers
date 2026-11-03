@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import Media from '../components/Media.astro';
 import Icon from '../components/Icon.astro';
 import CTA from '../components/CTA.astro';
+import Leadership from '../components/Leadership.astro';
 import { SITE } from '../config/site';
 
 const crumbs = [{ name: 'About', href: '/about/' }];
@@ -68,7 +69,9 @@ const aboutSchema = {
     </div>
   </section>
 
-  <section class="section section--white" aria-labelledby="promise-h">
+  <Leadership heading="Leadership team." />
+
+  <section class="section" aria-labelledby="promise-h">
     <div class="container">
       <div class="section-head section-head--center">
         <p class="eyebrow" data-reveal>Our promise</p>

@@ -189,3 +189,12 @@ Tone guidance: say "experienced designers", "modern infrastructure", "dependable
 
 Open questions:
 - [ ] Client draft says "over 65 years" and "three generations", but founded 1965 = 61 years. Confirm founding year / wording.
+
+## 7. Leadership team (received 2026-11-03)
+
+| Person | Designation |
+|---|---|
+| Ramesh Vadlamani | Chairman |
+| Gopal Krishna Vadlamani | Director – Business Development & Client Relations |
+| P. Radha Madhav | Director – Sales & Marketing |
+| Hrushikesh Vadlamani | Executive Director – Strategy & Operations |

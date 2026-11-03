@@ -1,8 +1,5 @@
 ---
-import '@fontsource-variable/archivo/wdth.css';
-import '@fontsource-variable/newsreader/wght.css';
-import '@fontsource-variable/newsreader/wght-italic.css';
-import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource-variable/manrope/wght.css';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
@@ -75,6 +72,7 @@ const business = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
   hasMap: SITE.mapLink,
+  employee: SITE.leadership.map((p) => ({ '@type': 'Person', name: p.name, jobTitle: p.role })),
   department: {
     '@type': 'LocalBusiness',
     name: `${SITE.legalName} — ${SITE.offices[1].label}`,
@@ -133,7 +131,7 @@ const jsonLd = [business, website, crumbSchema, ...schema].filter(Boolean);
     <link rel="canonical" href={canonical} />
     {(noindex || isPreview) && <meta name="robots" content="noindex, follow" />}
 
-    <meta name="theme-color" content="#141c33" />
+    <meta name="theme-color" content="#0b1630" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
