@@ -3,6 +3,8 @@
 //   1. no horizontal overflow  (documentElement.scrollWidth <= clientWidth)
 //   2. no two .process-step cards on the same row overlap
 //   3. no console errors / uncaught page errors
+//   4. nothing in the site header extends past the viewport's right edge
+//      (body { overflow-x: clip } hides that from check 1)
 // Usage: build first (with BASE_PATH + apply-base), then
 //   BASE_PATH=/sgmc-printers/v4 node scripts/qa-check.mjs [--json out.json]
 // Needs a local Chrome (playwright-core, channel 'chrome', or CHROME_PATH). Exits 1 if anything fails.
@@ -100,13 +102,20 @@ async function check(path, width) {
         if (v > Math.min(a.height, b.height) / 2 && h > 1) overlap = Math.max(overlap, Math.round(h));
       }
     }
-    return { sw: de.scrollWidth, cw: de.clientWidth, steps: steps.length, overlap };
+    const header = document.querySelector('.site-header');
+    const headerRight = header ? Math.max(...[...header.querySelectorAll('*')]
+      .filter((el) => !el.closest('[data-mobile-menu]'))
+      .map((el) => el.getBoundingClientRect())
+      .filter((r) => r.width > 0 && r.height > 0)
+      .map((r) => r.right)) : 0;
+    return { sw: de.scrollWidth, cw: de.clientWidth, steps: steps.length, overlap, headerOver: Math.round(headerRight - de.clientWidth) };
   });
   await ctx.close();
   // Blocked third-party requests log "Failed to load resource" errors; those are not build defects.
   const real = errors.filter((e) => !/net::ERR_FAILED|ERR_BLOCKED_BY_CLIENT/.test(e));
   const fails = [];
   if (m.sw > m.cw) fails.push(`overflow +${m.sw - m.cw}px`);
+  if (m.headerOver > 0) fails.push(`header +${m.headerOver}px past viewport`);
   if (m.overlap) fails.push(`process-step overlap ${m.overlap}px`);
   if (real.length) fails.push(`console: ${real[0]}`);
   return { path, width, ...m, errors: real, fails };
