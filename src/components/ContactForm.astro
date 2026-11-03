@@ -3,6 +3,8 @@ import Icon from './Icon.astro';
 import { SITE } from '../config/site';
 import { services } from '../data/services';
 import { categories } from '../data/products';
+// Bound from frontmatter so the backslash survives the build (inline, Astro strips it).
+const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
 ---
 <form class="form" data-contact-form data-key={SITE.web3formsKey} data-wa={SITE.whatsapp} novalidate={false}>
   <div class="form__ticket" aria-hidden="true">
@@ -20,7 +22,7 @@ import { categories } from '../data/products';
     </div>
     <div class="field">
       <label for="f-phone">Phone / WhatsApp <span>*</span></label>
-      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+\-\s()]{8,}" required />
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern={PHONE_PATTERN} title="10–15 digits. You can include + and spaces." required />
     </div>
   </div>
   <div class="form__row">
