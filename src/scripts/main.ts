@@ -78,10 +78,17 @@ function initMenu(signal: AbortSignal) {
   if (!toggle || !menu) return;
 
   const set = (open: boolean) => {
+    const wasOpen = document.body.classList.contains('menu-open');
     document.body.classList.toggle('menu-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     menu.toggleAttribute('inert', !open);
+    // Page behind the full-screen menu is unreachable while it is open (A-04).
+    document.querySelector('main')?.toggleAttribute('inert', open);
+    document.querySelector('footer')?.toggleAttribute('inert', open);
+    document.querySelector('[data-fab]')?.toggleAttribute('inert', open);
+    if (open) menu.querySelector('a')?.focus();
+    else if (wasOpen) toggle.focus(); // only when actually closing, not on page load
   };
   set(false);
   toggle.addEventListener('click', () => set(!document.body.classList.contains('menu-open')), { signal });
