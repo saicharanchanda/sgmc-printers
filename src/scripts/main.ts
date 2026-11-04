@@ -30,12 +30,16 @@ document.addEventListener('astro:page-load', () => {
   initHeroVideo();
 });
 
-/* ---------- hero background video: desktop only, fades in over the still once playing ---------- */
+/* ---------- hero background video: fades in over the still once playing (skipped for reduced motion / Data Saver) ---------- */
 function initHeroVideo() {
   const wrap = document.querySelector<HTMLElement>('[data-hero-video]');
   const video = wrap?.querySelector('video');
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-  if (!wrap || !video?.dataset.src || reduceMotion || saveData || !window.matchMedia('(min-width: 768px)').matches) return;
+  if (!wrap || !video?.dataset.src || reduceMotion || saveData) return;
+  // iOS only autoplays inline video that is muted as a property, not just the attribute.
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
   video.addEventListener('playing', () => wrap.classList.add('is-playing'), { once: true });
   video.src = video.dataset.src;
   video.play().catch(() => {}); // autoplay refused → the still stays
