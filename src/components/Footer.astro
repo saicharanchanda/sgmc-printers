@@ -1,5 +1,4 @@
 ---
-import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { SITE, whatsappLink } from '../config/site';
 import { services } from '../data/services';
@@ -23,7 +22,6 @@ const year = new Date().getFullYear();
 
     <div class="footer-top">
       <div class="footer-about">
-        <Logo size="footer" />
         <p>{SITE.legalName}. Books, publications and commercial print on our own offset presses.</p>
         {socials.length > 0 && (
           <div class="socials">

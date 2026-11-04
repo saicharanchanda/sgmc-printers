@@ -1,20 +1,21 @@
 ---
 // Client's own title card (logo mark + name + tagline), supplied 2026-11-04.
 // Originals: docs/brand/sgmc-title-card.pdf and docs/brand/sgmc-logo-mark.jpg.
-// Shown on a white plate exactly as supplied, so it reads the same over the dark hero,
-// the navy header and the footer — no recolouring of the client's artwork.
+// The header is always dark (transparent over the hero, navy when scrolled), so this uses a
+// transparent version separated from the white artboard ink by ink; only the black ink
+// (tagline, one quarter of the mark) is reversed to white so it stays visible.
 import { Picture } from 'astro:assets';
-import titleCard from '../assets/brand/sgmc-title-card.png';
-interface Props { href?: string; size?: 'header' | 'footer' }
-const { href = '/', size = 'header' } = Astro.props;
+import titleCard from '../assets/brand/sgmc-title-card-on-dark.png';
+interface Props { href?: string }
+const { href = '/' } = Astro.props;
 ---
-<a href={href} class={`brand brand--${size}`}>
+<a href={href} class="brand">
   <Picture
     src={titleCard}
     alt="Shree Gayathri Multi Colour Printers — All Types of Single & Multi Colour Printing"
     formats={['webp']}
-    widths={size === 'header' ? [240, 480, 720] : [320, 640, 960]}
-    sizes={size === 'header' ? '(max-width: 400px) 170px, 240px' : '320px'}
+    widths={[240, 480, 720]}
+    sizes="(max-width: 360px) 150px, (max-width: 400px) 170px, 230px"
     loading="eager"
     class="brand__card"
   />
