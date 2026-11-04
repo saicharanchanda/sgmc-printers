@@ -1,22 +1,21 @@
 ---
-// Placeholder mark: a registration target over three overlapping process-ink dots.
-// Replace with the client's logo SVG when available.
-import { SITE } from '../config/site';
-interface Props { href?: string }
-const { href = '/' } = Astro.props;
+// Client's own title card (logo mark + name + tagline), supplied 2026-11-04.
+// Originals: docs/brand/sgmc-title-card.pdf and docs/brand/sgmc-logo-mark.jpg.
+// Shown on a white plate exactly as supplied, so it reads the same over the dark hero,
+// the navy header and the footer — no recolouring of the client's artwork.
+import { Picture } from 'astro:assets';
+import titleCard from '../assets/brand/sgmc-title-card.png';
+interface Props { href?: string; size?: 'header' | 'footer' }
+const { href = '/', size = 'header' } = Astro.props;
 ---
-<a href={href} class="brand">
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <circle class="ink" cx="19" cy="20" r="10" fill="#00a0e3" style="mix-blend-mode:multiply" />
-    <circle class="ink" cx="29" cy="20" r="10" fill="#e5007d" style="mix-blend-mode:multiply" />
-    <circle class="ink" cx="24" cy="29" r="10" fill="#ffde00" style="mix-blend-mode:multiply" />
-    <g stroke="currentColor" stroke-width="1.5" fill="none">
-      <circle cx="24" cy="24" r="6" />
-      <path d="M24 2v12M24 34v12M2 24h12M34 24h12" />
-    </g>
-  </svg>
-  <span class="brand__text">
-    <span class="brand__name">Shree Gayatri <span class="brand__name-2">Multi Colour Printers</span></span>
-    <span class="brand__sub">Since {SITE.foundedYear} · Hyderabad</span>
-  </span>
+<a href={href} class={`brand brand--${size}`}>
+  <Picture
+    src={titleCard}
+    alt="Shree Gayathri Multi Colour Printers — All Types of Single & Multi Colour Printing"
+    formats={['webp']}
+    widths={size === 'header' ? [240, 480, 720] : [320, 640, 960]}
+    sizes={size === 'header' ? '(max-width: 400px) 170px, 240px' : '320px'}
+    loading="eager"
+    class="brand__card"
+  />
 </a>
