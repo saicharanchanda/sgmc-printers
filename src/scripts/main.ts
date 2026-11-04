@@ -40,9 +40,16 @@ function initHeroVideo() {
   video.muted = true;
   video.defaultMuted = true;
   video.playsInline = true;
+  video.autoplay = true;
+  video.preload = 'auto';
   video.addEventListener('playing', () => wrap.classList.add('is-playing'), { once: true });
   video.src = video.dataset.src;
-  video.play().catch(() => {}); // autoplay refused → the still stays
+  video.load();
+  video.play().catch(() => {
+    // Autoplay refused (e.g. iOS Low Power Mode): the still stays, and the first tap starts the video.
+    const retry = () => { if (video.paused) video.play().catch(() => {}); };
+    ['touchend', 'click', 'keydown'].forEach((t) => document.addEventListener(t, retry, { once: true, passive: true }));
+  });
 }
 
 document.addEventListener('astro:before-swap', () => {
