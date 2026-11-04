@@ -58,7 +58,7 @@ document.addEventListener('astro:before-swap', () => {
   observers = [];
 });
 
-/* ---------- header: solid on scroll, hide on scroll down ---------- */
+/* ---------- header: transparent over the hero, solid on scroll ---------- */
 function initHeader(signal: AbortSignal) {
   const header = document.querySelector<HTMLElement>('[data-header]');
   const progress = document.querySelector<HTMLElement>('.progress');
@@ -67,11 +67,8 @@ function initHeader(signal: AbortSignal) {
 
   const update = () => {
     const y = window.scrollY;
+    // Fixed and always visible; turns solid navy once the page leaves the top of the hero.
     header.classList.toggle('is-scrolled', y > 24);
-    if (!document.body.classList.contains('menu-open')) {
-      if (y > 400 && y > lastY + 4) header.classList.add('is-hidden');
-      else if (y < lastY - 4 || y <= 400) header.classList.remove('is-hidden');
-    }
     if (Math.abs(y - lastY) > 4) lastY = y;
     if (progress) {
       const max = document.documentElement.scrollHeight - window.innerHeight;

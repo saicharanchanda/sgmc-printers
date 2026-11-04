@@ -1004,3 +1004,25 @@ h2, .h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
   .menu-toggle { padding: 0 .6rem; gap: .4rem; }
   .site-header .container { gap: .75rem; }
 }
+
+/* ---------- header: always visible; transparent over the dark hero, solid navy once scrolled ----------
+   Pages that open with a dark hero (every page but 404) let the hero run up under the header. */
+.site-header { background: transparent; box-shadow: none; border-bottom: 1px solid transparent; color: #fff; }
+.site-header.is-hidden { transform: none; }
+.site-header.is-scrolled, body.menu-open .site-header, body:not(:has(main > .on-dark:first-child)) .site-header {
+  background: rgba(8,16,38,.96); border-bottom-color: rgba(201,164,92,.28); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.site-header .brand__name { color: #fff; }
+.site-header .brand__name .brand__name-2 { color: var(--gold); }
+.site-header .brand__sub { color: rgba(255,255,255,.62); }
+.site-header .brand svg .ink { mix-blend-mode: screen !important; }
+.site-header .nav a { color: rgba(255,255,255,.82); }
+.site-header .nav a:hover, .site-header .nav a[aria-current='page'] { color: #fff; }
+.site-header .header-phone small { color: rgba(255,255,255,.6); }
+.site-header .header-phone:hover strong { color: var(--gold); }
+.site-header .btn { --hbg: #fff; --hfg: var(--ink); --hbd: #fff; }
+.site-header .menu-toggle { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
+.site-header .menu-toggle:hover, body.menu-open .site-header .menu-toggle { box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold); }
+body:has(main > .on-dark:first-child) main { padding-top: 0; }
+main > .hero--plant:first-child { padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 6rem)); }
+main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)); min-height: calc(min(68svh, 620px) + var(--header-h) * .5); }
