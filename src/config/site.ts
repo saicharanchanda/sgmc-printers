@@ -10,12 +10,12 @@
 const FOUNDED = 1965;
 
 export const SITE = {
-  name: 'Shree Gayatri Multi Colour Printers',
-  legalName: 'Shree Gayatri Multi Colour Printers',
+  name: 'Shree Gayathri Multi Colour Printers',
+  legalName: 'Shree Gayathri Multi Colour Printers',
   shortName: 'SGMC',
   tagline: 'Quality Printing | Competitive Prices | Timely Delivery',
   description:
-    'Shree Gayatri Multi Colour Printers — trusted since 1965 for textbook, book, magazine and commercial printing on our own web offset and sheet-fed offset presses. Single-colour to full-colour, bulk and short-run, all under one roof.',
+    'Shree Gayathri Multi Colour Printers — trusted since 1965 for textbook, book, magazine and commercial printing on our own web offset and sheet-fed offset presses. Single-colour to full-colour, bulk and short-run, all under one roof.',
 
   // TODO(P0-5) NEEDS BUSINESS CONFIRMATION: final production domain. Placeholder below is baked
   // into every canonical, OG URL, sitemap entry and schema @id — set it before launch.

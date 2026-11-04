@@ -1,6 +1,6 @@
 # SGMC Printers — Website
 
-Static marketing site for **Shree Gayatri Multi Colour Printers**, built with **Astro 5**, GSAP + Lenis for motion, and zero backend. Hosted free on Cloudflare Pages.
+Static marketing site for **Shree Gayathri Multi Colour Printers**, built with **Astro 5**, GSAP + Lenis for motion, and zero backend. Hosted free on Cloudflare Pages.
 
 ## Run locally
 

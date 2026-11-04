@@ -1,6 +1,6 @@
 # SGMC Printers — Client Brief
 
-Source of truth for site content, as provided by the client (Shree Gayatri Multi Colour Printers).
+Source of truth for site content, as provided by the client (Shree Gayathri Multi Colour Printers).
 Received: 2026-11-03.
 
 **Tagline:** QUALITY PRINTING | COMPETITIVE PRICES | TIMELY DELIVERY

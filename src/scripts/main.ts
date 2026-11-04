@@ -326,7 +326,7 @@ function initForm(signal: AbortSignal) {
     try {
       data.append('access_key', key);
       data.append('subject', `New enquiry: ${data.get('service')} — ${data.get('name')}`);
-      data.append('from_name', 'Shree Gayatri Multi Colour Printers website');
+      data.append('from_name', 'Shree Gayathri Multi Colour Printers website');
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
       const json = await res.json();
       if (!json.success) throw new Error(json.message);
