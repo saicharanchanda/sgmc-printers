@@ -21,10 +21,31 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-top">
-      <div class="footer-about">
+      <!-- Left: who we are + every way to reach us -->
+      <div class="footer-info">
         <p class="footer-brand">{SITE.legalName}</p>
         <p class="footer-legacy">{SITE.legacyLine}</p>
-        <p>Bringing together generations of printing expertise, integrated production capabilities and a lasting commitment to customer satisfaction.</p>
+        <p class="footer-desc">Bringing together generations of printing expertise, integrated production capabilities and a lasting commitment to customer satisfaction.</p>
+        <address class="footer-contact">
+          <ul>
+            {SITE.offices.map((o, i) => (
+              <>
+                <li>
+                  <Icon name="pin" />
+                  <a href={o.map} target="_blank" rel="noopener"><strong>{o.label}</strong>{o.lines.join(', ')}</a>
+                </li>
+                {SITE.contacts[i] && (
+                  <li>
+                    <Icon name="phone" />
+                    <a href={`tel:${SITE.contacts[i].phoneHref}`}>{SITE.contacts[i].phone} <small>({SITE.contacts[i].name})</small></a>
+                  </li>
+                )}
+              </>
+            ))}
+            <li><Icon name="mail" /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><Icon name="clock" /><span>{SITE.hours.map((h) => <span style="display:block">{h.days}: {h.time}</span>)}</span></li>
+          </ul>
+        </address>
         {socials.length > 0 && (
           <div class="socials">
             {socials.map(([name, url]) => (
@@ -34,33 +55,20 @@ const year = new Date().getFullYear();
         )}
       </div>
 
+      <!-- Right: link columns -->
       <div>
-        <h2 class="footer-h">Quick Links</h2>
-        <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
-      </div>
-
-      <div>
-        <h2 class="footer-h">Services</h2>
+        <h2 class="footer-h">Our Services</h2>
         <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}</ul>
       </div>
 
       <div>
-        <h2 class="footer-h">Products</h2>
-        <ul>
-          {categories.map((c) => <li><a href={`/products/${c.slug}/`}>{c.hub.title}</a></li>)}
-        </ul>
+        <h2 class="footer-h">Our Products</h2>
+        <ul>{categories.map((c) => <li><a href={`/products/${c.slug}/`}>{c.hub.title}</a></li>)}</ul>
       </div>
 
       <div>
-        <h2 class="footer-h">Contact</h2>
-        <address style="font-style:normal">
-          <ul>
-            {SITE.offices.map((o) => <li><a href={o.map} target="_blank" rel="noopener"><strong style="display:block">{o.label}</strong>{o.lines.join(', ')}</a></li>)}
-            {SITE.contacts.map((c) => <li><a href={`tel:${c.phoneHref}`}>{c.name}: {c.phone}</a></li>)}
-            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-            {SITE.hours.map((h) => <li>{h.days}: {h.time}</li>)}
-          </ul>
-        </address>
+        <h2 class="footer-h">Quick Links</h2>
+        <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
       </div>
     </div>
 
