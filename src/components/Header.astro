@@ -17,7 +17,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     </nav>
     <div class="header-actions">
       <a class="header-phone" href={`tel:${SITE.phoneHref}`}><small>Call the press</small><strong>{SITE.phone}</strong></a>
-      <a class="btn btn--sm" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--sm" href="/contact/">Request a Quote <Icon name="arrow" class="arrow" /></a>
       <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" data-menu-toggle>
         <span class="menu-toggle__bars"><span></span><span></span><span></span></span>
         <span class="menu-toggle__open" aria-hidden="true">Menu</span><span class="menu-toggle__close" aria-hidden="true">Close</span>
@@ -38,7 +38,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     {SITE.contacts.map((c) => <a href={`tel:${c.phoneHref}`}>{c.name} — {c.phone}</a>)}
     <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
     <div class="btn-row" style="margin-top:.5rem">
-      <a class="btn" href="/contact/">Get a quote</a>
+      <a class="btn" href="/contact/">Request a Quote</a>
       <a class="btn btn--wa" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
     </div>
   </div>

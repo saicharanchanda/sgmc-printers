@@ -6,7 +6,7 @@ import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import PhotoTile from '../../components/PhotoTile.astro';
 import CTA from '../../components/CTA.astro';
-import { SITE, whatsappLink } from '../../config/site';
+import { SITE, whatsappLink, waMessage } from '../../config/site';
 import { categories, type ProductCategory } from '../../data/products';
 import { services } from '../../data/services';
 
@@ -46,8 +46,8 @@ const schema = {
 >
   <PageHero bg={[`cat-${c.slug}`]} bgAlt={c.title} eyebrow="Products" lines={[c.title]} lead={c.intro} crumbs={crumbs}>
     <div class="btn-row" style="margin-top:2rem" data-reveal>
-      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(c.title)}`}>Request a quote <Icon name="arrow" class="arrow" /></a>
-      <a class="btn btn--wa" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${c.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(c.title)}`}>Enquire About This Product <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--wa" href={whatsappLink(waMessage(c.title))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
     </div>
   </PageHero>
 
@@ -107,11 +107,19 @@ const schema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {others.slice(0, 3).map((o) => (
-          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.title} kicker={`${o.items.length} ${o.itemNoun ?? 'products'}`} />
+          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.hub.title} kicker={o.hub.tagline} />
         ))}
       </div>
     </div>
   </section>
 
-  <CTA title={c.ctaTitle} />
+  <CTA
+    eyebrow="Enquire"
+    title={c.ctaTitle}
+    sub=""
+    text="Share your product type, quantity, size, page count, colours and finishing, and our team will discuss a suitable quotation."
+    primary={{ label: 'Enquire About This Product', href: `/contact/?service=${encodeURIComponent(c.title)}` }}
+    secondary={{ label: 'Speak With Our Team', href: '/contact/' }}
+    product={c.title}
+  />
 </BaseLayout>

@@ -9,10 +9,11 @@ import { SITE } from '../config/site';
 
 const crumbs = [{ name: 'About', href: '/about/' }];
 
+// Client copy (2026-11-05): the three commitments, explained in the client's own words
 const promise = [
-  { icon: 'shield', title: 'Quality Printing', text: 'CTP plates, well-maintained offset presses and checks at every stage — so every copy matches the approved proof.' },
-  { icon: 'rupee', title: 'Competitive Prices', text: 'Owning our building and machinery means no middlemen and no outsourcing mark-ups — savings we pass on.' },
-  { icon: 'clock', title: 'Timely Delivery', text: 'Printing and binding under one roof keeps schedules in our control, including academic-year deadlines.' },
+  { icon: 'shield', title: 'Quality Printing', text: 'From artwork preparation to final finishing, our production approach emphasizes careful execution and consistency.' },
+  { icon: 'rupee', title: 'Competitive Pricing', text: 'We work to provide practical printing solutions and competitive pricing based on your project’s specifications and quantities.' },
+  { icon: 'clock', title: 'Timely Delivery', text: 'We understand the importance of production schedules and work closely with customers to plan printing and delivery requirements.' },
 ] as const;
 
 const aboutSchema = {
@@ -25,62 +26,33 @@ const aboutSchema = {
 <BaseLayout
   heroDark
   title={`About Us — Printing Since ${SITE.foundedYear}`}
-  description={`${SITE.legalName} has been printing since ${SITE.foundedYear}. Books, educational and commercial printing from our own building with in-house offset presses, CTP and binding.`}
+  description={`${SITE.legalName}: a family legacy of printing excellence since ${SITE.foundedYear}, serving educational, publication and commercial printing requirements in ${SITE.city}.`}
   breadcrumbs={crumbs}
   schema={[aboutSchema]}
 >
   <PageHero
     bg={['bg-about']}
-    bgAlt="Workers operating an offset press in a busy print shop"
-    eyebrow={`Since ${SITE.foundedYear}`}
-    lines={[`Trusted printing`, `since ${SITE.foundedYear}.`]}
-    lead={`${SITE.legalName} has served schools, colleges, publishers and businesses since ${SITE.foundedYear} — with quality printing, competitive prices and timely delivery.`}
+    bgAlt="Offset press in a print shop (illustrative image)"
+    eyebrow="About us"
+    lines={['Rooted in Tradition.', 'Focused on the Future.']}
+    sub={`A Family Legacy of Printing Excellence Since ${SITE.foundedYear}.`}
+    lead={`${SITE.legalName} represents generations of printing knowledge, customer relationships and dedication to the craft.`}
+    more="What began as a family printing business has continued to develop into an integrated printing operation serving educational, publication and commercial requirements."
     crumbs={crumbs}
   />
 
-  <section class="section">
-    <div class="container split">
-      <Media name="about-heritage" alt="Printing press in the press hall" word={`Est. ${SITE.foundedYear}`} parallax />
-      <div style="display:grid;gap:1.4rem">
-        <p class="eyebrow" data-reveal>Our story</p>
-        <h2 data-reveal>Putting knowledge on paper, since {SITE.foundedYear}.</h2>
-        {/* NEEDS BUSINESS CONFIRMATION (C-07), before any history copy is written:
-            - founder's name, what was printed first, and the first premises
-            - dated milestones: first offset press, web offset line added, CTP replacing film, Choutuppal facility
-            - number of generations ("three"?) and the founding-year arithmetic: the client's draft says
-              "over 65 years" but 1965 is 61 years ago
-            Audit shape to fill once confirmed: "Three generations at the same press." (docs/qa-audit.md, C-07). */}
-        <p class="lead" data-reveal>Since {SITE.foundedYear}, Shree Gayathri Multi Colour Printers has grown into a complete, in-house printing facility trusted for textbooks, publications and commercial work.</p>
-        <p class="muted" data-reveal>Today we operate from our own building with web offset and sheet-fed offset presses, a CTP pre-press system and in-house folding, perfect binding and stitching. Owning the entire process lets us control quality, cost and delivery for every job — from a short run of brochures to bulk textbook orders.</p>
-        <div class="btn-row" data-reveal>
-          <a class="btn" href="/infrastructure/">Our infrastructure <Icon name="arrow" class="arrow" /></a>
-          <a class="btn btn--outline" href="/contact/">Visit our press</a>
+  <!-- OUR PHILOSOPHY -->
+  <section class="section" aria-labelledby="philosophy-h">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Our philosophy</p>
+          <h2 id="philosophy-h" style="margin-top:1rem" data-reveal>Quality Is Our Commitment. <span class="proof">Trust Is Our Foundation.</span></h2>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--dark" aria-labelledby="stats-h">
-    <div class="container">
-      <h2 id="stats-h" class="sr-only">SGMC in numbers</h2>
-      <div class="stats stats--4" data-reveal>
-        {SITE.stats.map((s) => (
-          <div class="stat">
-            <strong {...(s.label === 'Printing since' ? {} : { 'data-count': s.value, 'data-suffix': s.suffix })}>{s.value}{s.suffix}</strong>
-            <span>{s.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <Leadership heading="Leadership team." />
-
-  <section class="section" aria-labelledby="promise-h">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <p class="eyebrow" data-reveal>Our promise</p>
-        <h2 id="promise-h" data-reveal>{SITE.promise.join(' · ')}</h2>
+        <div style="display:grid;gap:1rem">
+          <p class="lead" data-reveal>We believe successful printing begins with understanding the customer.</p>
+          <p data-reveal>Every project requires the right combination of planning, technical knowledge, equipment and careful execution. Our approach is built around three enduring commitments:</p>
+        </div>
       </div>
       <div class="grid grid-3" data-reveal-stagger>
         {promise.map((v) => (
@@ -94,22 +66,68 @@ const aboutSchema = {
     </div>
   </section>
 
-  <section class="section" aria-labelledby="facility-h">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <p class="eyebrow" data-reveal>Inside the press</p>
-          <h2 id="facility-h" style="margin-top:1rem" data-reveal>Our facility</h2>
+  <!-- OUR EXPERIENCE -->
+  <section class="section section--white">
+    <div class="container split">
+      <Media name="about-heritage" alt="Vintage printing press (illustrative image)" word={`Est. ${SITE.foundedYear}`} parallax />
+      <div style="display:grid;gap:1.4rem">
+        <p class="eyebrow" data-reveal>Our experience</p>
+        <h2 data-reveal>Decades of Experience. A Continuing Commitment to Progress.</h2>
+        {/* NEEDS BUSINESS CONFIRMATION (C-07), before any detailed history is written:
+            founder's name, what was printed first and where, dated milestones (first offset press,
+            web offset line, CTP, Choutuppal facility) and the number of generations. */}
+        <p class="lead" data-reveal>Since {SITE.foundedYear}, we have continued to develop our printing capabilities while preserving the values on which the business was built.</p>
+        <p data-reveal>Our experience across educational publications and commercial printing supports a practical understanding of different production requirements.</p>
+        <div class="btn-row" data-reveal>
+          <a class="btn" href="/infrastructure/">Explore Our Printing Infrastructure <Icon name="arrow" class="arrow" /></a>
         </div>
-        <p class="lead" data-reveal>{SITE.strengths.join(' · ')}.</p>
-      </div>
-      <div class="grid grid-3" data-reveal-stagger>
-        <div data-reveal><Media name="facility-1" alt="Operator at an offset press" word="Press" class="zz__media" /></div>
-        <div data-reveal><Media name="facility-2" alt="Sheet-fed offset printing machine" word="Offset" class="zz__media" /></div>
-        <div data-reveal><Media name="facility-3" alt="Printed sheets at the press delivery" word="Output" class="zz__media" /></div>
       </div>
     </div>
   </section>
 
-  <CTA />
+  <section class="section section--dark" aria-labelledby="stats-h">
+    <div class="container">
+      <h2 id="stats-h" class="sr-only">SGMC in numbers</h2>
+      <div class="stats stats--4" data-reveal style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+        {SITE.stats.map((s) => (
+          <div class="stat">
+            <strong {...(s.label === 'Printing since' ? {} : { 'data-count': s.value, 'data-suffix': s.suffix })}>{s.value}{s.suffix}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR PEOPLE -->
+  <section class="section" aria-labelledby="people-h">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Our people</p>
+          <h2 id="people-h" style="margin-top:1rem" data-reveal>Technology Powers Our Presses. <span class="proof">People Drive Our Excellence.</span></h2>
+        </div>
+        <div style="display:grid;gap:1rem">
+          <p class="lead" data-reveal>Behind our equipment is a team of printing professionals, production personnel, designers and business leaders working together to support customer requirements.</p>
+          <p data-reveal>Their combined expertise helps connect every stage of the printing process.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" data-reveal-stagger>
+        <div data-reveal><Media name="facility-1" alt="Operator at an offset press (illustrative image)" word="Press" class="zz__media" /></div>
+        <div data-reveal><Media name="facility-2" alt="Sheet-fed offset printing machine (illustrative image)" word="Offset" class="zz__media" /></div>
+        <div data-reveal><Media name="facility-3" alt="Printed sheets at the press delivery (illustrative image)" word="Output" class="zz__media" /></div>
+      </div>
+    </div>
+  </section>
+
+  <Leadership />
+
+  <CTA
+    eyebrow="Work with us"
+    title="A Legacy You Can Trust. A Partnership You Can Build On."
+    sub=""
+    text=""
+    primary={{ label: 'Connect With Our Team', href: '/contact/' }}
+    secondary={{ label: 'Send Your Requirements', href: '/contact/#enquiry' }}
+  />
 </BaseLayout>

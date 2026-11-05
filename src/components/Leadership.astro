@@ -1,15 +1,21 @@
 ---
 /**
  * Leadership team cards (names + designations from the client, docs/client-brief.md).
- * No portraits yet: a gold monogram stands in. Add `photo` names later if the client sends them.
+ * Descriptions are the client's own words. No portraits yet: a gold monogram stands in. Add `photo` names later if the client sends them.
  */
+import Icon from './Icon.astro';
 import { SITE } from '../config/site';
 
-interface Props { heading?: string; lead?: string }
+interface Props { heading?: string; sub?: string; lead?: string[]; link?: { label: string; href: string } }
+// Defaults: client copy (2026-11-05)
 const {
-  heading = 'The family behind the press.',
-  // C-07: the old line said the four named directors had led the company since 1965 (61 years).
-  lead = 'The Vadlamani family leads the business today, with the same three commitments it has always traded on: quality printing, competitive prices and timely delivery.',
+  heading = 'Generations of Leadership. One Shared Commitment.',
+  sub = 'The People Behind the Press.',
+  lead = [
+    'Behind every successful printing operation is a team that understands its customers, its people and its responsibilities.',
+    'The Vadlamani family’s leadership brings together business experience, customer relationships, sales, marketing, operational management and a forward-looking approach to growth.',
+  ],
+  link,
 } = Astro.props;
 const initials = (name: string) => name.replace(/^[A-Z]\.\s*/, '').split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 ---
@@ -19,8 +25,12 @@ const initials = (name: string) => name.replace(/^[A-Z]\.\s*/, '').split(/\s+/).
       <div>
         <p class="eyebrow" data-reveal>Leadership</p>
         <h2 id="team-h" style="margin-top:1rem" data-reveal>{heading}</h2>
+        {sub && <p class="section-sub" data-reveal>{sub}</p>}
       </div>
-      <p class="lead" data-reveal>{lead}</p>
+      <div style="display:grid;gap:1rem;justify-items:start">
+        {lead.map((l) => <p class="lead" data-reveal>{l}</p>)}
+        {link && <a class="link-arrow" href={link.href} data-reveal>{link.label} <Icon name="arrow" /></a>}
+      </div>
     </div>
     <ul class="team" role="list" data-reveal-stagger>
       {SITE.leadership.map((p) => (
@@ -28,6 +38,7 @@ const initials = (name: string) => name.replace(/^[A-Z]\.\s*/, '').split(/\s+/).
           <span class="team__mono" aria-hidden="true">{initials(p.name)}</span>
           <h3 class="team__name">{p.name}</h3>
           <p class="team__role">{p.role}</p>
+          {p.bio && <p class="team__bio">{p.bio}</p>}
         </li>
       ))}
     </ul>

@@ -16,27 +16,30 @@ const contactSchema = {
 <BaseLayout
   heroDark
   title={`Contact Us — Printing Quote in ${SITE.city}`}
-  description={`Contact ${SITE.legalName}, ${SITE.city}. Call ${SITE.contacts[0].name} ${SITE.contacts[0].phone} or ${SITE.contacts[1].name} ${SITE.contacts[1].phone}, or send your printing requirement for a free quote.`}
+  description={`Contact ${SITE.legalName}, ${SITE.city}. Call ${SITE.contacts[0].name} ${SITE.contacts[0].phone} or ${SITE.contacts[1].name} ${SITE.contacts[1].phone}, or send your printing requirements for a quotation.`}
   breadcrumbs={crumbs}
   schema={[contactSchema]}
 >
   <PageHero
     bg={['bg-contact']}
-    bgAlt={`${SITE.name} printing press`}
-    eyebrow="Contact"
-    lines={['Let’s talk', 'about your print job.']}
-    lead={`Call ${SITE.contacts[0].name} or ${SITE.contacts[1].name}, WhatsApp us, or send your requirement below — product, quantity, size, pages, colours and binding — for a clear, no-obligation quote.`}
+    bgAlt="Offset printing press (illustrative image)"
+    eyebrow="Contact us"
+    lines={['Let’s Create Something', 'Exceptional Together.']}
+    sub="Your Printing Requirements. Our Expertise."
+    lead="Have a project in mind? Whether you’re planning a publication, preparing commercial printing materials or exploring a long-term printing partnership, we’d be pleased to discuss your requirements."
     crumbs={crumbs}
   />
 
   <section class="section" style="padding-top:1rem">
     <div class="container contact-grid">
+      <div style="display:grid;gap:1.4rem;align-content:start">
+      <h2 class="h3" data-reveal>Speak Directly With Our Team</h2>
       <ul class="contact-list" data-reveal-stagger>
         {SITE.contacts.map((c) => (
           <li data-reveal>
             <a class="contact-item" href={`tel:${c.phoneHref}`}>
               <span class="contact-item__icon"><Icon name="phone" /></span>
-              <span><small>Call {c.name}</small><strong>{c.phone}</strong></span>
+              <span><small>{c.name}</small><strong>{c.phone}</strong></span>
             </a>
           </li>
         ))}
@@ -66,12 +69,13 @@ const contactSchema = {
         <li data-reveal>
           <div class="contact-item">
             <span class="contact-item__icon"><Icon name="clock" /></span>
-            <span><small>Working hours</small>{SITE.hours.map((h) => <span style="display:block"><strong>{h.days}:</strong> {h.time}</span>)}</span>
+            <span><small>Business hours</small>{SITE.hours.map((h) => <span style="display:block"><strong>{h.days}:</strong> {h.time}</span>)}</span>
           </div>
         </li>
       </ul>
+      </div>
 
-      <div data-reveal><ContactForm /></div>
+      <div id="enquiry" data-reveal><ContactForm /></div>
     </div>
   </section>
 
@@ -85,6 +89,17 @@ const contactSchema = {
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen
         ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="closing-h">
+    <div class="container" style="text-align:center;display:grid;gap:1rem;justify-items:center">
+      <h2 id="closing-h" data-reveal>Your Next Great Print Starts With a <span class="proof">Conversation.</span></h2>
+      <p class="lead" data-reveal style="margin-inline:auto">Let’s Discuss Your Project.</p>
+      <div class="btn-row" style="justify-content:center" data-reveal>
+        <a class="btn" href="#enquiry">Send Your Requirements <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--wa" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> Contact Us on WhatsApp</a>
       </div>
     </div>
   </section>

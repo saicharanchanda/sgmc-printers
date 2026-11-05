@@ -7,8 +7,10 @@ export type ProductCategory = {
   short: string;
   /** What the list items are called in counts ("9 options"); defaults to "products" */
   itemNoun?: string;
-  /** Hand-written title for the home-page photo card */
-  cardTitle: string;
+  /** Client copy (2026-11-05) for the home-page card; categories without it are not shown there */
+  home?: { title: string; tagline: string; text: string };
+  /** Client copy (2026-11-05) for the /products/ hub */
+  hub: { title: string; tagline: string; text: string; cta: string };
   /** Hand-written CTA heading at the foot of the category page */
   ctaTitle: string;
   intro: string;
@@ -25,7 +27,8 @@ export const categories: ProductCategory[] = [
     slug: 'books-educational',
     title: 'Books & Educational Printing',
     short: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.',
-    cardTitle: 'Textbooks & notebooks',
+    home: { title: 'Educational & Academic Printing', tagline: 'Where Knowledge Meets Quality.', text: 'From textbooks and workbooks to notebooks and examination materials, we support educational institutions and publishers with professionally produced printed materials.' },
+    hub: { title: 'Textbooks & Notebooks', tagline: 'Supporting Education, One Page at a Time.', text: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.', cta: 'Explore Educational Printing' },
     ctaTitle: 'Printing textbooks or notebooks this year?',
     intro:
       'Educational printing is our core strength. We print school and college textbooks, workbooks, guides and exam material in bulk, on schedule for every academic year.',
@@ -59,7 +62,8 @@ export const categories: ProductCategory[] = [
     slug: 'publications',
     title: 'Publications & Commercial Printing',
     short: 'Magazines, journals, annual reports, company profiles, catalogues and directories.',
-    cardTitle: 'Magazines & annual reports',
+    home: { title: 'Magazines & Publications', tagline: 'Every Page Reflects Your Vision.', text: 'Bring your publications to life with carefully produced magazines, journals, annual reports, catalogues and corporate publications.' },
+    hub: { title: 'Magazines & Annual Reports', tagline: 'Publications That Reflect Your Standards.', text: 'Magazines, journals, annual reports, company profiles, catalogues and directories.', cta: 'Explore Publication Printing' },
     ctaTitle: 'Planning your next issue or annual report?',
     intro:
       'From monthly magazines to annual reports, we print publications with consistent quality issue after issue — on time, every time.',
@@ -91,7 +95,8 @@ export const categories: ProductCategory[] = [
     slug: 'advertising-promotional',
     title: 'Advertising & Promotional Printing',
     short: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.',
-    cardTitle: 'Brochures & promotional print',
+    home: { title: 'Brochures & Promotional Printing', tagline: 'Make Every Impression Count.', text: 'Communicate your brand with professionally printed brochures, flyers, pamphlets, posters and promotional materials.' },
+    hub: { title: 'Brochures & Promotional Printing', tagline: 'Turn Your Message Into Something Memorable.', text: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.', cta: 'Explore Promotional Printing' },
     ctaTitle: 'Need brochures, flyers or posters?',
     intro:
       'Marketing material that looks sharp and arrives on time — brochures, flyers, posters and promotional booklets printed in vibrant colour.',
@@ -124,7 +129,8 @@ export const categories: ProductCategory[] = [
     slug: 'packaging-labels',
     title: 'Packaging & Label Printing',
     short: 'Product labels, stickers, packaging inserts and product information leaflets.',
-    cardTitle: 'Labels, stickers & inserts',
+    home: { title: 'Labels, Stickers & Inserts', tagline: 'Small Details. Powerful Brand Impressions.', text: 'Enhance your product presentation with printed labels, stickers, packaging inserts and product information materials.' },
+    hub: { title: 'Labels, Stickers & Inserts', tagline: 'Make Every Product Detail Count.', text: 'Product labels, stickers, packaging inserts and printed product information leaflets.', cta: 'Explore Labels & Stickers' },
     ctaTitle: 'Need labels, stickers or inserts?',
     intro:
       'Printed labels, inserts and information leaflets that go inside and on your product packaging — accurate, consistent and in the quantities you need.',
@@ -147,7 +153,8 @@ export const categories: ProductCategory[] = [
     slug: 'specialised',
     title: 'Specialised Printing',
     short: 'Manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
-    cardTitle: 'Manuals, diaries & certificates',
+    home: { title: 'Books, Diaries & Specialty Publications', tagline: 'Crafted for Purpose. Produced with Care.', text: 'From technical manuals and literary publications to diaries, calendars and certificates, we deliver printing solutions suited to your requirements.' },
+    hub: { title: 'Manuals, Diaries & Certificates', tagline: 'Professional Printing for Every Purpose.', text: 'Technical manuals, medical and literary publications, dictionaries, calendars, diaries and certificates.', cta: 'Explore Specialty Printing' },
     ctaTitle: 'Printing manuals, diaries or certificates?',
     intro:
       'Specialised books and documents that need care and accuracy — from technical manuals and dictionaries to religious books and certificates.',
@@ -181,7 +188,7 @@ export const categories: ProductCategory[] = [
     slug: 'printing-options', // was colour-options; old URL redirects (astro.config redirects + public/_redirects)
     title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
-    cardTitle: 'Colour, bulk & short-run options',
+    hub: { title: 'Colour & Production Options', tagline: 'Flexible Printing. Professional Results.', text: 'From black-and-white and single-colour to multi-colour printing, with production options for different order quantities.', cta: 'Discuss Your Specifications' },
     itemNoun: 'options',
     ctaTitle: 'Not sure which colour option you need?',
     intro:
@@ -203,7 +210,7 @@ export const categories: ProductCategory[] = [
       heading: 'Black & white to full colour — the right colour option, method and quantity for your job and budget.',
       body: [
         'Not every job needs four colours. We print in black & white, single-colour, two-colour, four-colour (CMYK) and full colour, with variable data printing for numbering and personalisation, and we will advise on the most economical option for your content.',
-        'Everything is offset printed in our own building. Large quantities run on our web offset presses for the lowest cost per copy; smaller quantities run economically on our sheet-fed presses as short runs.',
+        'Everything is offset printed in our own building. Large quantities run on our web offset presses for the lowest cost per copy; smaller quantities can run on our sheet-fed presses as short runs, depending on the specifications.',
       ],
       produced: 'Web offset (Komori Coldset and Orient 4i) for bulk runs, and sheet-fed offset (Komori 25 × 36, Komori 18 × 25 and L37) for colour-critical work and short runs. Plates are made in-house on our CTP system. Variable data printing adds serial numbers, names or codes that change on every copy.',
       send: 'Tell us what you are printing, the quantity, and whether it has photographs or colour artwork — we will recommend the colour option and press that keep the cost down. A print-ready PDF with 3 mm bleed is ideal; our in-house design team can also prepare files for you.',

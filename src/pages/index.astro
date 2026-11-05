@@ -1,39 +1,44 @@
 ---
+// Home — copy as supplied by the client (2026-11-05), section by section.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import Media from '../components/Media.astro';
 import PhotoBg from '../components/PhotoBg.astro';
 import PhotoTile from '../components/PhotoTile.astro';
 import FAQ from '../components/FAQ.astro';
-import ContactForm from '../components/ContactForm.astro';
+import CTA from '../components/CTA.astro';
 import PaperRun from '../components/plant/PaperRun.astro';
 import Roller from '../components/plant/Roller.astro';
 import TextureBg from '../components/plant/TextureBg.astro';
 import CropMarks from '../components/plant/CropMarks.astro';
 import HeroVideo from '../components/plant/HeroVideo.astro';
 import Leadership from '../components/Leadership.astro';
-import { SITE, whatsappLink } from '../config/site';
-import { services } from '../data/services';
+import { SITE } from '../config/site';
+import { services, process } from '../data/services';
 import { categories } from '../data/products';
 import { faqs } from '../data/faqs';
 
 const yr = String(SITE.foundedYear);
 
-// Spec-sheet notes per machine group (facts from docs/client-brief.md)
+// Section 6 — what each department is for (client copy)
 const groupMeta: Record<string, { code: string; use: string }> = {
-  'Web Offset Printing': { code: 'WEB-01', use: 'Reel-fed, high-volume runs: textbooks, notebooks, magazines, periodicals.' },
-  'Sheet-Fed Offset Printing': { code: 'SHT-02', use: 'Colour-critical work: covers, brochures, catalogues, posters, short runs.' },
-  'Pre-Press': { code: 'PRE-03', use: 'Files checked, imposed and output straight to plate for sharp, accurate print.' },
-  'Post-Press & Finishing': { code: 'FIN-04', use: 'Printed sheets become finished books, booklets and notebooks.' },
+  'Web Offset Printing': { code: 'WEB-01', use: 'Designed for reel-fed production of large-volume publications.' },
+  'Sheet-Fed Offset Printing': { code: 'SHT-02', use: 'Supporting colour-critical commercial printing and publication production.' },
+  'Pre-Press': { code: 'PRE-03', use: 'Supporting accurate plate preparation and printing readiness.' },
+  'Post-Press & Finishing': { code: 'FIN-04', use: 'Supporting the transformation of printed sheets into completed publications.' },
 };
 
-// Client-supplied strengths (docs/client-brief.md §6)
+// Section 7 — why choose SGMC (client copy)
 const why = [
-  { icon: 'palette', title: 'In-house design team', text: 'Experienced designers for complete artwork development and pre-press support.' },
-  { icon: 'press', title: 'Modern machinery', text: 'Multi-colour offset, web printing, CTP and integrated finishing in one building.' },
-  { icon: 'clock', title: 'Dependable delivery', text: 'A firm commitment to agreed production schedules and delivery dates.' },
-  { icon: 'shield', title: 'Quality at a fair price', text: 'Consistent print quality and competitive pricing, especially for bulk orders.' },
+  { icon: 'users', title: 'Generations of Printing Experience', tagline: 'Experience That Makes a Difference.', text: 'Established in 1965, our business brings decades of printing knowledge and industry experience to every customer relationship.' },
+  { icon: 'press', title: 'Complete In-House Capabilities', tagline: 'One Team. One Coordinated Process.', text: 'With pre-press, printing and finishing capabilities under one roof, we maintain direct oversight of key production stages.' },
+  { icon: 'palette', title: 'Dedicated Design Support', tagline: 'Your Ideas. Professionally Developed.', text: 'Our in-house design team can help develop artwork, refine existing designs and prepare files for printing.' },
+  { icon: 'shield', title: 'Quality-Focused Production', tagline: 'Attention to Detail at Every Stage.', text: 'From artwork preparation to final finishing, our production approach emphasizes careful execution and consistency.' },
+  { icon: 'rupee', title: 'Competitive Commercial Solutions', tagline: 'The Right Balance of Quality and Value.', text: 'We work to provide practical printing solutions and competitive pricing based on your project’s specifications and quantities.' },
+  { icon: 'truck', title: 'Commitment to Delivery', tagline: 'Your Deadlines Matter to Us.', text: 'We understand the importance of production schedules and work closely with customers to plan printing and delivery requirements.' },
 ] as const;
+
+const homeCategories = categories.filter((c) => c.home);
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -44,37 +49,39 @@ const faqSchema = {
 <BaseLayout
   rawTitle
   title={`${SITE.name} | Offset Printing ${SITE.city}`}
-  description={`Printing since ${SITE.foundedYear}: textbooks, notebooks, magazines, brochures and commercial print on our own web & sheet-fed offset presses in ${SITE.city}.`}
+  description={`Established in ${SITE.foundedYear}: educational, publication and commercial printing with in-house pre-press, web and sheet-fed offset printing, binding and finishing in ${SITE.city}.`}
   schema={[faqSchema]}
 >
-  <!-- HERO — full-bleed press photo, darkened so the headline leads -->
+  <!-- 1 · HERO -->
   <section class="hero hero--plant on-dark">
-    <PhotoBg names={['hero-1']} alt="Offset printing press running at SGMC" overlay="plant" eager />
+    <PhotoBg names={['hero-1']} alt="Offset printing press (illustrative image)" overlay="plant" eager />
     <HeroVideo />
     <Roller class="hero__roller" />
     <div class="container">
       <p class="eyebrow">{SITE.legalName} · Est. {SITE.foundedYear}</p>
       <h1>
-        <span class="line"><span>Printing excellence</span></span>
-        <span class="line"><span><span class="proof">across generations.</span></span></span>
+        <span class="line"><span>Generations of Expertise.</span></span>
+        <span class="line"><span><span class="proof">Excellence in Every Impression.</span></span></span>
       </h1>
+      <p class="hero__motto" data-reveal>{SITE.motto}</p>
       <p class="lead" data-reveal>
-        Textbooks, notebooks, magazines and commercial print, produced on our own web and sheet-fed offset presses. Plate, press and binding, all in one building.
+        For generations, {SITE.legalName} has transformed ideas into professionally printed products. Combining decades of industry experience with comprehensive printing infrastructure, we deliver dependable solutions for publishers, educational institutions, businesses and organizations.
       </p>
+      <p class="hero__more" data-reveal>From your first design to the final finished product, our experienced team brings precision, craftsmanship and commitment to every stage of production.</p>
       <div class="btn-row" data-reveal style="--d:.1s">
-        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
-        <a class="btn btn--outline" href="#contents">See what we print</a>
+        <a class="btn" href="/contact/">Discuss Your Printing Project <Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--outline" href="/services/">Explore Our Capabilities</a>
       </div>
-      <div class="hero__facts" data-stack>
-        <div><strong>{yr}</strong><span>Established</span></div>
-        <div><strong data-count="45" data-suffix="+">45+</strong><span>Product types</span></div>
-        <div><strong data-count="100" data-suffix="%">100%</strong><span>In-house</span></div>
-      </div>
+      <ul class="hero__highlights" role="list" data-stack>
+        <li><Icon name="check" /> Established in {yr}</li>
+        <li><Icon name="check" /> Generations of Printing Expertise</li>
+        <li><Icon name="check" /> Integrated In-House Production</li>
+      </ul>
     </div>
   </section>
 
   <!-- PROMISE -->
-  <section class="promise" aria-label="Our promise">
+  <section class="promise" aria-label="Our commitment">
     <div class="container promise__grid">
       {SITE.promise.map((p, i) => (
         <div class="promise__item"><span>0{i + 1}</span><strong>{p}</strong></div>
@@ -82,23 +89,28 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- PRODUCTS — photo cards per category -->
-  <section class="section" id="contents" aria-labelledby="contents-h">
+  <!-- 2 · OUR PRINTING SOLUTIONS -->
+  <section class="section" id="solutions" aria-labelledby="solutions-h">
     <div class="container">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow" data-reveal>What we print</p>
-          <h2 id="contents-h" style="margin-top:1rem" data-reveal>Print solutions for <span class="proof">every need.</span></h2>
+          <p class="eyebrow" data-reveal>Our printing solutions</p>
+          <h2 id="solutions-h" style="margin-top:1rem" data-reveal>Your Ideas Deserve an <span class="proof">Exceptional Finish.</span></h2>
+          <p class="section-sub" data-reveal>Comprehensive Printing Solutions. One Trusted Partner.</p>
         </div>
-        <div style="display:grid;gap:1.2rem;justify-items:start">
-          <p class="lead" data-reveal>Single-colour to full-colour, short runs to bulk, from school textbooks to labels and certificates.</p>
-          <a class="link-arrow" href="/products/" data-reveal>All products <Icon name="arrow" /></a>
+        <div style="display:grid;gap:1rem;justify-items:start">
+          <p class="lead" data-reveal>Every project begins with a purpose. Whether you’re publishing educational materials, promoting your business or producing commercial publications, we help bring your requirements to life through professional printing solutions.</p>
+          <p data-reveal>From single-colour printing to sophisticated multi-colour production, our capabilities support a wide range of printing needs.</p>
         </div>
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
-        {categories.map((c) => (
-          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.cardTitle} kicker={`${c.items.length} ${c.itemNoun ?? 'products'}`} text={c.short} />
+        {homeCategories.map((c) => (
+          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.home!.title} kicker={c.home!.tagline} text={c.home!.text} />
         ))}
+        <PhotoTile href="/contact/" image="cat-printing-options" title="Custom Printing Requirements" kicker="Tell us what you need." text="Have a specific format, quantity or finishing requirement? Speak with our team about the available options." />
+      </div>
+      <div class="btn-row" style="margin-top:2.5rem" data-reveal>
+        <a class="btn btn--ink" href="/products/">Discover All Printing Solutions <Icon name="arrow" class="arrow" /></a>
       </div>
     </div>
   </section>
@@ -114,18 +126,19 @@ const faqSchema = {
 
   <PaperRun />
 
-  <!-- THE PRESS FLOOR — services with live preview -->
+  <!-- 3 · OUR SERVICES — with live preview -->
   <section class="section has-texture" aria-labelledby="floor-h">
     <TextureBg name="facility-1" />
     <div class="container">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow" data-reveal>Services</p>
-          <h2 id="floor-h" style="margin-top:1rem" data-reveal>On the <span class="proof">press floor.</span></h2>
+          <p class="eyebrow" data-reveal>Our services</p>
+          <h2 id="floor-h" style="margin-top:1rem" data-reveal>From Concept to Completion. <span class="proof">Excellence at Every Stage.</span></h2>
+          <p class="section-sub" data-reveal>One Facility. Multiple Capabilities. Complete Production Control.</p>
         </div>
-        <div style="display:grid;gap:1.2rem;justify-items:start">
-          <p class="lead" data-reveal>Every stage happens in-house, by our own team. Nothing is outsourced, so quality and dates stay in our hands.</p>
-          <a class="link-arrow" href="/services/" data-reveal>All services <Icon name="arrow" /></a>
+        <div style="display:grid;gap:1rem;justify-items:start">
+          <p class="lead" data-reveal>Exceptional printing requires more than machinery. It requires coordination, experience and attention to detail.</p>
+          <p data-reveal>Our integrated production infrastructure brings together pre-press preparation, offset printing, binding and finishing, helping us maintain consistency throughout the printing process.</p>
         </div>
       </div>
       <div class="floor" data-floor>
@@ -136,7 +149,7 @@ const faqSchema = {
                 <span class="n">0{i + 1}</span>
                 <h3>{s.title}</h3>
                 <Icon name="arrow" />
-                <p>{s.short}</p>
+                <p><strong>{s.tagline}</strong> {s.pitch}</p>
               </a>
             </li>
           ))}
@@ -153,58 +166,59 @@ const faqSchema = {
           <template data-floor-slugs>{JSON.stringify(services.map((s) => s.equipment.join(' · ')))}</template>
         </div>
       </div>
+      <div class="btn-row" style="margin-top:2.5rem" data-reveal>
+        <a class="btn btn--ink" href="/services/">Explore Our Services <Icon name="arrow" class="arrow" /></a>
+      </div>
     </div>
   </section>
 
-  <!-- HERITAGE -->
+  <!-- 4 · OUR STORY -->
   <section class="section section--white section--rule" aria-labelledby="about-h">
     <div class="container heritage">
       <div data-reveal>
         <div class="sheet">
-          <Media name="home-about" alt="Printing press at work in the SGMC facility" word={`Since ${yr}`} />
+          <Media name="home-about" alt="Vintage offset printing press (illustrative image)" word={`Since ${yr}`} />
         </div>
-        <div class="slug"><span>Archive · The press hall</span><span>Est. {yr}</span></div>
+        <div class="slug"><span>Illustrative image</span><span>Est. {yr}</span></div>
       </div>
-      <div style="display:grid;gap:1.4rem">
+      <div style="display:grid;gap:1.2rem">
         <p class="eyebrow" data-reveal>Our story</p>
         <div class="bigyear" aria-hidden="true" data-reveal>{yr.slice(0, 2)}<span>{yr.slice(2)}</span></div>
-        <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>Putting knowledge on paper since {yr}.</h2>
-        <p class="lead" data-reveal>Since {SITE.foundedYear}, {SITE.legalName} has printed books, publications and commercial work for schools, colleges, publishers and businesses.</p>
-        {/* NEEDS BUSINESS CONFIRMATION: number of generations — audit C-09 wording is "Three generations of printing experience, …" once confirmed */}
-        <p class="muted" data-reveal>Generations of experience, now running web and sheet-fed offset presses, CTP pre-press and in-house finishing from our own building.</p>
-        {/* "100% in-house" is shown once, in the hero facts (C-09) */}
-        <div class="facts" data-stack style="grid-template-columns:repeat(2,1fr)">
-          <div><strong data-count="4">4</strong><span>Departments in-house</span></div>
-          <div><strong data-count="6">6</strong><span>Printing services</span></div>
-        </div>
-        <div data-reveal><a class="link-arrow" href="/about/">Read our story <Icon name="arrow" /></a></div>
+        <h2 id="about-h" class="h3" style="font-size:clamp(1.8rem,3vw,2.4rem)" data-reveal>A Legacy Built on Paper. A Reputation Built on Trust.</h2>
+        <p class="section-sub" style="margin-top:0" data-reveal>{SITE.legacyLine}</p>
+        <p class="lead" data-reveal>Our story began in {yr} with a commitment to quality printing, dependable service and lasting customer relationships.</p>
+        <p data-reveal>Today, {SITE.legalName} continues that legacy as a family-led printing business, combining generations of industry knowledge with integrated production capabilities.</p>
+        <p data-reveal>From educational publications to commercial printing, we have continued to develop our services while preserving the values that define our business.</p>
+        <h3 data-reveal style="margin-top:.6rem">Our Heritage. Your Confidence.</h3>
+        <p class="muted" data-reveal>For us, printing is more than producing ink on paper. It is about understanding our customers’ requirements, respecting their deadlines and delivering work that reflects their expectations.</p>
+        <div data-reveal><a class="link-arrow" href="/about/">Discover Our Journey <Icon name="arrow" /></a></div>
       </div>
     </div>
   </section>
 
-  <Leadership />
+  <!-- 5 · LEADERSHIP -->
+  <Leadership link={{ label: 'Learn About Our Company', href: '/about/' }} />
 
   <PaperRun />
 
-  <!-- MACHINE ROOM — spec sheet -->
+  <!-- 6 · INFRASTRUCTURE — spec sheet -->
   <section class="section section--dark has-texture" aria-labelledby="machines-h">
     <TextureBg name="facility-2" />
     <div class="container">
       <div class="section-head section-head--split">
         <div>
           <p class="eyebrow" data-reveal>Infrastructure</p>
-          <h2 id="machines-h" style="margin-top:1rem" data-reveal>The machine <span class="proof">room.</span></h2>
+          <h2 id="machines-h" style="margin-top:1rem" data-reveal>The Power Behind Every <span class="proof">Perfectly Planned Print.</span></h2>
+          <p class="section-sub" data-reveal>Advanced Capabilities. Integrated Infrastructure. Experienced Hands.</p>
         </div>
-        <p class="lead" data-reveal>Our own building and our own machines, from pre-press to final finishing. Here's the spec sheet.</p>
-      </div>
-      <div class="machine-strip" data-reveal-stagger>
-        {['facility-1', 'facility-2', 'facility-3'].map((n) => (
-          <div class="sheet" style="padding:14px" data-reveal><Media name={n} alt="Machinery at the SGMC press" sizes="(min-width: 1000px) 30vw, 50vw" /></div>
-        ))}
+        <div style="display:grid;gap:1rem">
+          <p class="lead" data-reveal>Great printing depends on the right combination of technology, expertise and production discipline.</p>
+          <p data-reveal>Our integrated printing facility brings together web offset presses, sheet-fed offset machinery, computer-to-plate preparation and finishing equipment. This enables us to coordinate multiple production stages while maintaining direct oversight of the printing process.</p>
+        </div>
       </div>
       <CropMarks>
       <table class="spec" data-reveal>
-        <thead><tr><th>Ref.</th><th>Department</th><th>Machines</th><th>Used for</th></tr></thead>
+        <thead><tr><th>Ref.</th><th>Department</th><th>Equipment</th><th>Used for</th></tr></thead>
         <tbody>
           {SITE.machineGroups.map((g) => (
             <tr>
@@ -218,89 +232,82 @@ const faqSchema = {
       </table>
       </CropMarks>
       <div class="btn-row" style="margin-top:2.5rem" data-reveal>
-        <a class="btn" href="/infrastructure/">Tour the infrastructure <Icon name="arrow" class="arrow" /></a>
+        <a class="btn" href="/infrastructure/">Explore Our Printing Infrastructure <Icon name="arrow" class="arrow" /></a>
       </div>
     </div>
   </section>
 
-  <!-- WHY SGMC -->
+  <!-- 7 · WHY CHOOSE SGMC -->
   <section class="section" aria-labelledby="why-h">
-    <div class="container why">
-      <div style="display:grid;gap:1.4rem;align-content:start">
-        <p class="eyebrow" data-reveal>Why SGMC</p>
-        <h2 id="why-h" data-reveal>Heritage, <span class="proof">proofed</span> every day.</h2>
-        <p class="lead" data-reveal>Printing experience since {yr}, an integrated plant and a team that answers the phone. Here's what that means for your job.</p>
-        <div data-reveal><a class="btn btn--ink" href="/contact/">Start a job <Icon name="arrow" class="arrow" /></a></div>
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Why choose SGMC?</p>
+          <h2 id="why-h" style="margin-top:1rem" data-reveal>Experience You Can Trust. <span class="proof">Capabilities You Can Count On.</span></h2>
+        </div>
+        <div style="display:grid;gap:1rem;justify-items:start">
+          <p class="lead" data-reveal>Choosing the right printing partner means finding a company that understands your requirements and has the resources to deliver.</p>
+          <p data-reveal>At SGMC, our heritage, experienced workforce and integrated facilities come together to support your printing needs.</p>
+        </div>
       </div>
-      <div class="why__grid" data-reveal-stagger>
+      <div class="why__grid why__grid--6" data-reveal-stagger>
         {why.map((w, i) => (
           <article class="why__item" data-reveal>
             <div class="why__top"><span class="why__icon"><Icon name={w.icon} /></span><span>0{i + 1}</span></div>
             <h3>{w.title}</h3>
+            <p class="why__tagline">{w.tagline}</p>
             <p>{w.text}</p>
           </article>
         ))}
       </div>
+      <div class="btn-row" style="margin-top:2.5rem" data-reveal>
+        <a class="btn btn--ink" href="/contact/">Partner With SGMC <Icon name="arrow" class="arrow" /></a>
+      </div>
     </div>
   </section>
 
-  <!-- PROCESS — the five steps live on /services/ (UX-06); home links to them -->
+  <!-- 8 · HOW YOUR PROJECT COMES TO LIFE -->
   <section class="section section--dark on-dark" aria-labelledby="process-h">
     <div class="container">
-      <div class="section-head section-head--split" style="margin-bottom:0">
+      <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow">How a job runs</p>
-          <h2 id="process-h" style="margin-top:1rem">Five signatures, <span class="proof">one book.</span></h2>
+          <p class="eyebrow">How your project comes to life</p>
+          <h2 id="process-h" style="margin-top:1rem">From Your First Idea to the <span class="proof">Final Printed Product.</span></h2>
         </div>
-        <div style="display:grid;gap:1.2rem;justify-items:start">
-          <p class="lead">From your first message to the delivery van, one team is accountable for every stage.</p>
-          <a class="link-arrow" href="/services/#process">See the five steps <Icon name="arrow" /></a>
-        </div>
+        <p class="section-sub" style="align-self:end">A Coordinated Process. A Team That Understands Printing.</p>
+      </div>
+      <div class="grid" data-reveal-stagger style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
+        {process.map((p, i) => (
+          <article class="process-step" data-reveal>
+            <span class="process-step__n">Step 0{i + 1}</span>
+            <h3 style="font-size:1.2rem">{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="btn-row" style="margin-top:2.5rem">
+        <a class="btn" href="/contact/">Start Your Printing Project <Icon name="arrow" class="arrow" /></a>
       </div>
     </div>
   </section>
 
   <PaperRun />
 
-  <!-- FAQ -->
+  <!-- 9 · FREQUENTLY ASKED QUESTIONS -->
   <section class="section" aria-labelledby="faq-h">
     <div class="container">
       <div class="split" style="align-items:start">
-        <div style="display:grid;gap:1.4rem">
-          <p class="eyebrow" data-reveal>Questions</p>
-          <h2 id="faq-h" data-reveal>Before you <span class="proof">send files.</span></h2>
-          <p class="lead" data-reveal>Something else? Call {SITE.contacts[0].name} on <a href={`tel:${SITE.phoneHref}`} style="text-decoration:underline">{SITE.phone}</a>.</p>
+        <div style="display:grid;gap:1.2rem">
+          <p class="eyebrow" data-reveal>Frequently asked questions</p>
+          <h2 id="faq-h" data-reveal>Your Questions. <span class="proof">Our Expertise.</span></h2>
+          <p class="lead" data-reveal>Everything You Need to Know Before Your Next Print Project.</p>
+          <p data-reveal>Something else? Call {SITE.contacts[0].name} on <a href={`tel:${SITE.phoneHref}`} style="text-decoration:underline">{SITE.phone}</a>.</p>
         </div>
         <FAQ items={faqs} />
       </div>
     </div>
   </section>
 
-  <!-- QUOTE — job ticket -->
-  <section class="section section--white section--rule" aria-labelledby="talk-h" id="quote">
-    <div class="container contact-grid">
-      <div style="display:grid;gap:1.4rem;align-content:start">
-        <p class="eyebrow" data-reveal>Get a quote</p>
-        <h2 id="talk-h" data-reveal>Open a <span class="proof">job ticket.</span></h2>
-        <p class="lead" data-reveal>Tell us the product, quantity, size, page count and colours. We'll reply with a clear quote.</p>
-        <ul class="contact-list" data-reveal-stagger>
-          {SITE.contacts.map((c) => (
-            <li data-reveal>
-              <a class="contact-item" href={`tel:${c.phoneHref}`}>
-                <span class="contact-item__icon"><Icon name="phone" /></span>
-                <span><small>{c.name}</small><strong>{c.phone}</strong></span>
-              </a>
-            </li>
-          ))}
-          <li data-reveal>
-            <a class="contact-item" href={whatsappLink()} target="_blank" rel="noopener">
-              <span class="contact-item__icon" style="color:#1faa53"><Icon name="whatsapp" /></span>
-              <span><small>WhatsApp</small><strong>Chat with us</strong></span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div data-reveal><ContactForm /></div>
-    </div>
-  </section>
+  <!-- 10 · FINAL CALL TO ACTION -->
+  <CTA />
 </BaseLayout>

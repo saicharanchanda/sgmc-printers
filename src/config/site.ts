@@ -13,7 +13,10 @@ export const SITE = {
   name: 'Shree Gayathri Multi Colour Printers',
   legalName: 'Shree Gayathri Multi Colour Printers',
   shortName: 'SGMC',
-  tagline: 'Quality Printing | Competitive Prices | Timely Delivery',
+  tagline: 'Quality Printing | Competitive Pricing | Timely Delivery',
+  // Client copy, 2026-11-05
+  motto: 'Established 1965. Built on Trust. Driven by Quality.',
+  legacyLine: 'Printing Excellence Across Generations Since 1965.',
   description:
     'Shree Gayathri Multi Colour Printers — trusted since 1965 for textbook, book, magazine and commercial printing on our own web offset and sheet-fed offset presses. Single-colour to full-colour, bulk and short-run, all under one roof.',
 
@@ -37,12 +40,12 @@ export const SITE = {
   offices: [
     {
       label: 'Head Office',
-      lines: ["Near Ali Cafe 'X' Roads, Amberpet", 'Hyderabad – 500 013, Telangana'],
+      lines: ["Near Ali Cafe 'X' Roads, Amberpet", 'Hyderabad – 500 013, Telangana, India'],
       map: 'https://www.google.com/maps/search/?api=1&query=Ali+Cafe+X+Roads+Amberpet+Hyderabad+500013',
     },
     {
       label: 'Branch Office',
-      lines: ['Green Industrial Park, Dandu Malkapur (V)', 'Choutuppal (M), Yadadri Bhuvanagiri District – 508 252, Telangana'],
+      lines: ['Green Industrial Park, Dandu Malkapur (V)', 'Choutuppal (M), Yadadri Bhuvanagiri District – 508 252, Telangana, India'],
       map: 'https://www.google.com/maps/search/?api=1&query=Green+Industrial+Park+Dandu+Malkapur+Choutuppal+508252',
     },
   ],
@@ -54,17 +57,17 @@ export const SITE = {
   phoneHref: '+919701099777',
   whatsapp: '919701099777', // TODO: confirm this number is on WhatsApp
   contacts: [
-    { name: 'Ramesh', phone: '+91 97010 99777', phoneHref: '+919701099777' },
-    { name: 'Gopal Krishna', phone: '+91 99491 77795', phoneHref: '+919949177795' },
+    { name: 'Ramesh Vadlamani', phone: '+91 97010 99777', phoneHref: '+919701099777' },
+    { name: 'Gopal Krishna Vadlamani', phone: '+91 99491 77795', phoneHref: '+919949177795' },
   ],
   email: 'sgmcprinters@gmail.com',
 
-  // Leadership team (designations as recommended to the client)
+  // Leadership team — names, designations and descriptions as written by the client (2026-11-05)
   leadership: [
-    { name: 'Ramesh Vadlamani', role: 'Chairman' },
-    { name: 'Gopal Krishna Vadlamani', role: 'Director – Business Development & Client Relations' },
-    { name: 'P. Radha Madhav', role: 'Director – Sales & Marketing' },
-    { name: 'Hrushikesh Vadlamani', role: 'Executive Director – Strategy & Operations' },
+    { name: 'Ramesh Vadlamani', role: 'Chairman', bio: 'Providing leadership and direction while upholding the company’s long-standing values and commitment to quality.' },
+    { name: 'Gopal Krishna Vadlamani', role: 'Director — Business Development & Client Relations', bio: 'Strengthening customer partnerships, developing business opportunities and maintaining relationships with clients.' },
+    { name: 'P. Radha Madhav', role: 'Director — Sales & Marketing', bio: 'Representing the company’s capabilities, developing market opportunities and connecting customers with appropriate printing solutions.' },
+    { name: 'Hrushikesh Vadlamani', role: 'Executive Director — Strategy & Operations', bio: 'Supporting operational development, business strategy and the company’s continued modernization and growth.' },
   ],
 
   hours: [
@@ -95,7 +98,7 @@ export const SITE = {
   // Until set, every enquiry depends on WhatsApp opening — no email is ever sent.
   web3formsKey: '', // TODO
 
-  promise: ['Quality Printing', 'Competitive Prices', 'Timely Delivery'],
+  promise: ['Quality Printing', 'Competitive Pricing', 'Timely Delivery'],
   strengths: ['Owned Infrastructure', 'In-House Machinery', 'Integrated Production', 'Complete Printing Solutions'],
 
   // Real machinery — from docs/client-brief.md
@@ -107,7 +110,7 @@ export const SITE = {
   ],
 
   // One photo per machine: save the client's photo as src/assets/images/<file>.jpg (any of jpg/png/webp).
-  // Until a photo exists, the card falls back to the department's general photo.
+  // Until a photo exists the card is text-only (one stock photo must not stand in for several machines).
   machinePhotos: {
     'Komori Coldset Web Offset': 'machine-komori-coldset-web',
     'Orient Web Offset – 4i': 'machine-orient-web-4i',
@@ -120,23 +123,26 @@ export const SITE = {
     'Pinning / Stitching': 'machine-pinning-stitching',
   } as Record<string, string>,
 
-  // Only verifiable facts. Add real figures (books per year, clients served) when the client provides them.
+  // Only verifiable facts. "45+ products" and "100% in-house" were removed (client brief, 2026-11-05):
+  // add real figures (books per year, clients served) only when the client confirms them.
   stats: [
     { value: FOUNDED, suffix: '', label: 'Printing since' },
     { value: 6, suffix: '', label: 'Printing services' },
-    { value: 45, suffix: '+', label: 'Kinds of printed products' },
-    { value: 100, suffix: '%', label: 'In-house, under one roof' },
+    { value: 4, suffix: '', label: 'Production departments' },
   ],
 } as const;
 
 export const NAV = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services/' },
+  { label: 'About Us', href: '/about/' },
   { label: 'Products', href: '/products/' },
+  { label: 'Services', href: '/services/' },
   { label: 'Infrastructure', href: '/infrastructure/' },
-  { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },
 ] as const;
 
-export const whatsappLink = (text = `Hi ${SITE.name}, I'd like a quote for printing.`) =>
+/** Pre-filled WhatsApp enquiry; pass a product/service name for context (client brief §12). */
+export const waMessage = (product?: string) =>
+  `Hello SGMC team, I’m interested in discussing a printing project.${product ? ` The product is ${product}.` : ''} Please let me know what details you need for a quotation.`;
+export const whatsappLink = (text = waMessage()) =>
   `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;

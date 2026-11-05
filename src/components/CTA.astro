@@ -1,25 +1,32 @@
 ---
 import Icon from './Icon.astro';
-import { SITE, whatsappLink } from '../config/site';
-interface Props { title?: string; text?: string }
+import { whatsappLink, waMessage } from '../config/site';
+type Btn = { label: string; href: string };
+interface Props { eyebrow?: string; title?: string; sub?: string; text?: string; primary?: Btn; secondary?: Btn | null; product?: string }
+// Defaults: the client's final call to action (2026-11-05).
 const {
-  title = 'Have a job for the press?',
-  // NEEDS BUSINESS CONFIRMATION: "usually within a few hours" is an unagreed response-time promise
-  text = 'Send the quantity, size, pages and paper. We’ll come back with a clear quote, usually within a few hours.',
+  eyebrow = 'Get in touch',
+  title = 'Let’s Bring Your Next Print Project to Life.',
+  sub = 'Your Project Deserves Experience, Precision and a Printing Partner You Can Trust.',
+  text = 'Whether you’re preparing a new publication, expanding your commercial printing requirements or looking for a dependable long-term printing partner, our team is ready to discuss your needs.',
+  primary = { label: 'Speak With Our Team', href: '/contact/' },
+  secondary = { label: 'Send Your Requirements', href: '/contact/#enquiry' },
+  product,
 } = Astro.props;
 ---
 <section class="section section--tight">
   <div class="container">
     <div class="cta on-dark" data-reveal>
       <div>
-        <p class="eyebrow">Job ticket</p>
+        <p class="eyebrow">{eyebrow}</p>
         <h2 style="margin-top:1rem">{title}</h2>
-        <p>{text}</p>
+        {sub && <p class="cta__sub">{sub}</p>}
+        {text && <p>{text}</p>}
       </div>
       <div class="btn-row">
-        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
-        <a class="btn btn--outline" href={`tel:${SITE.phoneHref}`}><Icon name="phone" /> {SITE.phone}</a>
-        <a class="btn btn--wa" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+        <a class="btn" href={primary.href}>{primary.label} <Icon name="arrow" class="arrow" /></a>
+        {secondary && <a class="btn btn--outline" href={secondary.href}>{secondary.label}</a>}
+        <a class="btn btn--wa" href={whatsappLink(waMessage(product))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
       </div>
     </div>
   </div>

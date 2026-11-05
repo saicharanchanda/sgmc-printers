@@ -10,6 +10,9 @@ export type Service = {
   label: string;
   /** Hand-written button text for the link to this service's page */
   cta: string;
+  /** Client copy (2026-11-05): one-line promise and short pitch, used on the home page and /services/ */
+  tagline: string;
+  pitch: string;
   /** CTA heading on the detail page; defaults to "Need <title>?" (lower-cased, so set it for acronyms) */
   ctaTitle?: string;
   short: string;
@@ -29,13 +32,15 @@ export const services: Service[] = [
     title: 'Web Offset Printing',
     label: 'Web offset',
     cta: 'See web offset printing',
+    tagline: 'Engineered for High-Volume Production.',
+    pitch: 'Our web offset printing facilities support large-volume production of textbooks, notebooks, magazines and periodicals, combining efficient production with dependable print consistency.',
     kicker: 'High-volume production',
     short: 'Reel-fed web offset for textbooks, notebooks, magazines and long runs — fast, consistent and economical.',
     intro:
       'Our web offset presses print continuously from paper reels, making them the most economical choice for large quantities of textbooks, notebooks, magazines and periodicals.',
     body: [
       'Web offset printing runs paper from a reel through the press at high speed, printing both sides and delivering folded signatures ready for binding. For long runs this gives the lowest cost per copy and the fastest turnaround.',
-      'With two web offset lines in our own facility, we handle bulk orders for schools, publishers and institutions without outsourcing — so schedules and quality stay in our control.',
+      'With two web offset lines in our own facility, we handle bulk orders for schools, publishers and institutions in our own facility, with direct oversight of schedules and quality.',
     ],
     features: [
       'Coldset web offset for books, notebooks and periodicals',
@@ -65,6 +70,8 @@ export const services: Service[] = [
     title: 'Sheet-Fed Offset Printing',
     label: 'Sheet-fed',
     cta: 'See sheet-fed printing',
+    tagline: 'Precision Where Every Detail Matters.',
+    pitch: 'Our sheet-fed offset presses support colour-sensitive printing requirements, including book covers, brochures, catalogues, annual reports and commercial publications.',
     kicker: 'Sharp, rich colour',
     short: 'Sheet-fed offset for colour-critical work — book covers, brochures, catalogues, annual reports and posters.',
     intro:
@@ -102,8 +109,10 @@ export const services: Service[] = [
     label: 'Pre-press',
     cta: 'See pre-press & CTP',
     ctaTitle: 'Need pre-press or CTP plates?',
+    tagline: 'Precision Begins Before the First Impression.',
+    pitch: 'Our in-house computer-to-plate facilities support file preparation, imposition and accurate plate production, establishing the foundation for consistent printing results.',
     kicker: 'Where quality starts',
-    short: 'File checking, imposition and computer-to-plate (CTP) plate making — accurate plates for a perfect run.',
+    short: 'File checking, imposition and computer-to-plate (CTP) plate making — accurate plates for consistent printing.',
     intro:
       'Every job starts in our pre-press department, where files are checked, imposed and output directly to printing plates using our computer-to-plate (CTP) system.',
     body: [
@@ -138,6 +147,8 @@ export const services: Service[] = [
     title: 'Binding & Finishing',
     label: 'Binding',
     cta: 'See binding & finishing',
+    tagline: 'Because the Final Impression Matters.',
+    pitch: 'From folding and stitching to perfect binding and finishing, our in-house facilities transform printed sheets into professionally finished publications.',
     kicker: 'Ready to deliver',
     short: 'Folding, perfect binding and pinning / stitching — books, notebooks and booklets finished in-house.',
     intro:
@@ -174,6 +185,8 @@ export const services: Service[] = [
     title: 'Single to Full-Colour Printing',
     label: 'Colour',
     cta: 'See colour options',
+    tagline: 'The Right Colour Solution for Every Requirement.',
+    pitch: 'We offer printing solutions ranging from black-and-white and single-colour work to multi-colour production, depending on project specifications.',
     kicker: 'Every colour option',
     short: 'Black & white, single-colour, two-colour, four-colour and full-colour printing — plus variable data.',
     intro:
@@ -210,13 +223,15 @@ export const services: Service[] = [
     title: 'Bulk & Short-Run Printing',
     label: 'Bulk',
     cta: 'See bulk & short-run',
+    tagline: 'Flexible Solutions for Different Production Needs.',
+    pitch: 'Whether your project requires large-volume production or smaller quantities, our team helps determine the appropriate printing approach.',
     kicker: 'Any quantity',
     short: 'Large bulk orders for institutions and publishers — and short runs when you need smaller quantities.',
     intro:
       'Whether you need lakhs of copies for a school board or a few hundred booklets for an event, we plan the job on the right press for the best price and timeline.',
     body: [
       'Bulk printing is where our web offset lines and integrated finishing shine — large volumes produced, bound and packed in-house on schedule.',
-      'For smaller quantities, our sheet-fed presses offer economical short runs without compromising on quality.',
+      'For smaller quantities, our team helps determine the appropriate printing approach on our sheet-fed presses.',
     ],
     features: [
       'Bulk printing for institutions and publishers',
@@ -229,7 +244,7 @@ export const services: Service[] = [
     idealFor: ['Schools & education boards', 'Publishers', 'Corporates', 'Hospitals & institutions'],
     seoTitle: 'Bulk & Short-Run Printing',
     seoDescription:
-      'Bulk printing for schools, publishers and institutions on web offset presses, plus economical short-run printing — all printed and bound in-house.',
+      'Bulk printing for schools, publishers and institutions on web offset presses, plus short-run printing for smaller quantities — printed and bound in-house.',
     faqs: [
       {
         q: 'Is there a minimum order quantity?',
@@ -243,10 +258,11 @@ export const services: Service[] = [
   },
 ];
 
+// Client copy (2026-11-05): "How your project comes to life"
 export const process = [
-  { title: 'Enquiry & Estimate', text: 'Share your product, quantity, size and colours. We recommend the right press and send a clear quote.' },
-  { title: 'Pre-Press & CTP', text: 'Files are checked and imposed, a proof is approved, and plates are made on our CTP system.' },
-  { title: 'Printing', text: 'Your job runs on our web offset or sheet-fed offset presses, checked throughout the run.' },
-  { title: 'Binding & Finishing', text: 'Folding, perfect binding or pinning / stitching, followed by trimming and quality checks.' },
-  { title: 'Delivery', text: 'Counted, packed carefully and dispatched — on the promised date.' },
+  { title: 'Understanding Your Requirements', text: 'Tell us about your product, specifications, quantity and expected delivery schedule.' },
+  { title: 'Design & Pre-Press Preparation', text: 'Our team reviews your artwork requirements and prepares files for the appropriate printing process.' },
+  { title: 'Printing & Production', text: 'Your project moves into production using suitable web or sheet-fed offset printing equipment.' },
+  { title: 'Binding & Finishing', text: 'Printed materials undergo the required cutting, folding, binding, stitching or finishing processes.' },
+  { title: 'Final Review & Dispatch', text: 'Completed products are prepared for dispatch according to the agreed order requirements.' },
 ];

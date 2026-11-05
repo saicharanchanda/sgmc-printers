@@ -7,7 +7,7 @@ import Icon from '../../components/Icon.astro';
 import FAQ from '../../components/FAQ.astro';
 import CTA from '../../components/CTA.astro';
 import PhotoTile from '../../components/PhotoTile.astro';
-import { SITE, whatsappLink } from '../../config/site';
+import { SITE, whatsappLink, waMessage } from '../../config/site';
 import { services, type Service } from '../../data/services';
 
 export const getStaticPaths = (() =>
@@ -49,8 +49,8 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
 >
   <PageHero bg={[`bg-${s.slug}`]} bgAlt={`${s.title} machine at ${SITE.name}`} eyebrow={s.kicker} lines={[s.title]} lead={s.intro} crumbs={crumbs}>
     <div class="btn-row" style="margin-top:2rem" data-reveal>
-      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Get a quote <Icon name="arrow" class="arrow" /></a>
-      <a class="btn btn--wa" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${s.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Discuss This Service <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--wa" href={whatsappLink(waMessage(s.title))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
     </div>
   </PageHero>
 
@@ -98,5 +98,13 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
     </div>
   </section>
 
-  <CTA title={s.ctaTitle ?? `Need ${s.title.toLowerCase()}?`} />
+  <CTA
+    eyebrow="Enquire"
+    title={s.ctaTitle ?? `Need ${s.title.toLowerCase()}?`}
+    sub=""
+    text="Tell us about your product, specifications, quantity and expected delivery schedule, and our team will help determine the right approach."
+    primary={{ label: 'Discuss This Service', href: `/contact/?service=${encodeURIComponent(s.title)}` }}
+    secondary={{ label: 'Speak With Our Team', href: '/contact/' }}
+    product={s.title}
+  />
 </BaseLayout>

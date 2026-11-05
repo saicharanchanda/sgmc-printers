@@ -1032,3 +1032,40 @@ main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp
 .brand img { width: 230px; height: auto; }
 @media (max-width: 400px) { .brand img { width: 170px; } }
 @media (max-width: 360px) { .brand img { width: 150px; } }
+
+/* Client copy (2026-11-05): short sub-headline under section titles, CTA sub-line, leadership bios */
+.section-sub { margin-top: .9rem; font-size: clamp(1.05rem, 1.5vw, 1.25rem); font-weight: 600; color: var(--ink-2); max-width: 42ch; }
+.on-dark .section-sub, .section--dark .section-sub { color: var(--gold-light); }
+.cta__sub { font-weight: 600; color: var(--gold-light); }
+.team__bio { color: var(--ink-2); font-size: .95rem; line-height: 1.55; margin-top: .3rem; padding-top: .8rem; border-top: 1px solid var(--line); }
+.hero__motto { margin: -.4rem 0 1.2rem; font-weight: 700; letter-spacing: .02em; color: var(--gold-light); font-size: clamp(1rem, 1.5vw, 1.2rem); }
+.hero .lead { margin-bottom: 1rem; }
+.hero__more { max-width: 60ch; margin-bottom: 2rem; color: rgba(255,255,255,.75); }
+.hero__highlights { list-style: none; padding: 1.3rem 0 0; margin: 2.4rem 0 0; display: flex; flex-wrap: wrap; gap: .8rem 2rem; border-top: 1px solid rgba(201,164,92,.45); }
+.hero__highlights li { display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; color: #fff; }
+.hero__highlights svg { width: 18px; height: 18px; color: var(--gold); flex: none; }
+@media (min-width: 1000px) { .why__grid--6 { grid-template-columns: repeat(3, 1fr); } }
+.why__item h3 { font-size: clamp(1.2rem, 1.6vw, 1.4rem); }
+.why__tagline { font-weight: 700; color: var(--red-deep) !important; }
+.floor__item p strong { color: var(--ink); }
+/* Longer client button labels: allow wrapping on narrow phones instead of overflowing */
+@media (max-width: 480px) { .btn { white-space: normal; text-align: center; max-width: 100%; } }
+/* Footer per client copy: brand + quick links + services + products + contact, commitment strip */
+@media (min-width: 640px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1100px) { .footer-top { grid-template-columns: 1.4fr .8fr 1fr 1fr 1.3fr; } }
+.footer-brand { font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #fff; }
+.footer-legacy { color: var(--gold); font-weight: 600; margin-top: -.4rem; }
+.footer-about p + p { margin-top: .8rem; }
+.footer-commit { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.2rem; padding: 1.4rem 0; border-top: 1px solid rgba(255,255,255,.12); }
+.footer-commit strong { color: #fff; font-weight: 600; }
+/* Text-only machine card until the machine's own photo exists */
+.machine-card--text { padding: 1.4rem 1.5rem 1.6rem; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: var(--radius-lg); align-content: start; }
+.machine-card--text .slug { margin-top: 0; }
+/* Optional specifications in the enquiry form (client brief: concise first, details on request) */
+.form__more { border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: .9rem 1rem; }
+.form__more summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.form__more[open] { display: grid; gap: 1rem; }
+.form__more[open] summary { margin-bottom: .2rem; }
+/* Client service copy is longer than the old one-liners: give the revealed text room */
+.floor__item.is-active p { max-height: 14em; }
+@media (max-width: 999px) { .floor__item p { max-height: none; } }

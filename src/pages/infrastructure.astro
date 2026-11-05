@@ -9,34 +9,39 @@ import { SITE } from '../config/site';
 
 const crumbs = [{ name: 'Infrastructure', href: '/infrastructure/' }];
 
-const groupInfo: Record<string, { title: string; code: string; image: string; text: string; href: string }> = {
+// Client copy (2026-11-05) for each department
+const groupInfo: Record<string, { title: string; code: string; tagline: string; text: string; href: string; link: string }> = {
   'Web Offset Printing': {
-    title: 'Web Offset Printing Machines',
+    title: 'Web Offset Printing',
     code: 'WEB',
-    image: 'bg-web-offset-printing',
-    text: 'Reel-fed presses for high-volume textbooks, notebooks, magazines and periodicals.',
+    tagline: 'High-Volume Printing. Consistent Production.',
+    text: 'Our reel-fed web offset presses support large-scale production of textbooks, notebooks, magazines and periodicals.',
     href: '/services/web-offset-printing/',
+    link: 'See web offset printing',
   },
   'Sheet-Fed Offset Printing': {
-    title: 'Sheet-Fed Offset Printing Machines',
+    title: 'Sheet-Fed Offset Printing',
     code: 'SHT',
-    image: 'bg-sheet-fed-offset-printing',
-    text: 'Sheet-fed presses for colour-critical covers, brochures, catalogues and short runs.',
+    tagline: 'Precision Printing for Demanding Applications.',
+    text: 'Our sheet-fed offset presses support book covers, brochures, catalogues, posters, annual reports and other commercial printing requirements.',
     href: '/services/sheet-fed-offset-printing/',
+    link: 'See sheet-fed printing',
   },
   'Pre-Press': {
     title: 'Pre-Press Facilities',
     code: 'PRE',
-    image: 'bg-prepress',
-    text: 'Computer-to-plate output straight from your files for sharp, accurate plates.',
+    tagline: 'Every Great Print Starts With the Right Preparation.',
+    text: 'Our computer-to-plate system supports the preparation of accurate printing plates, helping establish consistency before production begins.',
     href: '/services/prepress/',
+    link: 'See pre-press & CTP',
   },
   'Post-Press & Finishing': {
-    title: 'Post-Press & Finishing Facilities',
+    title: 'Post-Press & Finishing',
     code: 'FIN',
-    image: 'bg-binding-finishing',
-    text: 'Folding, perfect binding and pinning / stitching to deliver finished books.',
+    tagline: 'The Finishing Touch That Completes Every Project.',
+    text: 'Printing is only one part of the process. Our finishing facilities support the conversion of printed sheets into complete books, booklets and publications.',
     href: '/services/binding-finishing/',
+    link: 'See binding & finishing',
   },
 };
 
@@ -59,10 +64,12 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
 >
   <PageHero
     bg={['band-press']}
-    bgAlt="Printing facility floor"
-    eyebrow="Infrastructure & facilities"
-    lines={['Complete in-house', 'printing facility.']}
-    lead="We operate from our own building, equipped with a comprehensive range of offset printing machinery and integrated production facilities — managing the complete printing process, from pre-press to final finishing, under one roof."
+    bgAlt="Printing facility floor (illustrative image)"
+    eyebrow="Machinery & infrastructure"
+    lines={['Built for Production.', 'Engineered for Precision.']}
+    sub="The Infrastructure Behind Our Printing Expertise."
+    lead="At SGMC, our production capabilities are supported by an integrated range of printing and finishing equipment."
+    more="From high-volume web printing to colour-sensitive sheet-fed production, our machinery enables us to serve diverse customer requirements."
     crumbs={crumbs}
   />
 
@@ -86,6 +93,8 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
       <div class="section-head">
         <p class="eyebrow" data-reveal>Machinery & equipment</p>
         <h2 id="mach-h" data-reveal>Our machines</h2>
+        {/* Machine names as listed by the client. NEEDS BUSINESS CONFIRMATION: exact manufacturer/model,
+            quantity and specifications per machine, and a real photo of each (SITE.machinePhotos). */}
       </div>
       <div class="machine-depts">
         {SITE.machineGroups.map((g, i) => {
@@ -96,8 +105,10 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
                 <span class="machine-dept__n">{String(i + 1).padStart(2, '0')}</span>
                 <div>
                   <h2 class="h2" data-reveal>{info.title}</h2>
+                  <p class="section-sub" style="margin-top:.4rem" data-reveal>{info.tagline}</p>
                   <p class="lead" data-reveal>{info.text}</p>
-                  <a class="link-arrow" href={info.href} data-reveal>Learn more <Icon name="arrow" /></a>
+                  <a class="link-arrow" href={info.href} data-reveal>{info.link} <Icon name="arrow" /></a>
+                  <p class="eyebrow" style="margin-top:1.6rem" data-reveal>Our equipment</p>
                 </div>
               </header>
               <div class="machine-grid" data-reveal-stagger>
@@ -105,7 +116,6 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
                   <MachineCard
                     name={m}
                     photo={SITE.machinePhotos[m]}
-                    fallback={info.image}
                     dept={info.title}
                     code={`${info.code}.${j + 1}`}
                   />
@@ -121,7 +131,7 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
   <!-- Capabilities -->
   <section class="section section--white" aria-labelledby="cap-h">
     <div class="container split">
-      <Media name="facility-3" alt="Printed sheets coming off an offset press" word="Capabilities" parallax />
+      <Media name="facility-3" alt="Printed sheets coming off an offset press (illustrative image)" word="Capabilities" parallax />
       <div style="display:grid;gap:1.4rem">
         <p class="eyebrow" data-reveal>Our printing capabilities</p>
         <h2 id="cap-h" data-reveal>We cater to a wide range of printing requirements.</h2>
@@ -132,5 +142,12 @@ const icons = ['shield', 'press', 'box', 'check'] as const;
     </div>
   </section>
 
-  <CTA title="See our facility for yourself." text="You’re welcome to visit our press. Call ahead and we’ll show you around." />
+  <CTA
+    eyebrow="Production"
+    title="The Right Equipment. The Right Expertise. The Right Printing Partner."
+    sub=""
+    text="Discover how our integrated production capabilities can support your next project."
+    primary={{ label: 'Discuss Your Production Requirements', href: '/contact/' }}
+    secondary={null}
+  />
 </BaseLayout>

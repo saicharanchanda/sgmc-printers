@@ -4,7 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
-import { SITE, whatsappLink } from '../../config/site';
+import { SITE, whatsappLink, waMessage } from '../../config/site';
 import { categories } from '../../data/products';
 
 const crumbs = [{ name: 'Products', href: '/products/' }];
@@ -27,7 +27,7 @@ const catalogSchema = {
 <BaseLayout
   heroDark
   title={`Printing Products — Textbooks, Magazines & Labels`}
-  description={`All types of single and multi-colour printing: textbooks, notebooks, magazines, journals, annual reports, catalogues, brochures, flyers, posters, labels, manuals, calendars and certificates in ${SITE.city}.`}
+  description={`Printing solutions from educational publications to commercial print: textbooks, notebooks, magazines, journals, annual reports, catalogues, brochures, flyers, posters, labels, manuals, calendars and certificates in ${SITE.city}.`}
   breadcrumbs={crumbs}
   schema={[catalogSchema]}
 >
@@ -35,12 +35,14 @@ const catalogSchema = {
     bg={['bg-products']}
     bgAlt="Printed books stacked after binding"
     eyebrow="Products"
-    lines={['Everything we print,', 'from textbooks to labels.']}
-    lead="From school textbooks and notebooks to magazines, brochures, labels and certificates — here’s what we print. Don’t see your product? Just ask."
+    lines={['Printing Solutions That', 'Bring Your Ideas to Life.']}
+    sub="From Educational Publications to Commercial Print — Crafted With Care."
+    lead="Every printed product has a purpose. At SGMC, we combine printing experience, production capabilities and attention to detail to help customers achieve the results they need."
+    more="Explore our printing categories and discover the possibilities."
     crumbs={crumbs}
   >
     <nav class="hero-pills" aria-label="Jump to category" data-reveal>
-      {categories.map((c) => <a href={`#${c.slug}`} class="btn btn--sm btn--outline">{c.title.replace(/ Printing$/, '')}</a>)}
+      {categories.map((c) => <a href={`#${c.slug}`} class="btn btn--sm btn--outline">{c.hub.title}</a>)}
     </nav>
   </PageHero>
 
@@ -52,15 +54,15 @@ const catalogSchema = {
             <Media name={`cat-${c.slug}`} alt={c.title} class="zz__media" word={c.title.split(' ')[0]} parallax />
           </div>
           <div class="zz__body">
-            <span class="zz__kicker" data-reveal>{c.items.length} {c.itemNoun ?? 'products'}</span>
-            <h2 class="h2" data-reveal>{c.title}</h2>
-            <p class="lead" data-reveal>{c.intro}</p>
+            <span class="zz__kicker" data-reveal>{c.hub.tagline}</span>
+            <h2 class="h2" data-reveal>{c.hub.title}</h2>
+            <p class="lead" data-reveal>{c.hub.text}</p>
             <ul class="item-list" role="list" data-reveal>
               {c.items.map((i) => <li>{i}</li>)}
             </ul>
             <div class="btn-row" data-reveal>
-              <a class="btn" href={`/products/${c.slug}/`}>View details <Icon name="arrow" class="arrow" /></a>
-              <a class="btn btn--outline" href={whatsappLink(`Hi ${SITE.name}, I'd like a quote for ${c.title}.`)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Get a price</a>
+              <a class="btn" href={c.slug === 'printing-options' ? `/contact/?service=${encodeURIComponent(c.title)}` : `/products/${c.slug}/`}>{c.hub.cta} <Icon name="arrow" class="arrow" /></a>
+              <a class="btn btn--outline" href={whatsappLink(waMessage(c.title))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
             </div>
           </div>
         </article>
@@ -68,5 +70,12 @@ const catalogSchema = {
     </div>
   </section>
 
-  <CTA title="Need something not listed?" text="If it’s printed on paper, we can most likely produce it. Share your requirement and we’ll advise on the best way to print it." />
+  <CTA
+    eyebrow="Something else?"
+    title="Looking for Something Specific?"
+    sub=""
+    text="Not every printing requirement fits a standard category. Share your specifications with our team and let us help you explore the right solution."
+    primary={{ label: 'Enquire About Your Project', href: '/contact/' }}
+    secondary={null}
+  />
 </BaseLayout>

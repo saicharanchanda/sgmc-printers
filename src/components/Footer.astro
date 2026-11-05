@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { SITE, whatsappLink } from '../config/site';
+import { NAV, SITE, whatsappLink } from '../config/site';
 import { services } from '../data/services';
 import { categories } from '../data/products';
 
@@ -13,16 +13,18 @@ const year = new Date().getFullYear();
 <footer class="site-footer on-dark">
   <div class="container">
     <div class="footer-cta">
-      <h2>Ready when your <span class="proof">files are.</span></h2>
+      <h2>Ready to Bring Your <span class="proof">Project to Life.</span></h2>
       <div class="btn-row">
-        <a class="btn" href="/contact/">Get a quote <Icon name="arrow" class="arrow" /></a>
+        <a class="btn" href="/contact/">Request a Printing Quote <Icon name="arrow" class="arrow" /></a>
         <a class="btn btn--outline" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
       </div>
     </div>
 
     <div class="footer-top">
       <div class="footer-about">
-        <p>{SITE.legalName}. Books, publications and commercial print on our own offset presses.</p>
+        <p class="footer-brand">{SITE.legalName}</p>
+        <p class="footer-legacy">{SITE.legacyLine}</p>
+        <p>Bringing together generations of printing expertise, integrated production capabilities and a lasting commitment to customer satisfaction.</p>
         {socials.length > 0 && (
           <div class="socials">
             {socials.map(([name, url]) => (
@@ -33,6 +35,11 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
+        <h2 class="footer-h">Quick Links</h2>
+        <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+      </div>
+
+      <div>
         <h2 class="footer-h">Services</h2>
         <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}</ul>
       </div>
@@ -40,14 +47,12 @@ const year = new Date().getFullYear();
       <div>
         <h2 class="footer-h">Products</h2>
         <ul>
-          {categories.map((c) => <li><a href={`/products/${c.slug}/`}>{c.title.replace(/ Printing$/, '')}</a></li>)}
-          <li><a href="/infrastructure/">Infrastructure</a></li>
-          <li><a href="/about/">About us</a></li>
+          {categories.map((c) => <li><a href={`/products/${c.slug}/`}>{c.hub.title}</a></li>)}
         </ul>
       </div>
 
       <div>
-        <h2 class="footer-h">The press</h2>
+        <h2 class="footer-h">Contact</h2>
         <address style="font-style:normal">
           <ul>
             {SITE.offices.map((o) => <li><a href={o.map} target="_blank" rel="noopener"><strong style="display:block">{o.label}</strong>{o.lines.join(', ')}</a></li>)}
@@ -59,15 +64,14 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <p class="colophon">
-      <b>Colophon</b>
-      Set in Manrope. Printed in press navy and gold on screen —
-      and on paper, by {SITE.legalName}, since {SITE.foundedYear}.
-    </p>
+    <div class="footer-commit">
+      <span class="footer-h">Our Commitment</span>
+      <strong>{SITE.promise.join(' • ')}</strong>
+    </div>
 
     <div class="footer-bottom">
-      <span>© {year} {SITE.legalName}</span>
-      <span>{SITE.promise.join(' · ')}</span>
+      <span>© {year} {SITE.legalName}. All Rights Reserved.</span>
+      <span>{SITE.motto}</span>
     </div>
   </div>
 </footer>

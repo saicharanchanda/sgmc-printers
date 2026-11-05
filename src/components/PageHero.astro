@@ -6,8 +6,8 @@
 import type { Crumb } from '../layouts/BaseLayout.astro';
 import PhotoBg from './PhotoBg.astro';
 import HeroVideo from './plant/HeroVideo.astro';
-interface Props { eyebrow: string; lines: string[]; lead?: string; crumbs?: Crumb[]; bg?: string[]; bgAlt?: string }
-const { eyebrow, lines: rawLines, lead, crumbs = [], bg = ['hero-1'], bgAlt = '' } = Astro.props;
+interface Props { eyebrow: string; lines: string[]; sub?: string; lead?: string; more?: string; crumbs?: Crumb[]; bg?: string[]; bgAlt?: string }
+const { eyebrow, lines: rawLines, sub, lead, more, crumbs = [], bg = ['hero-1'], bgAlt = '' } = Astro.props;
 // Single-line titles: last word drops to its own gold line.
 const words = rawLines.length === 1 ? rawLines[0].split(' ') : [];
 const lines = words.length > 1 ? [words.slice(0, -1).join(' '), words.at(-1)!] : rawLines;
@@ -27,8 +27,11 @@ const lines = words.length > 1 ? [words.slice(0, -1).join(' '), words.at(-1)!] :
       </nav>
     )}
     <p class="eyebrow" style="margin-top:1.6rem">{eyebrow}</p>
-    <h1>{lines.map((l, i) => <span class="line"><span set:html={i === lines.length - 1 && lines.length > 1 ? `<span class="proof">${l}</span>` : l} /></span>)}</h1>
+    {/* the trailing space keeps the h1's text "Additional Printing Services", not "PrintingServices" */}
+    <h1>{lines.map((l, i) => <span class="line"><span set:html={i === lines.length - 1 && lines.length > 1 ? `<span class="proof">${l}</span>` : l} /> </span>)}</h1>
+    {sub && <p class="hero__motto" data-reveal>{sub}</p>}
     {lead && <p class="lead" data-reveal>{lead}</p>}
+    {more && <p class="hero__more" data-reveal>{more}</p>}
     <slot />
   </div>
 </section>

@@ -8,13 +8,13 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
 ---
 <form class="form" data-contact-form data-key={SITE.web3formsKey} data-wa={SITE.whatsapp} novalidate={false}>
   <div class="form__ticket" aria-hidden="true">
-    <span>Job ticket · <b>No. ____</b></span>
+    <span>Printing enquiry</span>
     <span>{SITE.name}</span>
   </div>
   <div>
-    {/* NEEDS BUSINESS CONFIRMATION: "We usually reply within a few working hours" is a service promise — keep only if the business will honour it */}
-    <h2 class="h3">Request a quote</h2>
-    <p class="form__note" style="margin-top:.4rem">Fields marked <span style="color:var(--red)">*</span> are required. We usually reply within a few working hours.</p>
+    {/* Client copy (2026-11-05). The old "we usually reply within a few working hours" promise is removed. */}
+    <h2 class="h3">Tell Us About Your Project.</h2>
+    <p class="form__note" style="margin-top:.4rem">Share your requirements and our team will help you explore the appropriate printing solution. Fields marked <span style="color:var(--red)">*</span> are required.</p>
   </div>
   <div class="form__row">
     <div class="field">
@@ -28,6 +28,10 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
       <span class="field__err" id="f-phone-err" role="alert" hidden></span>
     </div>
   </div>
+  <div class="field">
+    <label for="f-company">Company / Organization</label>
+    <input id="f-company" name="company" type="text" autocomplete="organization" />
+  </div>
   <div class="form__row">
     <div class="field">
       <label for="f-email">Email</label>
@@ -40,7 +44,7 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
     </div>
   </div>
   <div class="field">
-    <label for="f-service">What do you need? <span>*</span></label>
+    <label for="f-service">Product / printing requirement <span>*</span></label>
     <select id="f-service" name="service" required aria-describedby="f-service-err" data-msg-missing="Please choose a product or service.">
       <option value="" disabled selected>Select a product or service…</option>
       <optgroup label="Products">
@@ -53,14 +57,41 @@ const PHONE_PATTERN = String.raw`[0-9+\- ]{10,15}`;
     </select>
       <span class="field__err" id="f-service-err" role="alert" hidden></span>
   </div>
+  <details class="form__more">
+    <summary>Add specifications (optional)</summary>
+    <div class="form__row">
+      <div class="field">
+        <label for="f-size">Size / dimensions</label>
+        <input id="f-size" name="size" type="text" placeholder="e.g. A4, 1/8 demy" />
+      </div>
+      <div class="field">
+        <label for="f-pages">Page count</label>
+        <input id="f-pages" name="pages" type="text" inputmode="numeric" placeholder="e.g. 160" />
+      </div>
+    </div>
+    <div class="form__row">
+      <div class="field">
+        <label for="f-colours">Colour requirements</label>
+        <input id="f-colours" name="colours" type="text" placeholder="e.g. 4-colour cover, 1-colour text" />
+      </div>
+      <div class="field">
+        <label for="f-binding">Binding / finishing</label>
+        <input id="f-binding" name="binding" type="text" placeholder="e.g. perfect binding" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-date">Expected delivery date</label>
+      <input id="f-date" name="delivery_date" type="date" />
+    </div>
+  </details>
   <div class="field">
-    <label for="f-msg">Details <span>*</span></label>
+    <label for="f-msg">Additional details <span>*</span></label>
     <textarea id="f-msg" name="message" required aria-describedby="f-msg-err" data-msg-missing="Please tell us a little about the job." placeholder="Product, size, pages, colours, binding, deadline…"></textarea>
       <span class="field__err" id="f-msg-err" role="alert" hidden></span>
   </div>
   <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <div class="form__status" data-form-status role="status" aria-live="polite" hidden></div>
   <div class="btn-row">
-    <button class="btn" type="submit">Send enquiry <Icon name="arrow" class="arrow" /></button>
+    <button class="btn" type="submit">Send My Printing Enquiry <Icon name="arrow" class="arrow" /></button>
   </div>
 </form>

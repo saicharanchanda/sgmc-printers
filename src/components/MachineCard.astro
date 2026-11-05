@@ -1,27 +1,25 @@
 ---
 /**
- * One machine, mounted like a press sheet (crop marks + slug line).
- * Photo: src/assets/images/<photo>.jpg — falls back to the department photo until the client's own arrives.
+ * One machine, mounted like a press sheet (slug line + name).
+ * Photo: only the machine's OWN photo, saved as src/assets/images/<photo>.jpg (SITE.machinePhotos).
+ * Until the client sends it, the card is text-only — one stock photo must never stand in for
+ * several different machines (client brief, 2026-11-05: no Heidelberg photo under a Komori name).
  */
 import { Picture } from 'astro:assets';
 import { findImage } from '../lib/images';
 
-interface Props { name: string; photo?: string; fallback: string; dept: string; code: string }
-const { name, photo, fallback, dept, code } = Astro.props;
+interface Props { name: string; photo?: string; dept: string; code: string }
+const { name, photo, dept, code } = Astro.props;
 const own = photo ? await findImage(photo) : null;
-const img = own ?? (await findImage(fallback));
 ---
-<figure class="machine-card" data-reveal>
-  <div class="sheet">
-    <div class="machine-card__img">
-      {img ? (
-        <Picture src={img} alt={`${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
-      ) : <span class="machine-card__empty" />}
-      {/* Machine photos are AI-generated / stock (docs/machine-image-prompts.md), so label them honestly.
-          Without one, the department photo shows unlabelled (UX-01) — no "Photo coming soon". */}
-      {own && <span class="machine-card__tag">Representative image</span>}
+<figure class:list={['machine-card', { 'machine-card--text': !own }]} data-reveal>
+  {own && (
+    <div class="sheet">
+      <div class="machine-card__img">
+        <Picture src={own} alt={`${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
+      </div>
     </div>
-  </div>
+  )}
   <figcaption class="slug">
     <span><b>{code}</b> · {dept}</span>
     <span class="slug__inks" aria-hidden="true"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:var(--k)"></i></span>

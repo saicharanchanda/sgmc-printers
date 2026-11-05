@@ -306,13 +306,19 @@ function initForm(signal: AbortSignal) {
 
     // TODO(P0-3): no key configured yet (SITE.web3formsKey), so this WhatsApp fallback is the only path.
     if (!key) {
+      const opt = (label: string, name: string) => (data.get(name) ? `${label}: ${data.get(name)}` : '');
       const lines = [
-        `Hi, I'm ${data.get('name')}.`,
-        `Service: ${data.get('service')}`,
-        data.get('quantity') ? `Quantity: ${data.get('quantity')}` : '',
+        `Hello SGMC team, I'm ${data.get('name')}.`,
+        opt('Company', 'company'),
+        `Requirement: ${data.get('service')}`,
+        opt('Quantity', 'quantity'),
+        opt('Size', 'size'),
+        opt('Pages', 'pages'),
+        opt('Colours', 'colours'),
+        opt('Binding / finishing', 'binding'),
+        opt('Delivery by', 'delivery_date'),
         `Phone: ${data.get('phone')}`,
-        data.get('email') ? `Email: ${data.get('email')}` : '',
-        '',
+        opt('Email', 'email'),
         String(data.get('message') ?? ''),
       ].filter((l) => l !== '');
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');

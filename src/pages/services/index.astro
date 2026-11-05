@@ -31,10 +31,11 @@ const listSchema = {
 >
   <PageHero
     bg={['bg-services']}
-    bgAlt={`Printing machines at ${SITE.name}`}
+    bgAlt="Offset printing machines (illustrative image)"
     eyebrow="Our services"
-    lines={['Every print need,', 'under one roof.']}
-    lead="Plate-making, printing and binding all happen in our own building, on our own machines. That means one team is accountable for your job from the first proof to the delivery note — whether it is ten thousand textbooks or three hundred brochures."
+    lines={['Every Stage of Printing.', 'One Experienced Team.']}
+    sub="One Facility. Multiple Capabilities. Complete Production Control."
+    lead="From artwork preparation and plate production to offset printing, binding and finishing, SGMC brings together the capabilities needed to support your project."
     crumbs={crumbs}
   >
     <nav class="hero-pills" aria-label="Jump to service" data-reveal>
@@ -47,18 +48,19 @@ const listSchema = {
       {services.map((s, i) => (
         <article class={`zz__item accent-${accents[i]}`} id={s.slug}>
           <div data-reveal>
-            <Media name={s.slug} alt={`${s.title} at ${SITE.name}`} class="zz__media" word={s.label} parallax />
+            <Media name={s.slug} alt={`${s.title} (illustrative image)`} class="zz__media" word={s.label} parallax />
           </div>
           <div class="zz__body">
-            <span class="zz__kicker" data-reveal>{s.kicker}</span>
+            <span class="zz__kicker" data-reveal>0{i + 1} · {s.kicker}</span>
             <h2 class="h2" data-reveal>{s.title}</h2>
-            <p class="lead" data-reveal>{s.intro}</p>
+            <p class="section-sub" style="margin-top:0" data-reveal>{s.tagline}</p>
+            <p class="lead" data-reveal>{s.pitch}</p>
             <ul class="checklist" data-reveal>
               {s.features.slice(0, 4).map((f) => <li>{f}</li>)}
             </ul>
             <div class="btn-row" data-reveal>
               <a class="btn" href={`/services/${s.slug}/`}>{s.cta} <Icon name="arrow" class="arrow" /></a>
-              <a class="btn btn--outline" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Get a quote</a>
+              <a class="btn btn--outline" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Discuss This Service</a>
             </div>
           </div>
         </article>
@@ -69,8 +71,8 @@ const listSchema = {
   <section class="section section--dark" id="process" aria-labelledby="proc-h">
     <div class="container">
       <div class="section-head section-head--center">
-        <p class="eyebrow">Our process</p>
-        <h2 id="proc-h">Simple, transparent, on time.</h2>
+        <p class="eyebrow">How we work</p>
+        <h2 id="proc-h">One Coordinated Process. From Enquiry to Dispatch.</h2>
       </div>
       <div class="grid grid-3" data-reveal-stagger style="grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))">
         {process.map((p, i) => (
