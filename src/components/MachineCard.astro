@@ -2,8 +2,11 @@
 /**
  * One machine, mounted like a press sheet (slug line + name).
  * Photo: only the machine's OWN photo, saved as src/assets/images/<photo>.jpg (SITE.machinePhotos).
- * Until the client sends it, the card is text-only — one stock photo must never stand in for
+ * Until a photo exists, the card is text-only — one stock photo must never stand in for
  * several different machines (client brief, 2026-11-05: no Heidelberg photo under a Komori name).
+ * The current photos (2026-11-07) are generated representations of each model, not photographs of
+ * SGMC's own machines, so they carry a visible "Representative image" label. Set REPRESENTATIVE to
+ * false once they are replaced with real photos from the press floor.
  */
 import { Picture } from 'astro:assets';
 import { findImage } from '../lib/images';
@@ -11,12 +14,14 @@ import { findImage } from '../lib/images';
 interface Props { name: string; photo?: string; dept: string; code: string }
 const { name, photo, dept, code } = Astro.props;
 const own = photo ? await findImage(photo) : null;
+const REPRESENTATIVE = true;
 ---
 <figure class:list={['machine-card', { 'machine-card--text': !own }]} data-reveal>
   {own && (
     <div class="sheet">
       <div class="machine-card__img">
-        <Picture src={own} alt={`${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
+        <Picture src={own} alt={REPRESENTATIVE ? `${name} (representative image)` : `${name} at the SGMC press`} formats={['webp']} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1000px) 40vw, (min-width: 640px) 50vw, 100vw" loading="lazy" />
+        {REPRESENTATIVE && <span class="machine-card__tag">Representative image</span>}
       </div>
     </div>
   )}

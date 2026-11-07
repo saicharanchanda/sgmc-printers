@@ -1089,3 +1089,6 @@ main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp
 .work-card figcaption { display: grid; gap: .3rem; }
 .work-card figcaption strong { font-size: 1.1rem; color: var(--ink); }
 .work-card figcaption span { color: var(--ink-2); font-size: .95rem; }
+/* Machine photos are wide (about 2:1): a wider frame keeps the whole press in view */
+.machine-card__img { aspect-ratio: 16 / 9; }
+.machine-card--text { align-self: start; }

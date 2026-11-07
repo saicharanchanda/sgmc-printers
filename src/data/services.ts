@@ -87,11 +87,11 @@ export const services: Service[] = [
       'Wide range of paper and board weights',
       'Consistent colour from first sheet to last',
     ],
-    equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine'],
+    equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'Komori Lithrone L37'],
     idealFor: ['Book covers', 'Brochures & catalogues', 'Annual reports & company profiles', 'Posters & calendars'],
     seoTitle: 'Sheet-Fed Offset Printing — Brochures & Catalogues',
     seoDescription:
-      'Sheet-fed offset printing on Komori and L37 presses: brochures, catalogues, annual reports, book covers and posters in single to full colour.',
+      'Sheet-fed offset printing on Komori presses, including the Lithrone L37: brochures, catalogues, annual reports, book covers and posters in single to full colour.',
     faqs: [
       {
         q: 'What sizes can you print?',
@@ -202,7 +202,7 @@ export const services: Service[] = [
       'Variable data printing (numbering, names, codes)',
       'Advice on the most economical colour option',
     ],
-    equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine', 'Orient Web Offset – 4i'],
+    equipment: ['Komori 25 × 36', 'Komori 18 × 25', 'Komori Lithrone L37', 'Orient Web Offset – 4i'],
     idealFor: ['Textbooks', 'Answer books & question papers', 'Certificates', 'Brochures & magazines'],
     seoTitle: 'Single, Two & Four-Colour Offset Printing',
     seoDescription:
@@ -240,7 +240,7 @@ export const services: Service[] = [
       'Printing, binding and packing under one roof',
       'Planned, on-time delivery',
     ],
-    equipment: ['Komori Coldset Web Offset', 'Orient Web Offset – 4i', 'Komori 25 × 36', 'Komori 18 × 25', 'L37 Offset Printing Machine'],
+    equipment: ['Komori Coldset Web Offset', 'Orient Web Offset – 4i', 'Komori 25 × 36', 'Komori 18 × 25', 'Komori Lithrone L37'],
     idealFor: ['Schools & education boards', 'Publishers', 'Corporates', 'Hospitals & institutions'],
     seoTitle: 'Bulk & Short-Run Printing',
     seoDescription:

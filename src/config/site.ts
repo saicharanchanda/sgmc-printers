@@ -104,7 +104,7 @@ export const SITE = {
   // Real machinery — from docs/client-brief.md
   machineGroups: [
     { group: 'Web Offset Printing', items: ['Komori Coldset Web Offset', 'Orient Web Offset – 4i'] },
-    { group: 'Sheet-Fed Offset Printing', items: ['L37 Offset Printing Machine', 'Komori 25 × 36', 'Komori 18 × 25'] },
+    { group: 'Sheet-Fed Offset Printing', items: ['Komori Lithrone L37', 'Komori 25 × 36', 'Komori 18 × 25'] },
     { group: 'Pre-Press', items: ['CTP (Computer-to-Plate) System'] },
     { group: 'Post-Press & Finishing', items: ['Folding Machines', 'Perfect Binding', 'Pinning / Stitching'] },
   ],
@@ -114,7 +114,7 @@ export const SITE = {
   machinePhotos: {
     'Komori Coldset Web Offset': 'machine-komori-coldset-web',
     'Orient Web Offset – 4i': 'machine-orient-web-4i',
-    'L37 Offset Printing Machine': 'machine-l37-offset',
+    'Komori Lithrone L37': 'machine-l37-offset',
     'Komori 25 × 36': 'machine-komori-25x36',
     'Komori 18 × 25': 'machine-komori-18x25',
     'CTP (Computer-to-Plate) System': 'machine-ctp',
