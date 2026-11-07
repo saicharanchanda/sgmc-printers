@@ -1080,3 +1080,12 @@ main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp
 .footer-contact strong { display: block; color: #fff; font-weight: 600; }
 .footer-contact small { color: rgba(255,255,255,.55); }
 .site-footer .footer-top h2.footer-h { color: var(--gold); font-size: .78rem; margin-bottom: 1.1rem; padding-bottom: .6rem; border-bottom: 1px solid rgba(201,164,92,.35); display: inline-block; }
+/* Real printed work (WorkGallery.astro) */
+.work-grid { display: grid; gap: clamp(1.2rem, 3vw, 2rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.work-card { display: grid; gap: .9rem; align-content: start; }
+.work-card__img { display: block; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(.6rem, 1.5vw, 1rem); box-shadow: var(--shadow); transition: transform .4s var(--ease-out); }
+.work-card__img:hover { transform: translateY(-4px); }
+.work-card__img img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.work-card figcaption { display: grid; gap: .3rem; }
+.work-card figcaption strong { font-size: 1.1rem; color: var(--ink); }
+.work-card figcaption span { color: var(--ink-2); font-size: .95rem; }

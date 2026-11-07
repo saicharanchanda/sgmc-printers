@@ -1,0 +1,32 @@
+---
+/** Examples of real printed work (src/data/work.ts). Each thumbnail opens the full-size scan. */
+import { Picture, getImage } from 'astro:assets';
+import type { WorkSample } from '../data/work';
+interface Props { items: WorkSample[]; heading?: string; lead?: string }
+const { items, heading = 'Examples of our work', lead } = Astro.props;
+const full = await Promise.all(items.map((w) => getImage({ src: w.image, width: Math.min(1600, w.image.width), format: 'webp' })));
+---
+{items.length > 0 && (
+  <section class="section" style="padding-top:0" aria-labelledby="work-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal>Our work</p>
+        <h2 id="work-h" style="margin-top:1rem" data-reveal>{heading}</h2>
+        {lead && <p class="lead" data-reveal>{lead}</p>}
+      </div>
+      <div class="work-grid" data-reveal-stagger>
+        {items.map((w, i) => (
+          <figure class="work-card" data-reveal>
+            <a href={full[i].src} target="_blank" rel="noopener" class="work-card__img" aria-label={`${w.title} — open full size`}>
+              <Picture src={w.image} alt={w.alt} formats={['webp']} widths={[400, 700, 1000]} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" />
+            </a>
+            <figcaption>
+              <strong>{w.title}</strong>
+              <span>{w.text}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

@@ -6,6 +6,8 @@ import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import PhotoTile from '../../components/PhotoTile.astro';
 import CTA from '../../components/CTA.astro';
+import WorkGallery from '../../components/WorkGallery.astro';
+import { work } from '../../data/work';
 import { SITE, whatsappLink, waMessage } from '../../config/site';
 import { categories, type ProductCategory } from '../../data/products';
 import { services } from '../../data/services';
@@ -16,6 +18,7 @@ export const getStaticPaths = (() =>
 const { category: c } = Astro.props as { category: ProductCategory };
 const related = services.filter((s) => c.services.includes(s.slug));
 const others = categories.filter((o) => o.slug !== c.slug);
+const samples = work.filter((w) => w.category === c.slug);
 const crumbs = [
   { name: 'Products', href: '/products/' },
   { name: c.title, href: `/products/${c.slug}/` },
@@ -84,6 +87,12 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <WorkGallery
+    items={samples}
+    heading={c.slug === 'specialised' ? 'Calendar printing — examples of our work' : undefined}
+    lead={c.slug === 'specialised' ? 'Recent multi-colour wall calendars printed for our customers. Select a calendar to see it full size.' : undefined}
+  />
 
   <section class="section section--white" aria-labelledby="how-h">
     <div class="container">
