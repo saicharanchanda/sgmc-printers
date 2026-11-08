@@ -1094,3 +1094,12 @@ main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp
 .machine-card--text { align-self: start; }
 .work-card__img { position: relative; }
 .work-card__tag { position: absolute; left: 1.4rem; top: 1.4rem; padding: .3rem .6rem; background: rgba(11,22,48,.82); color: #fff; font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; border-radius: 3px; }
+/* Showcase cards: one size everywhere — fixed 4:3 frame, whole image fitted inside (no cropping) */
+.work-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); align-items: start; }
+.work-card__img { aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden; }
+.work-card__img picture { display: contents; }
+.work-card__img img { width: 100%; height: 100%; object-fit: contain; }
+.work-card__tag { top: auto; bottom: 1.4rem; }
+.work-card__img { --pad: clamp(.6rem, 1.5vw, 1rem); display: block; padding: 0; }
+.work-card__img img { position: absolute; top: var(--pad); left: var(--pad); width: calc(100% - 2 * var(--pad)); height: calc(100% - 2 * var(--pad)); object-fit: contain; border-radius: var(--radius); }
+.work-card__tag { left: calc(var(--pad) + .5rem); bottom: calc(var(--pad) + .5rem); }
