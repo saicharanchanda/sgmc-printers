@@ -90,8 +90,10 @@ const schema = {
 
   <WorkGallery
     items={samples}
-    heading={c.slug === 'specialised' ? 'Calendar printing — examples of our work' : undefined}
-    lead={c.slug === 'specialised' ? 'Recent multi-colour wall calendars printed for our customers. Select a calendar to see it full size.' : undefined}
+    heading="Product showcase"
+    lead={samples.some((w) => !w.representative)
+      ? 'Examples of what we print in this range, including work printed for our customers. Select an image to see it full size.'
+      : 'Examples of what we print in this range. Select an image to see it full size.'}
   />
 
   <section class="section section--white" aria-labelledby="how-h">

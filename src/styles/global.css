@@ -1092,3 +1092,5 @@ main > .page-hero--video:first-child { padding-top: calc(var(--header-h) + clamp
 /* Machine photos are wide (about 2:1): a wider frame keeps the whole press in view */
 .machine-card__img { aspect-ratio: 16 / 9; }
 .machine-card--text { align-self: start; }
+.work-card__img { position: relative; }
+.work-card__tag { position: absolute; left: 1.4rem; top: 1.4rem; padding: .3rem .6rem; background: rgba(11,22,48,.82); color: #fff; font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; border-radius: 3px; }

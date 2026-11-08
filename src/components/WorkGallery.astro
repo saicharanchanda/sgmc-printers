@@ -19,6 +19,7 @@ const full = await Promise.all(items.map((w) => getImage({ src: w.image, width: 
           <figure class="work-card" data-reveal>
             <a href={full[i].src} target="_blank" rel="noopener" class="work-card__img" aria-label={`${w.title} — open full size`}>
               <Picture src={w.image} alt={w.alt} formats={['webp']} widths={[400, 700, 1000]} sizes="(min-width: 900px) 40vw, 100vw" loading="lazy" />
+              {w.representative && <span class="work-card__tag">Representative image</span>}
             </a>
             <figcaption>
               <strong>{w.title}</strong>
