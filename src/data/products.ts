@@ -7,8 +7,9 @@ export type ProductCategory = {
   short: string;
   /** What the list items are called in counts ("9 options"); defaults to "products" */
   itemNoun?: string;
-  /** Client copy (2026-11-05) for the home-page card; categories without it are not shown there */
-  home?: { title: string; tagline: string; text: string };
+  /** Client copy (2026-11-05) for the home-page card; categories without it are not shown there.
+   *  `image` = client image for the card (any file in assets/images, work or design); default cat-<slug> */
+  home?: { title: string; tagline: string; text: string; image?: string };
   /** Client copy (2026-11-05) for the /products/ hub */
   hub: { title: string; tagline: string; text: string; cta: string };
   /** Hand-written CTA heading at the foot of the category page */
@@ -27,7 +28,7 @@ export const categories: ProductCategory[] = [
     slug: 'books-educational',
     title: 'Books & Educational Printing',
     short: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.',
-    home: { title: 'Educational & Academic Printing', tagline: 'Where Knowledge Meets Quality.', text: 'From textbooks and workbooks to notebooks and examination materials, we support educational institutions and publishers with professionally produced printed materials.' },
+    home: { image: 'showcase-textbooks-workbooks', title: 'Educational & Academic Printing', tagline: 'Where Knowledge Meets Quality.', text: 'From textbooks and workbooks to notebooks and examination materials, we support educational institutions and publishers with professionally produced printed materials.' },
     hub: { title: 'Textbooks & Notebooks', tagline: 'Supporting Education, One Page at a Time.', text: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.', cta: 'Explore Educational Printing' },
     ctaTitle: 'Printing textbooks or notebooks this year?',
     intro:
@@ -62,7 +63,7 @@ export const categories: ProductCategory[] = [
     slug: 'publications',
     title: 'Publications & Commercial Printing',
     short: 'Magazines, journals, annual reports, company profiles, catalogues and directories.',
-    home: { title: 'Magazines & Publications', tagline: 'Every Page Reflects Your Vision.', text: 'Bring your publications to life with carefully produced magazines, journals, annual reports, catalogues and corporate publications.' },
+    home: { image: 'showcase-publications', title: 'Magazines & Publications', tagline: 'Every Page Reflects Your Vision.', text: 'Bring your publications to life with carefully produced magazines, journals, annual reports, catalogues and corporate publications.' },
     hub: { title: 'Magazines & Annual Reports', tagline: 'Publications That Reflect Your Standards.', text: 'Magazines, journals, annual reports, company profiles, catalogues and directories.', cta: 'Explore Publication Printing' },
     ctaTitle: 'Planning your next issue or annual report?',
     intro:
@@ -95,7 +96,7 @@ export const categories: ProductCategory[] = [
     slug: 'advertising-promotional',
     title: 'Advertising & Promotional Printing',
     short: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.',
-    home: { title: 'Brochures & Promotional Printing', tagline: 'Make Every Impression Count.', text: 'Communicate your brand with professionally printed brochures, flyers, pamphlets, posters and promotional materials.' },
+    home: { image: 'brochure-real-estate-highway-project', title: 'Brochures & Promotional Printing', tagline: 'Make Every Impression Count.', text: 'Communicate your brand with professionally printed brochures, flyers, pamphlets, posters and promotional materials.' },
     hub: { title: 'Brochures & Promotional Printing', tagline: 'Turn Your Message Into Something Memorable.', text: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.', cta: 'Explore Promotional Printing' },
     ctaTitle: 'Need brochures, flyers or posters?',
     intro:
@@ -153,7 +154,7 @@ export const categories: ProductCategory[] = [
     slug: 'specialised',
     title: 'Specialised Printing',
     short: 'Manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
-    home: { title: 'Books, Diaries & Specialty Publications', tagline: 'Crafted for Purpose. Produced with Care.', text: 'From technical manuals and literary publications to diaries, calendars and certificates, we deliver printing solutions suited to your requirements.' },
+    home: { image: 'devotional-book-ayyappa-puja', title: 'Books, Diaries & Specialty Publications', tagline: 'Crafted for Purpose. Produced with Care.', text: 'From technical manuals and literary publications to diaries, calendars and certificates, we deliver printing solutions suited to your requirements.' },
     hub: { title: 'Manuals, Diaries & Certificates', tagline: 'Professional Printing for Every Purpose.', text: 'Technical manuals, medical and literary publications, dictionaries, calendars, diaries and certificates.', cta: 'Explore Specialty Printing' },
     ctaTitle: 'Printing manuals, diaries or certificates?',
     intro:

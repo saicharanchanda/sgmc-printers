@@ -109,9 +109,9 @@ const faqSchema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {homeCategories.map((c) => (
-          <PhotoTile href={`/products/${c.slug}/`} image={`cat-${c.slug}`} title={c.home!.title} kicker={c.home!.tagline} text={c.home!.text} />
+          <PhotoTile href={`/products/${c.slug}/`} image={c.home!.image ?? `cat-${c.slug}`} title={c.home!.title} kicker={c.home!.tagline} text={c.home!.text} />
         ))}
-        <PhotoTile href="/contact/" image="cat-printing-options" title="Custom Printing Requirements" kicker="Tell us what you need." text="Have a specific format, quantity or finishing requirement? Speak with our team about the available options." />
+        <PhotoTile href="/contact/" image="customized-jewellery-gift-card" title="Custom Printing Requirements" kicker="Tell us what you need." text="Have a specific format, quantity or finishing requirement? Speak with our team about the available options." />
       </div>
       <div class="btn-row" style="margin-top:2.5rem" data-reveal>
         <a class="btn btn--ink" href="/products/">Discover All Printing Solutions <Icon name="arrow" class="arrow" /></a>
