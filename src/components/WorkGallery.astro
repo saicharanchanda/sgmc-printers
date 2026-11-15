@@ -1,17 +1,17 @@
 ---
-/** Examples of real printed work (src/data/work.ts). Each thumbnail opens the full-size scan. */
+/** Gallery of printed work or designs (src/data/work.ts, src/data/design.ts). Each thumbnail opens the full-size image. */
 import { Picture, getImage } from 'astro:assets';
 import type { WorkSample } from '../data/work';
-interface Props { items: WorkSample[]; heading?: string; lead?: string }
-const { items, heading = 'Examples of our work', lead } = Astro.props;
+interface Props { items: WorkSample[]; heading?: string; lead?: string; eyebrow?: string; id?: string; flush?: boolean }
+const { items, heading = 'Examples of our work', lead, eyebrow = 'Our work', id = 'work-h', flush = true } = Astro.props;
 const full = await Promise.all(items.map((w) => getImage({ src: w.image, width: Math.min(1600, w.image.width), format: 'webp' })));
 ---
 {items.length > 0 && (
-  <section class="section" style="padding-top:0" aria-labelledby="work-h">
+  <section class="section" style={flush ? 'padding-top:0' : undefined} aria-labelledby={id}>
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow" data-reveal>Our work</p>
-        <h2 id="work-h" style="margin-top:1rem" data-reveal>{heading}</h2>
+        {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
+        <h2 id={id} style="margin-top:1rem" data-reveal>{heading}</h2>
         {lead && <p class="lead" data-reveal>{lead}</p>}
       </div>
       <div class="work-grid" data-reveal-stagger>
@@ -28,6 +28,7 @@ const full = await Promise.all(items.map((w) => getImage({ src: w.image, width: 
           </figure>
         ))}
       </div>
+      <slot />
     </div>
   </section>
 )}

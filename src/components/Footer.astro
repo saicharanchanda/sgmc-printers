@@ -68,7 +68,10 @@ const year = new Date().getFullYear();
 
       <div>
         <h2 class="footer-h">Quick Links</h2>
-        <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+        <ul>
+          {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="/in-house-design/">In-House Design</a></li>
+        </ul>
       </div>
     </div>
 

@@ -13,6 +13,8 @@ import TextureBg from '../components/plant/TextureBg.astro';
 import CropMarks from '../components/plant/CropMarks.astro';
 import HeroVideo from '../components/plant/HeroVideo.astro';
 import Leadership from '../components/Leadership.astro';
+import WorkGallery from '../components/WorkGallery.astro';
+import { designGroups } from '../data/design';
 import { SITE } from '../config/site';
 import { services, process } from '../data/services';
 import { categories } from '../data/products';
@@ -39,6 +41,8 @@ const why = [
 ] as const;
 
 const homeCategories = categories.filter((c) => c.home);
+// In-house design: one featured design each from brochures, devotional books and customized print
+const featuredDesigns = ['brochures', 'devotional-books', 'customized'].map((id) => designGroups.find((g) => g.id === id)!.items[0]);
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -236,6 +240,21 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <!-- IN-HOUSE DESIGN (client brief §6) -->
+  <WorkGallery
+    items={featuredDesigns}
+    id="design-h"
+    eyebrow="In-house design"
+    heading="From Your First Idea to Print-Ready Artwork."
+    lead="Already have a design? We’ll help prepare it for production. Starting with an idea? Our in-house design team can assist with artwork development and pre-press preparation, helping you move confidently from concept to print."
+    flush={false}
+  >
+    <div class="btn-row" style="margin-top:2.5rem" data-reveal>
+      <a class="btn btn--ink" href="/in-house-design/">See More Designs <Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--outline" href="/contact/">Discuss Your Design Requirements</a>
+    </div>
+  </WorkGallery>
 
   <!-- 7 · WHY CHOOSE SGMC -->
   <section class="section" aria-labelledby="why-h">

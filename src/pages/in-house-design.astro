@@ -1,0 +1,54 @@
+---
+// In-house design portfolio — designs supplied by the client (src/data/design.ts).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import WorkGallery from '../components/WorkGallery.astro';
+import CTA from '../components/CTA.astro';
+import { SITE } from '../config/site';
+import { designGroups } from '../data/design';
+
+const crumbs = [{ name: 'In-House Design', href: '/in-house-design/' }];
+---
+<BaseLayout
+  heroDark
+  title={`In-House Design — Brochures, Book Covers & Custom Print`}
+  description={`Designs by the in-house team at ${SITE.legalName}: brochures, pamphlets, school and devotional book covers, gift cards and wedding invitations, ready for print in ${SITE.city}.`}
+  breadcrumbs={crumbs}
+>
+  <PageHero
+    bg={['bg-prepress']}
+    bgAlt="Pre-press design work (illustrative image)"
+    eyebrow="In-house design"
+    lines={['From Your First Idea', 'to Print-Ready Artwork.']}
+    sub="Your Ideas. Professionally Developed."
+    lead="Already have a design? We’ll help prepare it for production. Starting with an idea? Our in-house design team can assist with artwork development and pre-press preparation, helping you move confidently from concept to print."
+    crumbs={crumbs}
+  >
+    <nav class="hero-pills" aria-label="Jump to design category" data-reveal>
+      {designGroups.map((g) => <a href={`#${g.id}`} class="btn btn--sm btn--outline">{g.title}</a>)}
+    </nav>
+  </PageHero>
+
+  {designGroups.map((g, i) => (
+    <div id={g.id} class="design-group">
+      <WorkGallery
+        items={g.items}
+        id={`${g.id}-h`}
+        eyebrow={`0${i + 1} · Designed in-house`}
+        heading={g.title}
+        lead={`${g.text} Select a design to see it full size.`}
+        flush={i > 0}
+      />
+    </div>
+  ))}
+
+  <CTA
+    eyebrow="Design support"
+    title="Need a Design for Your Next Print Job?"
+    sub=""
+    text="Share your idea, content and any existing artwork. Our design team will prepare the layout and print-ready files, and our presses will take it from there."
+    primary={{ label: 'Discuss Your Design Requirements', href: '/contact/' }}
+    secondary={{ label: 'Send Your Requirements', href: '/contact/#enquiry' }}
+    product="design and printing"
+  />
+</BaseLayout>
