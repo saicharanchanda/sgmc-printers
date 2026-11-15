@@ -8,7 +8,7 @@ import FAQ from '../../components/FAQ.astro';
 import CTA from '../../components/CTA.astro';
 import PhotoTile from '../../components/PhotoTile.astro';
 import { SITE, whatsappLink, waMessage } from '../../config/site';
-import { services, type Service } from '../../data/services';
+import { services, svcPhoto, svcBg, type Service } from '../../data/services';
 
 export const getStaticPaths = (() =>
   services.map((s, i) => ({
@@ -47,7 +47,7 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
   breadcrumbs={crumbs}
   schema={[serviceSchema, faqSchema]}
 >
-  <PageHero bg={[`bg-${s.slug}`]} bgAlt={`${s.title} machine at ${SITE.name}`} eyebrow={s.kicker} lines={[s.title]} lead={s.intro} crumbs={crumbs}>
+  <PageHero bg={[svcBg(s)]} bgAlt={`${s.title} (illustrative image)`} eyebrow={s.kicker} lines={[s.title]} lead={s.intro} crumbs={crumbs}>
     <div class="btn-row" style="margin-top:2rem" data-reveal>
       <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(s.title)}`}>Discuss This Service <Icon name="arrow" class="arrow" /></a>
       <a class="btn btn--wa" href={whatsappLink(waMessage(s.title))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
@@ -57,7 +57,7 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
   <section class="section" style="padding-top:1rem">
     <div class={`container split accent-${accent}`} style="align-items:start">
       <div class="sticky-col" data-reveal>
-        <Media name={s.slug} alt={`${s.title} at ${SITE.name}, ${SITE.city}`} word={s.title.split(' ')[0]} eager parallax />
+        <Media name={svcPhoto(s)} alt={`${s.title} (illustrative image)`} word={s.title.split(' ')[0]} eager parallax />
       </div>
       <div style="display:grid;gap:2.5rem">
         <div style="display:grid;gap:1.2rem">
@@ -92,7 +92,7 @@ const accent = ['c', 'm', 'y', 'k', 'c', 'm'][index];
       </div>
       <div class="tiles" data-reveal-stagger>
         {others.slice(0, 3).map((o) => (
-          <PhotoTile href={`/services/${o.slug}/`} image={`bg-${o.slug}`} title={o.title} kicker={o.kicker} text={o.short} />
+          <PhotoTile href={`/services/${o.slug}/`} image={svcBg(o)} title={o.title} kicker={o.kicker} text={o.short} />
         ))}
       </div>
     </div>

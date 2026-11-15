@@ -10,6 +10,8 @@ export type Service = {
   label: string;
   /** Hand-written button text for the link to this service's page */
   cta: string;
+  /** Image used for this service across the site (any file in assets/images, work or design) */
+  photo?: string;
   /** Client copy (2026-11-05): one-line promise and short pitch, used on the home page and /services/ */
   tagline: string;
   pitch: string;
@@ -29,6 +31,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: 'web-offset-printing',
+    photo: 'machine-komori-coldset-web',
     title: 'Web Offset Printing',
     label: 'Web offset',
     cta: 'See web offset printing',
@@ -67,6 +70,7 @@ export const services: Service[] = [
   },
   {
     slug: 'sheet-fed-offset-printing',
+    photo: 'machine-l37-offset',
     title: 'Sheet-Fed Offset Printing',
     label: 'Sheet-fed',
     cta: 'See sheet-fed printing',
@@ -105,6 +109,7 @@ export const services: Service[] = [
   },
   {
     slug: 'prepress',
+    photo: 'machine-ctp',
     title: 'Pre-Press & CTP',
     label: 'Pre-press',
     cta: 'See pre-press & CTP',
@@ -144,6 +149,7 @@ export const services: Service[] = [
   },
   {
     slug: 'binding-finishing',
+    photo: 'machine-perfect-binding',
     title: 'Binding & Finishing',
     label: 'Binding',
     cta: 'See binding & finishing',
@@ -182,6 +188,7 @@ export const services: Service[] = [
   },
   {
     slug: 'colour-printing',
+    photo: 'showcase-l37-print-run',
     title: 'Single to Full-Colour Printing',
     label: 'Colour',
     cta: 'See colour options',
@@ -220,6 +227,7 @@ export const services: Service[] = [
   },
   {
     slug: 'bulk-printing',
+    photo: 'showcase-hospital-forms-press',
     title: 'Bulk & Short-Run Printing',
     label: 'Bulk',
     cta: 'See bulk & short-run',
@@ -266,3 +274,7 @@ export const process = [
   { title: 'Binding & Finishing', text: 'Printed materials undergo the required cutting, folding, binding, stitching or finishing processes.' },
   { title: 'Final Review & Dispatch', text: 'Completed products are prepared for dispatch according to the agreed order requirements.' },
 ];
+
+/** Body photo / hero background for a service (client image where set, otherwise the original photos). */
+export const svcPhoto = (s: { slug: string; photo?: string }) => s.photo ?? s.slug;
+export const svcBg = (s: { slug: string; photo?: string }) => s.photo ?? `bg-${s.slug}`;

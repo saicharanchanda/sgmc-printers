@@ -5,7 +5,7 @@ import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
 import { SITE, whatsappLink, waMessage } from '../../config/site';
-import { categories } from '../../data/products';
+import { categories, catPhoto } from '../../data/products';
 
 const crumbs = [{ name: 'Products', href: '/products/' }];
 const catalogSchema = {
@@ -51,7 +51,7 @@ const catalogSchema = {
       {categories.map((c) => (
         <article class="zz__item" id={c.slug}>
           <div data-reveal>
-            <Media name={`cat-${c.slug}`} alt={c.title} class="zz__media" word={c.title.split(' ')[0]} parallax />
+            <Media name={catPhoto(c)} alt={`${c.hub.title} (illustrative image)`} class="zz__media" word={c.title.split(' ')[0]} parallax />
           </div>
           <div class="zz__body">
             <span class="zz__kicker" data-reveal>{c.hub.tagline}</span>

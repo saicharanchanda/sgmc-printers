@@ -10,6 +10,8 @@ export type ProductCategory = {
   /** Client copy (2026-11-05) for the home-page card; categories without it are not shown there.
    *  `image` = client image for the card (any file in assets/images, work or design); default cat-<slug> */
   home?: { title: string; tagline: string; text: string; image?: string };
+  /** Image used for this category across the site (any file in assets/images, work or design); default cat-<slug> */
+  photo?: string;
   /** Client copy (2026-11-05) for the /products/ hub */
   hub: { title: string; tagline: string; text: string; cta: string };
   /** Hand-written CTA heading at the foot of the category page */
@@ -26,6 +28,7 @@ export type ProductCategory = {
 export const categories: ProductCategory[] = [
   {
     slug: 'books-educational',
+    photo: 'showcase-textbooks-workbooks',
     title: 'Books & Educational Printing',
     short: 'Textbooks, workbooks, guides, question papers and notebooks for schools, colleges and publishers.',
     home: { image: 'showcase-textbooks-workbooks', title: 'Educational & Academic Printing', tagline: 'Where Knowledge Meets Quality.', text: 'From textbooks and workbooks to notebooks and examination materials, we support educational institutions and publishers with professionally produced printed materials.' },
@@ -61,6 +64,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: 'publications',
+    photo: 'showcase-publications',
     title: 'Publications & Commercial Printing',
     short: 'Magazines, journals, annual reports, company profiles, catalogues and directories.',
     home: { image: 'showcase-publications', title: 'Magazines & Publications', tagline: 'Every Page Reflects Your Vision.', text: 'Bring your publications to life with carefully produced magazines, journals, annual reports, catalogues and corporate publications.' },
@@ -94,6 +98,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: 'advertising-promotional',
+    photo: 'brochure-real-estate-highway-project',
     title: 'Advertising & Promotional Printing',
     short: 'Brochures, flyers, pamphlets, posters, inserts and promotional booklets.',
     home: { image: 'brochure-real-estate-highway-project', title: 'Brochures & Promotional Printing', tagline: 'Make Every Impression Count.', text: 'Communicate your brand with professionally printed brochures, flyers, pamphlets, posters and promotional materials.' },
@@ -152,6 +157,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: 'specialised',
+    photo: 'devotional-book-ayyappa-puja',
     title: 'Specialised Printing',
     short: 'Manuals, technical, medical, religious and literary books, dictionaries, calendars, diaries and certificates.',
     home: { image: 'devotional-book-ayyappa-puja', title: 'Books, Diaries & Specialty Publications', tagline: 'Crafted for Purpose. Produced with Care.', text: 'From technical manuals and literary publications to diaries, calendars and certificates, we deliver printing solutions suited to your requirements.' },
@@ -187,6 +193,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: 'printing-options', // was colour-options; old URL redirects (astro.config redirects + public/_redirects)
+    photo: 'showcase-l37-print-run',
     title: 'Additional Printing Services',
     short: 'Black & white to full colour, variable data, offset, bulk and short-run printing.',
     hub: { title: 'Colour & Production Options', tagline: 'Flexible Printing. Professional Results.', text: 'From black-and-white and single-colour to multi-colour printing, with production options for different order quantities.', cta: 'Discuss Your Specifications' },
@@ -221,3 +228,6 @@ export const categories: ProductCategory[] = [
       'All printing options: black & white, single-colour, two-colour, four-colour and full-colour offset printing, variable data, bulk and short-run.',
   },
 ];
+
+/** Image name for a category (client image where we have one, otherwise the original photo). */
+export const catPhoto = (c: { slug: string; photo?: string }) => c.photo ?? `cat-${c.slug}`;

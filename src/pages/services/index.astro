@@ -5,7 +5,7 @@ import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
 import { SITE } from '../../config/site';
-import { services, process } from '../../data/services';
+import { services, process, svcPhoto } from '../../data/services';
 
 const accents = ['c', 'm', 'y', 'k', 'c', 'm'];
 const crumbs = [{ name: 'Services', href: '/services/' }];
@@ -48,7 +48,7 @@ const listSchema = {
       {services.map((s, i) => (
         <article class={`zz__item accent-${accents[i]}`} id={s.slug}>
           <div data-reveal>
-            <Media name={s.slug} alt={`${s.title} (illustrative image)`} class="zz__media" word={s.label} parallax />
+            <Media name={svcPhoto(s)} alt={`${s.title} (illustrative image)`} class="zz__media" word={s.label} parallax />
           </div>
           <div class="zz__body">
             <span class="zz__kicker" data-reveal>0{i + 1} · {s.kicker}</span>

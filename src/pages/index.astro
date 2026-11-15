@@ -16,8 +16,8 @@ import Leadership from '../components/Leadership.astro';
 import WorkGallery from '../components/WorkGallery.astro';
 import { designGroups } from '../data/design';
 import { SITE } from '../config/site';
-import { services, process } from '../data/services';
-import { categories } from '../data/products';
+import { services, process, svcPhoto } from '../data/services';
+import { categories, catPhoto } from '../data/products';
 import { faqs } from '../data/faqs';
 
 const yr = String(SITE.foundedYear);
@@ -109,7 +109,7 @@ const faqSchema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {homeCategories.map((c) => (
-          <PhotoTile href={`/products/${c.slug}/`} image={c.home!.image ?? `cat-${c.slug}`} title={c.home!.title} kicker={c.home!.tagline} text={c.home!.text} />
+          <PhotoTile href={`/products/${c.slug}/`} image={c.home!.image ?? catPhoto(c)} title={c.home!.title} kicker={c.home!.tagline} text={c.home!.text} />
         ))}
         <PhotoTile href="/contact/" image="customized-jewellery-gift-card" title="Custom Printing Requirements" kicker="Tell us what you need." text="Have a specific format, quantity or finishing requirement? Speak with our team about the available options." />
       </div>
@@ -162,7 +162,7 @@ const faqSchema = {
           <div class="sheet">
             <div class="floor__stack">
               {services.map((s, i) => (
-                <Media name={s.slug} alt="" class={i === 0 ? 'is-active' : ''} sizes="(min-width: 1000px) 45vw, 1px" />
+                <Media name={svcPhoto(s)} alt="" class={i === 0 ? 'is-active' : ''} sizes="(min-width: 1000px) 45vw, 1px" />
               ))}
             </div>
           </div>

@@ -9,8 +9,8 @@ import CTA from '../../components/CTA.astro';
 import WorkGallery from '../../components/WorkGallery.astro';
 import { work } from '../../data/work';
 import { SITE, whatsappLink, waMessage } from '../../config/site';
-import { categories, type ProductCategory } from '../../data/products';
-import { services } from '../../data/services';
+import { categories, catPhoto, type ProductCategory } from '../../data/products';
+import { services, svcBg } from '../../data/services';
 
 export const getStaticPaths = (() =>
   categories.map((c) => ({ params: { slug: c.slug }, props: { category: c } }))) satisfies GetStaticPaths;
@@ -47,7 +47,7 @@ const schema = {
   breadcrumbs={crumbs}
   schema={[schema]}
 >
-  <PageHero bg={[`cat-${c.slug}`]} bgAlt={c.title} eyebrow="Products" lines={[c.title]} lead={c.intro} crumbs={crumbs}>
+  <PageHero bg={[catPhoto(c)]} bgAlt={`${c.title} (illustrative image)`} eyebrow="Products" lines={[c.title]} lead={c.intro} crumbs={crumbs}>
     <div class="btn-row" style="margin-top:2rem" data-reveal>
       <a class="btn btn--light" href={`/contact/?service=${encodeURIComponent(c.title)}`}>Enquire About This Product <Icon name="arrow" class="arrow" /></a>
       <a class="btn btn--wa" href={whatsappLink(waMessage(c.title))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
@@ -83,7 +83,7 @@ const schema = {
         </div>
       </div>
       <div class="sticky-col" data-reveal>
-        <Media name={`cat-${c.slug}`} alt={c.title} word={c.title.split(' ')[0]} />
+        <Media name={catPhoto(c)} alt={`${c.title} (illustrative image)`} word={c.title.split(' ')[0]} />
       </div>
     </div>
   </section>
@@ -104,7 +104,7 @@ const schema = {
       </div>
       <div class="tiles" data-reveal-stagger>
         {related.map((s) => (
-          <PhotoTile href={`/services/${s.slug}/`} image={`bg-${s.slug}`} title={s.title} kicker={s.kicker} text={s.short} />
+          <PhotoTile href={`/services/${s.slug}/`} image={svcBg(s)} title={s.title} kicker={s.kicker} text={s.short} />
         ))}
       </div>
     </div>
@@ -118,7 +118,7 @@ const schema = {
       </div>
       <div class="tiles tiles--products" data-reveal-stagger>
         {others.slice(0, 3).map((o) => (
-          <PhotoTile href={`/products/${o.slug}/`} image={`cat-${o.slug}`} title={o.hub.title} kicker={o.hub.tagline} />
+          <PhotoTile href={`/products/${o.slug}/`} image={catPhoto(o)} title={o.hub.title} kicker={o.hub.tagline} />
         ))}
       </div>
     </div>
